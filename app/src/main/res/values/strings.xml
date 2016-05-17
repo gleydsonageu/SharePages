@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">SharePages</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="usuario">usuário</string>
+    <string name="senha">senha</string>
+    <string name="botao_entrar">Entrar</string>
+    <string name="fazer_cadastro">Fazer cadastro</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tela_inicial">Tela_inicial</string>
 </resources>
