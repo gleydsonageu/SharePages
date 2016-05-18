@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">SharePages</string>
 
+    <!-- tela_inicial-->
     <string name="usuario">usuário</string>
     <string name="senha">senha</string>
     <string name="botao_entrar">Entrar</string>
-    <string name="fazer_cadastro">Fazer cadastro</string>
-    <string name="action_settings">Settings</string>
+    <string name="fazer_cadastro">Não possui conta? Clique aqui</string>
     <string name="title_activity_tela_inicial">Tela_inicial</string>
+    <string name="title_activity_cadastro_usuario">Cadastro_usuario</string>
+
+    <!--tela_cadastro_usuario-->
+    <string name="email">Email</string>
+    <string name="nome">Nome</string>
+    <string name="confirmar_senha">Confirmar senha</string>
+    <string name="Ok">botaoOk</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

@@ -5,49 +5,52 @@
     android:paddingLeft="@dimen/activity_horizontal_margin">
 
     <ImageView
+        android:id="@+id/imagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logosharepages"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
-        android:contentDescription=""/>
+        android:layout_marginBottom="30dp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/usuario"/>
+
     <!-- Campo de texto login-->
-    <EditText android:id="@+id/tUsuario"
+    <EditText android:id="@+id/textoUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-               android:singleLine="true"/>
+        android:singleLine="true"/>
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/senha"/>
 
     <!-- Campo de texto senha-->
-    <EditText android:id="@+id/tSenha"
+    <EditText android:id="@+id/textoSenha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:singleLine="true" />
+
     <Button
+        android:id="@+id/botaoEntrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/botao_entrar"
-        android:layout_marginTop="10dp"
-        android:onClick="logar"/>
-    <!--no onclick criar o metodo de logar-->
+        android:onClick="entrar"/>
+
     <TextView
-        android:id="@+id/tFazerCadastro"
-        android:layout_width="match_parent"
+        android:id="@+id/botaoFazerCadastro"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fazer_cadastro"
-        android:textStyle="normal"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/black" />
+        android:onClick="ChamarCadastro"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
