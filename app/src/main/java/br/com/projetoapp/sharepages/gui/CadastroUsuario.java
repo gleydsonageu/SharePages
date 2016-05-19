@@ -8,7 +8,6 @@ import android.widget.EditText;
 
 import br.com.projetoapp.sharepages.R;
 
-
 public class CadastroUsuario extends Activity implements View.OnClickListener {
 
     EditText textoNome, textoEmail, textoSenha, textoConfirmarSenha;

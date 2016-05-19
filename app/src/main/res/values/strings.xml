@@ -16,4 +16,6 @@
     <string name="Ok">botaoOk</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="add">add</string>
 </resources>

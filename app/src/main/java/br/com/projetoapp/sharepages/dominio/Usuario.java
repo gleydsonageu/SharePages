@@ -8,6 +8,11 @@ public class Usuario {
     private String email;
     private String senha;
 
+    @Override
+    public String toString(){
+        return nome;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -31,4 +36,5 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
 }
