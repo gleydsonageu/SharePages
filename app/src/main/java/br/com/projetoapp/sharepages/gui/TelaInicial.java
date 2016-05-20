@@ -34,7 +34,6 @@ public class TelaInicial extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-
         setContentView(R.layout.activity_tela_inicial);
 
         textoUsuario = (EditText) findViewById(R.id.textoUsuario);

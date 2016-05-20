@@ -5,35 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.gui.TelaInicial;
 
 
 public class UsuarioDAO {
 
-    private static final String TABLE_USUARIOS = "Usuarios";
-
-    private SQLiteDatabase database;
-    private String[] columns = { DatabaseHelper.USUARIO_ID, DatabaseHelper.USUARIO_NOME};
     public DatabaseHelper databaseHelper = new DatabaseHelper(TelaInicial.getContext());
-
-    private UsuarioDAO() {}
 
     private static UsuarioDAO instancia = new UsuarioDAO();
     public static UsuarioDAO getInstancia() {
         return instancia;
     }
-
-    public void open() throws SQLException{
-        database = databaseHelper.getWritableDatabase();
-    }
-
-    public void close(){
-        databaseHelper.close();
-    }
-
 
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;
