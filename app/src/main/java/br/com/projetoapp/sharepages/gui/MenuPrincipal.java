@@ -1,15 +1,16 @@
 package br.com.projetoapp.sharepages.gui;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.app.Activity;
 
 import br.com.projetoapp.sharepages.R;
 
-public class Tela_inicial extends Activity {
+public class MenuPrincipal extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_inicial);
+        setContentView(R.layout.activity_menu_principal);
     }
+
 }

@@ -15,7 +15,10 @@
     <string name="confirmar_senha">Confirmar senha</string>
     <string name="Ok">botaoOk</string>
 
+    <string name="bemvindo">bem vindo!!!</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="add">add</string>
+    <string name="title_activity_menu_principal">MenuPrincipal</string>
 </resources>

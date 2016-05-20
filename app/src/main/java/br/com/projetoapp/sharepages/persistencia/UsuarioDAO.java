@@ -5,20 +5,25 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.gui.TelaInicial;
 
-/**
- * Created by gleydson on 17/05/16.
- */
+
 public class UsuarioDAO {
 
-    private SQLiteDatabase database;
-    private String[] columns = { DatabaseHelper.COLUNA_ID, DatabaseHelper.COLUNA_NOME};
-    private DatabaseHelper databaseHelper;
+    private static final String TABLE_USUARIOS = "Usuarios";
 
-    public UsuarioDAO(Context context){
-        databaseHelper = new DatabaseHelper(context);
+    private SQLiteDatabase database;
+    private String[] columns = { DatabaseHelper.USUARIO_ID, DatabaseHelper.USUARIO_NOME};
+    public DatabaseHelper databaseHelper = new DatabaseHelper(TelaInicial.getContext());
+
+    private UsuarioDAO() {}
+
+    private static UsuarioDAO instancia = new UsuarioDAO();
+    public static UsuarioDAO getInstancia() {
+        return instancia;
     }
 
     public void open() throws SQLException{
@@ -29,30 +34,31 @@ public class UsuarioDAO {
         databaseHelper.close();
     }
 
-    public Usuario create(String usuario){
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUNA_NOME, usuario);
-        long inserId = database.insert(databaseHelper.TABLE_USUARIOS, null, values);
-        Cursor cursor = database.query(databaseHelper.TABLE_USUARIOS, columns, databaseHelper.COLUNA_ID + "="+ inserId, null, null, null, null);
+
+    public Usuario consultar(String email, String senha) {
+        Usuario usuarioEncontrado = null;
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        String query = DatabaseHelper.USUARIO_EMAIL + " = '" + email + "' AND "
+            + DatabaseHelper.USUARIO_SENHA + " = '" + senha + "'";
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, null, null, null, null);
         cursor.moveToFirst();
-        Usuario newUsuario = new Usuario();
-        newUsuario.setNome(cursor.getString(0));
-        newUsuario.setSenha(cursor.getString(1));
+        while (!cursor.isAfterLast()) {
+            int idUsuario = cursor.getInt(0);
+            String nomeUsuario = cursor.getString(1);
+            String emailUsuario = cursor.getString(2);
+            String senhaUsuario = cursor.getString(3);
+            usuarioEncontrado = new Usuario();
+            usuarioEncontrado.setId(idUsuario);
+            usuarioEncontrado.setNome(nomeUsuario);
+            usuarioEncontrado.setEmail(emailUsuario);
+            usuarioEncontrado.setSenha(senhaUsuario);
+
+            cursor.moveToNext();
+        }
         cursor.close();
-        return newUsuario;
+
+        return usuarioEncontrado;
     }
 
-//    public void inserir(View view) {
-//        db = helper.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//
-//        values.put(DatabaseHelper.COLUNA_ID, 1);
-//        values.put(DatabaseHelper.COLUNA_NOME, "joao");
-//        values.put(DatabaseHelper.COLUNA_EMAIL, "joao@gmail.com");
-//        values.put(DatabaseHelper.COLUNA_SENHA, "J12345");
-//
-//        db.insert(TABLE_USUARIOS, null, values);
-//        db.close();
-//    }
 }

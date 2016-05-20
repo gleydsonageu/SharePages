@@ -1,16 +1,18 @@
 package br.com.projetoapp.sharepages.dominio;
 
-/**
- * Created by gleydson on 17/05/16.
- */
+
 public class Usuario {
+    private int id;
     private String nome;
     private String email;
     private String senha;
 
-    @Override
-    public String toString(){
-        return nome;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
