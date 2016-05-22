@@ -1,10 +1,9 @@
 package br.com.projetoapp.sharepages.persistencia;
 
-import android.content.ContentValues;
-import android.content.Context;
+
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.gui.TelaInicial;
 
@@ -17,6 +16,7 @@ public class UsuarioDAO {
     public static UsuarioDAO getInstancia() {
         return instancia;
     }
+
 
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;

@@ -3,10 +3,7 @@ package br.com.projetoapp.sharepages.gui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +14,6 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
-import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
 public class TelaInicial extends Activity {
 
@@ -44,29 +40,45 @@ public class TelaInicial extends Activity {
         botaoEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textoUsuario.getText().length() == 0 || textoSenha.getText().length() == 0) {
+
+                if (validarCampos()) {
                     Toast.makeText(getApplication(), "Por favor preencha o usuario/senha", Toast.LENGTH_LONG).show();
                 } else {
-                    Usuario usuario = new Usuario();
-                    usuario.setEmail(textoUsuario.getText().toString());
-                    usuario.setSenha(textoSenha.getText().toString());
-
-                    try {
-                        Usuario usuarioEncontrado = UsuarioServices.getInstancia().validarCadastroUsuario(usuario);
-                        SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
-                        Toast.makeText(getApplication(), "Tudo ok! Seja bem vindo!", Toast.LENGTH_LONG).show();
-
-                        Intent intentAbrirMenuPrincipal = new Intent(TelaInicial.this, MenuPrincipal.class);
-                        startActivity(intentAbrirMenuPrincipal);
-                    } catch (Exception e) {
-                        Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    logarUsuario();
                 }
             }
         });
     }
 
+    public boolean validarCampos(){
+        return textoUsuario.getText().length() == 0 || textoSenha.getText().length() == 0;
+    }
+
+    public void logarUsuario(){
+
+        Usuario usuario = new Usuario();
+        usuario.setEmail(textoUsuario.getText().toString());
+        usuario.setSenha(textoSenha.getText().toString());
+
+        try {
+            Usuario usuarioEncontrado = UsuarioServices.getInstancia().validarCadastroUsuario(usuario);
+            SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
+            Toast.makeText(getApplication(), "Tudo ok! Seja bem vindo!", Toast.LENGTH_LONG).show();
+
+            chamarMenuPrincipal();
+
+        } catch (Exception e) {
+            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void chamarMenuPrincipal(){
+        Intent intentAbrirMenuPrincipal = new Intent(TelaInicial.this, MenuPrincipal.class);
+        startActivity(intentAbrirMenuPrincipal);
+    }
+
     public static Context getContext() {
         return context;
     }
+
 }

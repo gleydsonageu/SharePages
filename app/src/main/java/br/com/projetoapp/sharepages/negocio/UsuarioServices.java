@@ -11,10 +11,12 @@ public class UsuarioServices {
         return instancia;
     }
 
+    private UsuarioDAO dao = UsuarioDAO.getInstancia();
+
     public Usuario validarCadastroUsuario(Usuario usuario) throws Exception {
-        Usuario usuarioEncontrado = null;
+        Usuario usuarioEncontrado;
         try {
-             usuarioEncontrado = UsuarioDAO.getInstancia().consultar(usuario.getEmail(), usuario.getSenha());
+             usuarioEncontrado = dao.consultar(usuario.getEmail(), usuario.getSenha());
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Houve um erro, tente novamente");

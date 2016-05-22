@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             USUARIO_SENHA + " TEXT NOT NULL)";
 
     private static final String DATABASE_SEED = "INSERT INTO " + TABLE_USUARIOS
-            + " VALUES (NULL,'Joana Darc','joao@gmail.com','123456')";
+            + " VALUES (NULL,'Joao','joao@gmail.com','123456')";
 
 
     public DatabaseHelper(Context context) {
