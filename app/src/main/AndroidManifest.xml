@@ -3,18 +3,25 @@
     package="br.com.projetoapp.sharepages">
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name=".gui.TelaInicial"
-            android:label="@string/title_activity_tela_inicial"></activity>
+            android:label="@string/title_activity_tela_inicial">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".gui.CadastroUsuario"
-            android:label="@string/title_activity_cadastro_usuario"></activity>
+            android:label="@string/title_activity_cadastro_usuario"/>
         <activity
             android:name=".gui.MenuPrincipal"
-            android:label="@string/title_activity_menu_principal"></activity>
+            android:label="@string/title_activity_menu_principal"/>
+
     </application>
 </manifest>
