@@ -29,9 +29,9 @@ public class TelaInicial extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
         setContentView(R.layout.activity_tela_inicial);
 
+        context = this;
         textoUsuario = (EditText) findViewById(R.id.textoUsuario);
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoEntrar = (Button) findViewById(R.id.botaoEntrar);
@@ -46,6 +46,14 @@ public class TelaInicial extends Activity {
                 } else {
                     logarUsuario();
                 }
+            }
+        });
+
+        botaoFazerCadastro.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TelaInicial.this, CadastroUsuario.class);
+                startActivity(intent);
             }
         });
     }

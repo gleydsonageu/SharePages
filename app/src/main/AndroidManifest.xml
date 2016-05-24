@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gui.CadastroUsuario"
-            android:label="@string/title_activity_cadastro_usuario"/>
+            android:name=".gui.CadastroUsuario"/>
+            <!--android:label="@string/title_activity_cadastro_usuario"/>-->
         <activity
-            android:name=".gui.MenuPrincipal"
-            android:label="@string/title_activity_menu_principal"/>
+            android:name=".gui.MenuPrincipal"/>
+            <!--android:label="@string/title_activity_menu_principal"/>-->
 
     </application>
 </manifest>
