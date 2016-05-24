@@ -15,6 +15,7 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
+
 public class TelaInicial extends Activity {
 
 
@@ -23,7 +24,6 @@ public class TelaInicial extends Activity {
     private Button botaoEntrar;
     private TextView botaoFazerCadastro;
     private static Context context;
-
 
 
     @Override

@@ -1,6 +1,7 @@
 package br.com.projetoapp.sharepages.persistencia;
 
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -15,6 +16,29 @@ public class UsuarioDAO {
     private static UsuarioDAO instancia = new UsuarioDAO();
     public static UsuarioDAO getInstancia() {
         return instancia;
+    }
+
+    public long salvar(Usuario usuario){
+        long id = usuario.getId();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        try{
+            ContentValues values = new ContentValues();
+            values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
+            values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
+            values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
+            if (id != 0){
+                String _id = String.valueOf(usuario.getId());
+                String[] whereArgs = new String[]{_id};
+                int count = database.update(DatabaseHelper.TABLE_USUARIOS,values,"_id=?", whereArgs);
+                return count;
+            }else {
+                id = database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
+                return id;
+            }
+        }finally {
+            database.close();
+        }
+
     }
 
 
@@ -43,5 +67,6 @@ public class UsuarioDAO {
 
         return usuarioEncontrado;
     }
+
 
 }

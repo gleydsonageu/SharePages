@@ -37,21 +37,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/confirmar_senha"/>
-
-    <EditText android:id="@+id/textoConfirmarSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"/>
     <Button
-        android:id="@+id/botaoOk"
+        android:id="@+id/botaoCadastrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/botao_entrar" />
-
+        android:text="@string/botao_salvar_cadastrar"
+        android:onClick="salvar"/>
 
 </LinearLayout>

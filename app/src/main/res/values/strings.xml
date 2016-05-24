@@ -13,7 +13,8 @@
     <string name="email">Email</string>
     <string name="nome">Nome</string>
     <string name="confirmar_senha">Confirmar senha</string>
-    <string name="Ok">botaoOk</string>
+    <string name="botao_salvar_cadastrar">Cadastrar</string>
+
 
     <string name="bemvindo">bem vindo!!!</string>
 

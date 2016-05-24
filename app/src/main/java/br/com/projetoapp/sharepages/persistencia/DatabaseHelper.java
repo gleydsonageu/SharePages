@@ -12,7 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Criando a tabela usuarioDAO
     public static final String TABLE_USUARIOS = "usuarios";
 
-    public static final String USUARIO_ID = "id";
+    public static final String USUARIO_ID = "_id";
     public static final String USUARIO_NOME = "nome";
     public static final String USUARIO_EMAIL = "email";
     public static final String USUARIO_SENHA = "senha";

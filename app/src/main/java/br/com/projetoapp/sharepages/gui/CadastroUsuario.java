@@ -10,8 +10,8 @@ import br.com.projetoapp.sharepages.R;
 
 public class CadastroUsuario extends Activity implements View.OnClickListener {
 
-    EditText textoNome, textoEmail, textoSenha, textoConfirmarSenha;
-    Button botaoOk;
+    EditText textoNome, textoEmail, textoSenha;
+    Button botaoCadastrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +21,9 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         textoNome = (EditText) findViewById(R.id.textoNome);
         textoEmail = (EditText) findViewById(R.id.textoEmail);
         textoSenha = (EditText) findViewById(R.id.textoSenha);
-        textoConfirmarSenha = (EditText) findViewById(R.id.textoConfirmarSenha);
-        botaoOk = (Button) findViewById(R.id.botaoOk);
 
-        botaoOk.setOnClickListener(this);
+        botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
+        botaoCadastrar.setOnClickListener(this);
     }
 
     @Override
