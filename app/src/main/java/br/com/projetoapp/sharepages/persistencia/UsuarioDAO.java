@@ -4,6 +4,7 @@ package br.com.projetoapp.sharepages.persistencia;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.gui.TelaInicial;
@@ -18,19 +19,24 @@ public class UsuarioDAO {
         return instancia;
     }
 
-    public long salvar(Usuario usuario){
+    public long salvar(Usuario usuario) throws Exception{
         long id = usuario.getId();
+
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        try {
+        try{
             ContentValues values = new ContentValues();
+
             values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
             values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
-            if (id != 0) {
+
+            Log.i("SCRIPT", "Chamando metodo " + usuario.getEmail());
+
+            if (id != 0){
                 String _id = String.valueOf(usuario.getId());
                 String[] whereArgs = new String[]{_id};
-                return database.update(DatabaseHelper.TABLE_USUARIOS, values, "_id=?", whereArgs);
-            } else {
+                return database.update(DatabaseHelper.TABLE_USUARIOS,values,"_id=?", whereArgs);
+            }else {
                 id = database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
                 return id;
             }
@@ -39,6 +45,7 @@ public class UsuarioDAO {
         }
 
     }
+
 
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;
@@ -65,6 +72,5 @@ public class UsuarioDAO {
 
         return usuarioEncontrado;
     }
-
 
 }

@@ -29,8 +29,16 @@ public class UsuarioServices {
         }
     }
 
-    public void inserirUsuario(Usuario usuario){
-        dao.salvar(usuario);
+    public void inserirUsuario(Usuario usuario) throws Exception {
+        try {
+            dao.salvar(usuario);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("erro ao inserir no banco de dados");
+        }
     }
+
+
 
 }
