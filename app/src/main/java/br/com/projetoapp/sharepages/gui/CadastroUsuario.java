@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import br.com.projetoapp.sharepages.R;
+import br.com.projetoapp.sharepages.dominio.Usuario;
 
 public class CadastroUsuario extends Activity implements View.OnClickListener {
 
@@ -21,9 +22,19 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         textoNome = (EditText) findViewById(R.id.textoNome);
         textoEmail = (EditText) findViewById(R.id.textoEmail);
         textoSenha = (EditText) findViewById(R.id.textoSenha);
-
         botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
-        botaoCadastrar.setOnClickListener(this);
+
+        botaoCadastrar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                String nome = textoNome.getText().toString().trim();
+                String email = textoEmail.getText().toString().trim();
+                String senha = textoSenha.getText().toString().trim();
+
+                Usuario usuario = new Usuario(nome, email, senha);
+            }
+        });
     }
 
     @Override

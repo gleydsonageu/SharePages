@@ -29,6 +29,8 @@ public class UsuarioServices {
         }
     }
 
-
+    public void inserirUsuario(Usuario usuario){
+        dao.salvar(usuario);
+    }
 
 }

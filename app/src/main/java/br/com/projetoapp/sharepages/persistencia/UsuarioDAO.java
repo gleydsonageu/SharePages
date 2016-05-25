@@ -21,26 +21,24 @@ public class UsuarioDAO {
     public long salvar(Usuario usuario){
         long id = usuario.getId();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        try{
+        try {
             ContentValues values = new ContentValues();
             values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
             values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
-            if (id != 0){
+            if (id != 0) {
                 String _id = String.valueOf(usuario.getId());
                 String[] whereArgs = new String[]{_id};
-                int count = database.update(DatabaseHelper.TABLE_USUARIOS,values,"_id=?", whereArgs);
-                return count;
-            }else {
+                return database.update(DatabaseHelper.TABLE_USUARIOS, values, "_id=?", whereArgs);
+            } else {
                 id = database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
                 return id;
             }
-        }finally {
+        } finally {
             database.close();
         }
 
     }
-
 
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;
