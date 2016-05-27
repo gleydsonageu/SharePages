@@ -6,6 +6,9 @@ public class UnidadeLivro {
     private String edicao;
     private int numeroPaginas;
     private String editora;
+    private Livro livro;
+    private Foto foto;
+    private Disponibilidade disponibilidade;
 
     public String getDescricao() {
         return descricao;
