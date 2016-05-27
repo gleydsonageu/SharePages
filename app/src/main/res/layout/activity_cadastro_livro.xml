@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecione uma Foto"
+            android:id="@+id/selecionaFoto"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="39dp"
+            android:onClick="selecionaFoto"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Livro:"
+            android:id="@+id/nomeLivro"
+            android:layout_marginTop="46dp"
+            android:layout_below="@+id/selecionaFoto"
+            android:layout_alignStart="@+id/selecionaFoto" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/campoNomeLivro"
+            android:layout_alignTop="@+id/nomeLivro"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/nomeLivro"
+            android:singleLine="false" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fotoLivro"
+            android:layout_alignTop="@+id/selecionaFoto"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/campoNomeLivro"
+            android:layout_toEndOf="@+id/selecionaFoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nomeAutor: "
+            android:id="@+id/autor"
+            android:layout_below="@+id/campoNomeLivro"
+            android:layout_alignStart="@+id/nomeLivro" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/campoAutor"
+            android:layout_below="@+id/campoNomeLivro"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/campoNomeLivro" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editora: "
+            android:id="@+id/editora"
+            android:layout_below="@+id/campoAutor"
+            android:layout_alignStart="@+id/autor" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/campoEditora"
+            android:layout_below="@+id/campoAutor"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/campoAutor" />
+
+
+
+    </RelativeLayout>
+</LinearLayout>

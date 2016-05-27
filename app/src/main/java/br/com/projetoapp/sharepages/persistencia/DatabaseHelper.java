@@ -32,10 +32,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE, null, VERSION);
     }
 
+
+    // Criando a tabela UnidadeLivroDAO
+    public static final String TABLE_UNIDADELIVROS = "UnidadeLivros";
+
+    public static final String UNIDADELIVRO_DESCRICAO = "descricao";
+    public static final String UNIDADELIVRO_IDIOMA = "idioma";
+    public static final String UNIDADELIVRO_EDICAO = "edicao";
+    public static final String UNIDADELIVRO_NUMEROPAGINAS = "numeroPaginas";
+    public static final String UNIDADELIVRO_EDITORA = "editora";
+    public static final String[] UNIDADELIVRO_COLUNAS = { UNIDADELIVRO_DESCRICAO, UNIDADELIVRO_IDIOMA, UNIDADELIVRO_EDICAO,
+            UNIDADELIVRO_NUMEROPAGINAS, UNIDADELIVRO_EDITORA };
+
+    private static final String DATABASE_UNIDADELIVRO = "CREATE TABLE " + TABLE_UNIDADELIVROS + "(" +
+            UNIDADELIVRO_DESCRICAO +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            UNIDADELIVRO_IDIOMA +" TEXT NOT NULL, "+
+            UNIDADELIVRO_EDICAO + " TEXT NOT NULL, "+
+            UNIDADELIVRO_NUMEROPAGINAS + " TEXT NOT NULL, "+
+            UNIDADELIVRO_EDITORA + " TEXT NOT NULL)";
+
+
+
+
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_USUARIO);
         database.execSQL(DATABASE_SEED);
+        database.execSQL(DATABASE_UNIDADELIVRO);
     }
 
     @Override
