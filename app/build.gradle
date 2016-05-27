@@ -17,9 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets{
-        main.java.srcDirs +='src/main/</home/gleydson/Documentos/UFRPE/periodo 2016.1/MPOO 2016.1/SharePages>'
-    }
+   
 }
 
 dependencies {
