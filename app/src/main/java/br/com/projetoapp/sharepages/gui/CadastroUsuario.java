@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
@@ -38,35 +41,81 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
                 String senha = textoSenha.getText().toString().trim();
 
                 Usuario usuario = new Usuario(nome, email, senha);
-                try {
-                    cadastrar(usuario);
-                    Log.i("SCRIPT", "Chamando metodo para cadastrar " + nome);
-                    Log.i("SCRIPT", "Chamando metodo para cadastrar " + email);
-                    Log.i("SCRIPT", "Chamando metodo para cadastrar " + senha);
-                    finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplication(),"usuario ao cadastrar",Toast.LENGTH_LONG).show();
+
+                // /* chamada dos metodos validarCamposPreenchidos, validarEMail e cadastrar.
+                // Gerar um carregamento de tela na confirmação da conta.
+                // */
+                if (!validarCamposPreenchidos(usuario)) {
+                    Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (!validarEmail(email)){
+                    Toast.makeText(getApplication(), "Verifique o email", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    try {
+                        cadastrar(usuario);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar nome " + nome);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar email " + email);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar senha " + senha);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
         });
     }
-
 
     @Override
     public void onClick(View v) {
 
     }
-
+    //validação de campos preenchidos
+    public boolean validarCamposPreenchidos(Usuario usuario) {
+        boolean validacao = true;
+        Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
+        if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
+            validacao = false;
+            textoNome.setError(getString(R.string.campo_obrigatorio));
+        }
+        if (usuario.getEmail() == null || usuario.getNome().equalsIgnoreCase("")) {
+            validacao = false;
+            textoEmail.setError(getString(R.string.campo_obrigatorio));
+        }
+        if (usuario.getSenha() == null || usuario.getSenha().equalsIgnoreCase("")) {
+            textoSenha.setError(getString(R.string.campo_obrigatorio));
+        }
+        return validacao;
+    }
+    // validação do padrão do email
+    public boolean validarEmail(String email){
+        boolean emailValido = false;
+        if (email != null && email.length() > 0) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                emailValido = true;
+                Log.i("SCRIPT", "email escrito correto");
+            }
+        }
+        return emailValido;
+    }
+    //CADASTRAR usuario no banco
     public void cadastrar(Usuario usuario) throws Exception {
         try {
-
             usuarioServices.inserirUsuario(usuario);
-            Log.i("SCRIPT", "Chamando metodo " + usuario);
+            Toast.makeText(getApplication(),"Usuário cadastrado",Toast.LENGTH_LONG).show();
+            Log.i("SCRIPT", "Chamando metodo cadastrar ");
+            finish();
         } catch (Exception e){
             e.printStackTrace();
-            Toast.makeText(getApplication(),"falha no cadastro",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
-            finish();
+
     }
+
+
+
 }

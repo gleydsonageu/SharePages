@@ -15,6 +15,7 @@ public class UsuarioDAO {
     public DatabaseHelper databaseHelper = new DatabaseHelper(TelaInicial.getContext());
 
     private static UsuarioDAO instancia = new UsuarioDAO();
+
     public static UsuarioDAO getInstancia() {
         return instancia;
     }
@@ -30,7 +31,7 @@ public class UsuarioDAO {
             values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
 
-            Log.i("SCRIPT", "Chamando metodo " + usuario.getEmail());
+            Log.i("SCRIPT", "cadastradoooo " + usuario.getEmail());
 
             if (id != 0){
                 String _id = String.valueOf(usuario.getId());
@@ -45,7 +46,6 @@ public class UsuarioDAO {
         }
 
     }
-
 
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;

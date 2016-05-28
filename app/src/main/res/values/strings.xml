@@ -14,7 +14,7 @@
     <string name="nome">Nome</string>
     <string name="confirmar_senha">Confirmar senha</string>
     <string name="botao_salvar_cadastrar">Cadastrar</string>
-
+    <string name="campo_obrigatorio">Campo Obrigatório</string>
 
     <string name="bemvindo">bem vindo!!!</string>
 
@@ -22,4 +22,5 @@
 
     <string name="add">add</string>
     <string name="title_activity_menu_principal">MenuPrincipal</string>
+
 </resources>

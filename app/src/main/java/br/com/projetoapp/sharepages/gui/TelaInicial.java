@@ -25,7 +25,6 @@ public class TelaInicial extends Activity {
     private TextView botaoFazerCadastro;
     private static Context context;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,15 +62,13 @@ public class TelaInicial extends Activity {
     }
 
     public void logarUsuario(){
-
         Usuario usuario = new Usuario();
         usuario.setEmail(textoUsuario.getText().toString());
         usuario.setSenha(textoSenha.getText().toString());
-
         try {
             Usuario usuarioEncontrado = UsuarioServices.getInstancia().validarCadastroUsuario(usuario);
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
-            Toast.makeText(getApplication(), "Tudo ok! Seja bem vindo!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Seja bem vindo!", Toast.LENGTH_LONG).show();
 
             chamarMenuPrincipal();
 
