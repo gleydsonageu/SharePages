@@ -2,7 +2,22 @@ package br.com.projetoapp.sharepages.dominio;
 
 
 public class Cidade {
-    //fazer a lista de cidades para dps chamar no banco
-    //lembra que o professor disse que se forem mtos inserts usar lista
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

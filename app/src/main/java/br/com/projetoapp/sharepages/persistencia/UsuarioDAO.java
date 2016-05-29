@@ -55,7 +55,7 @@ public class UsuarioDAO {
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, null, null, null, null);
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
+        if (!cursor.isAfterLast()) {
             int idUsuario = cursor.getInt(0);
             String nomeUsuario = cursor.getString(1);
             String emailUsuario = cursor.getString(2);

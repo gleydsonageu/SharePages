@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="right">
+        android:layout_gravity="right"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selecione uma Foto"
             android:id="@+id/selecionaFoto"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="48dp"
             android:onClick="selecionaFoto"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
@@ -67,8 +70,8 @@
             android:layout_height="wrap_content"
             android:text="Editora: "
             android:id="@+id/editora"
-            android:layout_below="@+id/campoAutor"
-            android:layout_alignStart="@+id/autor" />
+            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/autor" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -81,4 +84,5 @@
 
 
     </RelativeLayout>
-</LinearLayout>
+
+</RelativeLayout>

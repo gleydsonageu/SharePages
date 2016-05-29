@@ -6,6 +6,7 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    private Cidade cidade;
 
     public Usuario(String nome, String email, String senha) {
         this.nome = nome;
@@ -46,4 +47,11 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
 }

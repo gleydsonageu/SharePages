@@ -2,8 +2,17 @@ package br.com.projetoapp.sharepages.dominio;
 
 
 public class Livro {
+    private String id;
     private String nome;
     private String autor;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

@@ -4,21 +4,29 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.projetoapp.sharepages.R;
+import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class CadastroUsuario extends Activity implements View.OnClickListener {
 
     EditText textoNome, textoEmail, textoSenha;
     Button botaoCadastrar;
+    Spinner cidadeSpinner;
 
     private UsuarioServices usuarioServices = UsuarioServices.getInstancia();
 
@@ -32,6 +40,15 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
 
+
+
+        try {
+            adcCidadesNoSpinner();
+        } catch (Exception e) {
+            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+
         botaoCadastrar.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -39,6 +56,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
                 String nome = textoNome.getText().toString().trim();
                 String email = textoEmail.getText().toString().trim();
                 String senha = textoSenha.getText().toString().trim();
+
 
                 Usuario usuario = new Usuario(nome, email, senha);
 
@@ -65,6 +83,17 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
             }
 
         });
+    }
+
+    private void adcCidadesNoSpinner() throws Exception {
+        cidadeSpinner = (Spinner) findViewById(R.id.cidadeSpinner);
+
+        ArrayList<Cidade> cidades = CidadeServices.getInstancia().pegarCidades();
+
+        CidadeArrayAdapter dataAdapter = new CidadeArrayAdapter(this, android.R.layout.simple_spinner_item, cidades);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cidadeSpinner.setAdapter(dataAdapter);
+
     }
 
     @Override

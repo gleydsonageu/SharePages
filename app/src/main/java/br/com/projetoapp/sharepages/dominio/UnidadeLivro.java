@@ -1,6 +1,7 @@
 package br.com.projetoapp.sharepages.dominio;
 
 public class UnidadeLivro {
+    private String id;
     private String descricao;
     private String idioma;
     private String edicao;
@@ -9,6 +10,14 @@ public class UnidadeLivro {
     private Livro livro;
     private Foto foto;
     private Disponibilidade disponibilidade;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescricao() {
         return descricao;
