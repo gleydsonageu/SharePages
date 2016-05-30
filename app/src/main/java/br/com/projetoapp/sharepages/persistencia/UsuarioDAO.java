@@ -2,24 +2,28 @@ package br.com.projetoapp.sharepages.persistencia;
 
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
-import br.com.projetoapp.sharepages.gui.TelaInicial;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 
 public class UsuarioDAO {
 
-    public DatabaseHelper databaseHelper = new DatabaseHelper(TelaInicial.getContext());
+    public DatabaseHelper databaseHelper;
+    private static UsuarioDAO instancia;
 
-    private static UsuarioDAO instancia = new UsuarioDAO();
-
-    public static UsuarioDAO getInstancia() {
+    public static UsuarioDAO getInstancia(Context context) {
+        if(instancia == null){
+            instancia = new UsuarioDAO();
+            instancia.databaseHelper = new DatabaseHelper(context);
+        }
         return instancia;
     }
+
 
     //SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
@@ -103,6 +107,7 @@ public class UsuarioDAO {
         database.close();
         return emailEncontrado;
     }
+
 
 }
 

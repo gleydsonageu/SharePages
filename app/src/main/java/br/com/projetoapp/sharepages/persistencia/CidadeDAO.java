@@ -1,6 +1,7 @@
 package br.com.projetoapp.sharepages.persistencia;
 
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,16 +10,17 @@ import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Cidade;
 
-import br.com.projetoapp.sharepages.gui.TelaInicial;
-
 
 public class CidadeDAO {
 
-    public DatabaseHelper databaseHelper = new DatabaseHelper(TelaInicial.getContext());
+    public DatabaseHelper databaseHelper;
+    private static CidadeDAO instancia;
 
-    private static CidadeDAO instancia = new CidadeDAO();
-
-    public static CidadeDAO getInstancia() {
+    public static CidadeDAO getInstancia(Context context) {
+        if (instancia == null){
+            instancia = new CidadeDAO();
+            instancia.databaseHelper = new DatabaseHelper(context);
+        }
         return instancia;
     }
 

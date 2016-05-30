@@ -9,6 +9,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int VERSION = 5;
     public static final String DATABASE = "meubanco.db";
 
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE, null, VERSION);
+    }
+
     //Criando a tabela usuarioDAO
     public static final String TABLE_USUARIOS = "usuarios";
 
@@ -26,12 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_USUARIO_SEED = "INSERT INTO " + TABLE_USUARIOS
             + " VALUES (NULL,'Joao','joao@gmail.com','123456')";
-
-
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE, null, VERSION);
-    }
-
 
     // Criando a tabela UnidadeLivroDAO
     public static final String TABLE_UNIDADELIVROS = "UnidadeLivros";

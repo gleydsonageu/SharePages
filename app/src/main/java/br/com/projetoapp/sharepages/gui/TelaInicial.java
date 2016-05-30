@@ -18,12 +18,13 @@ import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class TelaInicial extends Activity {
 
-
     private EditText textoUsuario;
     private EditText textoSenha;
     private Button botaoEntrar;
     private TextView botaoFazerCadastro;
     private static Context context;
+
+    UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,6 @@ public class TelaInicial extends Activity {
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoEntrar = (Button) findViewById(R.id.botaoEntrar);
         botaoFazerCadastro = (TextView) findViewById(R.id.botaoFazerCadastro);
-
-
-
 
         botaoEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +56,7 @@ public class TelaInicial extends Activity {
                 startActivity(intent);
             }
         });
+
     }
 
     public boolean validarCampos(){
@@ -69,7 +68,7 @@ public class TelaInicial extends Activity {
         usuario.setEmail(textoUsuario.getText().toString());
         usuario.setSenha(textoSenha.getText().toString());
         try {
-            Usuario usuarioEncontrado = UsuarioServices.getInstancia().validarUsuario(usuario);
+            Usuario usuarioEncontrado = usuarioServices.validarUsuario(usuario);
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
             Toast.makeText(getApplication(), "Seja bem vindo!", Toast.LENGTH_LONG).show();
 
@@ -83,10 +82,6 @@ public class TelaInicial extends Activity {
     public void chamarMenuPrincipal(){
         Intent intentAbrirMenuPrincipal = new Intent(TelaInicial.this, MenuPrincipal.class);
         startActivity(intentAbrirMenuPrincipal);
-    }
-    //Lembrar de alterar a a chamada do context
-    public static Context getContext() {
-        return context;
     }
 
 }

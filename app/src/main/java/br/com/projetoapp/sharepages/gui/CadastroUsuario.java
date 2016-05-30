@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
-import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
@@ -26,7 +25,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
     Button botaoCadastrar;
     Spinner cidadeSpinner;
 
-    private UsuarioServices usuarioServices = UsuarioServices.getInstancia();
+    private UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +37,11 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
 
-
-
         try {
             adcCidadesNoSpinner();
         } catch (Exception e) {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-
 
         botaoCadastrar.setOnClickListener(new View.OnClickListener(){
 
@@ -85,7 +81,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
     private void adcCidadesNoSpinner() throws Exception {
         cidadeSpinner = (Spinner) findViewById(R.id.cidadeSpinner);
 
-        ArrayList<Cidade> cidades = CidadeServices.getInstancia().pegarCidades();
+        ArrayList<Cidade> cidades = CidadeServices.getInstancia(this).pegarCidades();
 
         CidadeArrayAdapter dataAdapter = new CidadeArrayAdapter(this, android.R.layout.simple_spinner_item, cidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -129,7 +125,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         return emailValido;
     }
     //CADASTRAR usuario no banco
-    public void cadastrar(Usuario usuario) throws SharepagesException {
+    public void cadastrar(Usuario usuario) {
         try {
             usuarioServices.inserirUsuario(usuario);
             Toast.makeText(getApplication(),"Usuário cadastrado",Toast.LENGTH_LONG).show();

@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Cidade;
 
-/**
- * Created by airton on 29/05/16.
- */
+
 public class CidadeArrayAdapter extends ArrayAdapter<Cidade> {
 
     private Context context;
