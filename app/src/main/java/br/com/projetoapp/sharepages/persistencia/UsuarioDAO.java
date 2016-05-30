@@ -8,6 +8,7 @@ import android.util.Log;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.gui.TelaInicial;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 
 public class UsuarioDAO {
@@ -20,10 +21,13 @@ public class UsuarioDAO {
         return instancia;
     }
 
-    public long salvar(Usuario usuario) throws Exception{
+    //SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+    public long inserir(Usuario usuario) throws SharepagesException{
         long id = usuario.getId();
 
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
         try{
             ContentValues values = new ContentValues();
 
@@ -49,9 +53,11 @@ public class UsuarioDAO {
 
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;
+
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
         String query = DatabaseHelper.USUARIO_EMAIL + " = '" + email + "' AND "
-            + DatabaseHelper.USUARIO_SENHA + " = '" + senha + "'";
+                + DatabaseHelper.USUARIO_SENHA + " = '" + senha + "'";
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, null, null, null, null);
         cursor.moveToFirst();
@@ -68,11 +74,39 @@ public class UsuarioDAO {
 
             cursor.moveToNext();
         }
-        cursor.close();
-
+        database.close();
         return usuarioEncontrado;
+    }
+
+    public Usuario buscarEmail (String email){
+        Usuario emailEncontrado = null;
+
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USUARIOS + " WHERE "
+                + DatabaseHelper.USUARIO_EMAIL + " = ? " ,new String[]{email});
+
+        if (cursor.moveToFirst()){
+            int idUsuario = cursor.getInt(0);
+            String nomeUsuario = cursor.getString(1);
+            String emailUsuario = cursor.getString(2);
+            String senhaUsuario = cursor.getString(3);
+            emailEncontrado = new Usuario();
+            emailEncontrado.setId(idUsuario);
+            emailEncontrado.setNome(nomeUsuario);
+            emailEncontrado.setNome(emailUsuario);
+            emailEncontrado.setNome(senhaUsuario);
+
+            cursor.moveToNext();
+
+        }
+        database.close();
+        return emailEncontrado;
     }
 
 }
 
-//teste
+//String query = DatabaseHelper.USUARIO_EMAIL + " = '" + email + "'";
+//Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, new String[]{email}, null,null,null);
+
+//DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, new String[]{email}, null,null,null

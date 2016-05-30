@@ -4,21 +4,19 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
@@ -56,7 +54,6 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
                 String nome = textoNome.getText().toString().trim();
                 String email = textoEmail.getText().toString().trim();
                 String senha = textoSenha.getText().toString().trim();
-
 
                 Usuario usuario = new Usuario(nome, email, senha);
 
@@ -132,7 +129,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         return emailValido;
     }
     //CADASTRAR usuario no banco
-    public void cadastrar(Usuario usuario) throws Exception {
+    public void cadastrar(Usuario usuario) throws SharepagesException {
         try {
             usuarioServices.inserirUsuario(usuario);
             Toast.makeText(getApplication(),"Usuário cadastrado",Toast.LENGTH_LONG).show();
@@ -144,7 +141,5 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         }
 
     }
-
-
 
 }

@@ -69,7 +69,7 @@ public class TelaInicial extends Activity {
         usuario.setEmail(textoUsuario.getText().toString());
         usuario.setSenha(textoSenha.getText().toString());
         try {
-            Usuario usuarioEncontrado = UsuarioServices.getInstancia().validarCadastroUsuario(usuario);
+            Usuario usuarioEncontrado = UsuarioServices.getInstancia().validarUsuario(usuario);
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
             Toast.makeText(getApplication(), "Seja bem vindo!", Toast.LENGTH_LONG).show();
 
@@ -84,7 +84,7 @@ public class TelaInicial extends Activity {
         Intent intentAbrirMenuPrincipal = new Intent(TelaInicial.this, MenuPrincipal.class);
         startActivity(intentAbrirMenuPrincipal);
     }
-
+    //Lembrar de alterar a a chamada do context
     public static Context getContext() {
         return context;
     }

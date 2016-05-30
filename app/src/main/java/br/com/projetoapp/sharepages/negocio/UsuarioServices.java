@@ -14,7 +14,7 @@ public class UsuarioServices {
 
     private UsuarioDAO dao = UsuarioDAO.getInstancia();
 
-    public Usuario validarCadastroUsuario(Usuario usuario) throws Exception {
+    public Usuario validarUsuario(Usuario usuario) throws Exception {
         Usuario usuarioEncontrado;
         try {
              usuarioEncontrado = dao.consultar(usuario.getEmail(), usuario.getSenha());
@@ -31,30 +31,15 @@ public class UsuarioServices {
     }
 
     public void inserirUsuario(Usuario usuario) throws Exception {
-        try {
-            dao.salvar(usuario);
+        Usuario emailEncontrado;
 
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new Exception("erro ao inserir no banco de dados");
+        emailEncontrado = dao.buscarEmail(usuario.getEmail());
+
+        if (emailEncontrado != null){
+            throw new Exception("Email já cadastrado");
+        }else {
+            dao.inserir(usuario);
         }
     }
-
-//    public boolean validEmail(String email) {
-//        //System.out.println("Metodo de validacao de email");
-//        Pattern p = Pattern.compile("^[_A-Za-z0-9-]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+\n" +
-//                "(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$");
-//        Matcher m = p.matcher(email);
-//        if (m.find()){
-//            System.out.println("O email "+email+" e valido");
-//            Toast.makeText(getApplication(), "O email " + email + " e valido", Toast.LENGTH_LONG).show();
-//            return true;
-//        }
-//        else{
-//            Toast.makeText(getApplication(), "O E-mail " + email + " é inválido", Toast.LENGTH_LONG).show();
-//            return false;
-//        }
-//    }
-
 
 }
