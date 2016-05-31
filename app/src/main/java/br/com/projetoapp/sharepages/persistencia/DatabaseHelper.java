@@ -1,12 +1,15 @@
 package br.com.projetoapp.sharepages.persistencia;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import br.com.projetoapp.sharepages.dominio.Usuario;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 7;
+    public static final int VERSION = 12;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -30,8 +33,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             USUARIO_SENHA + " TEXT NOT NULL, "+
             USUARIO_ID_CIDADE + " TEXT NOT NULL)";
 
-    private static final String DATABASE_USUARIO_SEED = "INSERT INTO " + TABLE_USUARIOS
-            + " VALUES (NULL,'Joao','joao@gmail.com','123456', 1)";
+   // private static final String DATABASE_USUARIO_SEED = "INSERT INTO " + TABLE_USUARIOS
+       //     + " VALUES (NULL,'Joao','joao@gmail.com','123456', 1)";
 
     // Criando a tabela UnidadeLivroDAO
     public static final String TABLE_UNIDADELIVROS = "UnidadeLivros";
@@ -69,18 +72,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             CIDADE_NOME + " TEXT NOT NULL)";
 
 
-    private static final String DATABASE_CIDADE_SEED = "INSERT INTO " + TABLE_CIDADES
-            + " VALUES (NULL,'Jaboatão'), (NULL, 'Olinda'), (NULL, 'Recife')";
+
+    //private static final String DATABASE_CIDADE_SEED = "INSERT INTO " + TABLE_CIDADES
+      //      + " VALUES (NULL,'Jaboatão'), (NULL, 'Olinda'), (NULL, 'Recife')";
 
 
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_USUARIO);
-        database.execSQL(DATABASE_USUARIO_SEED);
         database.execSQL(DATABASE_UNIDADELIVRO);
         database.execSQL(DATABASE_CIDADE);
-        database.execSQL(DATABASE_CIDADE_SEED);
 
+        String nomeCidades[] = { "Jaboatao", "Olinda", "Recife" };
+        for(String nomeCidade : nomeCidades) {
+            inserirCidade(database, nomeCidade);
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setNome("Joao");
+        usuario.setEmail("joao@gmail.com");
+        usuario.setSenha("123456");
+        usuario.setIdCidade(1);
+        inserirUsuario(database, usuario);
+    }
+
+    public void inserirUsuario(SQLiteDatabase database, Usuario usuario)  {
+
+        ContentValues content = new ContentValues();
+        content.put(USUARIO_NOME, usuario.getNome());
+        content.put(USUARIO_EMAIL, usuario.getEmail());
+        content.put(USUARIO_SENHA, usuario.getSenha());
+        content.put(USUARIO_ID_CIDADE, usuario.getIdCidade());
+
+        database.insert(TABLE_USUARIOS, null, content);
+    }
+
+
+    public void inserirCidade(SQLiteDatabase database, String nomeCidade) {
+        ContentValues values = new ContentValues();
+        values.put(CIDADE_NOME, nomeCidade);
+        database.insert(TABLE_CIDADES, null, values);
     }
 
     @Override
