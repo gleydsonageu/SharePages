@@ -71,11 +71,13 @@ public class UsuarioDAO {
             String nomeUsuario = cursor.getString(1);
             String emailUsuario = cursor.getString(2);
             String senhaUsuario = cursor.getString(3);
+            int idCidade = cursor.getInt(4);
             usuarioEncontrado = new Usuario();
             usuarioEncontrado.setId(idUsuario);
             usuarioEncontrado.setNome(nomeUsuario);
             usuarioEncontrado.setEmail(emailUsuario);
             usuarioEncontrado.setSenha(senhaUsuario);
+            usuarioEncontrado.setIdCidade(idCidade);
 
             cursor.moveToNext();
         }
@@ -96,11 +98,14 @@ public class UsuarioDAO {
             String nomeUsuario = cursor.getString(1);
             String emailUsuario = cursor.getString(2);
             String senhaUsuario = cursor.getString(3);
+            int idCidade = cursor.getInt(4);
             emailEncontrado = new Usuario();
             emailEncontrado.setId(idUsuario);
             emailEncontrado.setNome(nomeUsuario);
             emailEncontrado.setNome(emailUsuario);
             emailEncontrado.setNome(senhaUsuario);
+            emailEncontrado.setIdCidade(idCidade);
+
 
             cursor.moveToNext();
 
