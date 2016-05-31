@@ -2,7 +2,6 @@ package br.com.projetoapp.sharepages.dominio;
 
 public class UnidadeLivro {
     private int id;
-    private int id_disponibilidade;
     private String descricao;
     private String idioma;
     private String edicao;
@@ -60,8 +59,4 @@ public class UnidadeLivro {
         this.editora = editora;
     }
 
-    public int getId_disponibilidade() {return id_disponibilidade;}
-
-    public void setId_disponibilidade(int id_disponibilidade) {
-        this.id_disponibilidade = id_disponibilidade;}
 }
