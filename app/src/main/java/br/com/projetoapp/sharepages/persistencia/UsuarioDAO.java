@@ -38,6 +38,7 @@ public class UsuarioDAO {
             values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
             values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
+            values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
 
             Log.i("SCRIPT", "cadastradoooo " + usuario.getEmail());
 

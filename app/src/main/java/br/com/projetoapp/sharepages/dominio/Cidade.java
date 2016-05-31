@@ -2,15 +2,15 @@ package br.com.projetoapp.sharepages.dominio;
 
 
 public class Cidade {
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    private String id;
+    private int id;
     private String nome;
 
     public String getNome() {

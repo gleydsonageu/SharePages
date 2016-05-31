@@ -7,11 +7,13 @@ public class Usuario {
     private String email;
     private String senha;
     private Cidade cidade;
+    private int idCidade;
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String nome, String email, String senha, int idCidade) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.idCidade = idCidade;
     }
     public  Usuario(){
     }
@@ -54,4 +56,13 @@ public class Usuario {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
+
+    public int getIdCidade() {
+        return idCidade;
+    }
+
+    public void setIdCidade(int idCidade) {
+        this.idCidade = idCidade;
+    }
 }
+

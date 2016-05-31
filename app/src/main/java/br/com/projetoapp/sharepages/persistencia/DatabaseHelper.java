@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 5;
+    public static final int VERSION = 7;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -20,16 +20,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USUARIO_NOME = "nome";
     public static final String USUARIO_EMAIL = "email";
     public static final String USUARIO_SENHA = "senha";
-    public static final String[] USUARIO_COLUNAS = { USUARIO_ID, USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA };
+    public static final String USUARIO_ID_CIDADE = "idCidade";
+    public static final String[] USUARIO_COLUNAS = { USUARIO_ID, USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_ID_CIDADE };
 
     private static final String DATABASE_USUARIO = "CREATE TABLE " + TABLE_USUARIOS + "(" +
             USUARIO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
             USUARIO_NOME +" TEXT NOT NULL, "+
             USUARIO_EMAIL + " TEXT NOT NULL UNIQUE, "+
-            USUARIO_SENHA + " TEXT NOT NULL)";
+            USUARIO_SENHA + " TEXT NOT NULL, "+
+            USUARIO_ID_CIDADE + " TEXT NOT NULL)";
 
     private static final String DATABASE_USUARIO_SEED = "INSERT INTO " + TABLE_USUARIOS
-            + " VALUES (NULL,'Joao','joao@gmail.com','123456')";
+            + " VALUES (NULL,'Joao','joao@gmail.com','123456', 1)";
 
     // Criando a tabela UnidadeLivroDAO
     public static final String TABLE_UNIDADELIVROS = "UnidadeLivros";
@@ -84,6 +86,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USUARIOS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_UNIDADELIVROS);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_CIDADES);
         onCreate(db);
     }
 }

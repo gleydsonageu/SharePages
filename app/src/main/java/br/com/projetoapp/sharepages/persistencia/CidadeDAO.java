@@ -35,7 +35,7 @@ public class CidadeDAO {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
                     Cidade cidade = new Cidade();
-                    String idCidade = cursor.getString(0);
+                    int idCidade = cursor.getInt(0);
                     String nomeCidade = cursor.getString(1);
                     cidade.setId(idCidade);
                     cidade.setNome(nomeCidade);

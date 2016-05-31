@@ -37,11 +37,14 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
 
+        //Preencher o spinner com as cidades
+
         try {
             adcCidadesNoSpinner();
         } catch (Exception e) {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
 
         botaoCadastrar.setOnClickListener(new View.OnClickListener(){
 
@@ -50,8 +53,9 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
                 String nome = textoNome.getText().toString().trim();
                 String email = textoEmail.getText().toString().trim();
                 String senha = textoSenha.getText().toString().trim();
+                Cidade cidade = (Cidade) cidadeSpinner.getSelectedItem();
 
-                Usuario usuario = new Usuario(nome, email, senha);
+                Usuario usuario = new Usuario(nome, email, senha, cidade.getId());
 
                 // /* chamada dos metodos validarCamposPreenchidos, validarEMail e cadastrar.
                 // Gerar um carregamento de tela na confirmação da conta.
@@ -86,6 +90,22 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         CidadeArrayAdapter dataAdapter = new CidadeArrayAdapter(this, android.R.layout.simple_spinner_item, cidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cidadeSpinner.setAdapter(dataAdapter);
+
+        cidadeSpinner.getSelectedItem();
+
+      /*  cidadeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int posicao, long id) {
+                // Here you get the current item (a User object) that is selected by its position
+                Cidade cidade = (Cidade) adapterView.getItemAtPosition(posicao);
+                // Here you can do the action you want to...
+                Toast.makeText(getApplication(), "ID: " + cidade.getId() + "\nName: " + cidade.getNome(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapter) {  }
+        });*/
 
     }
 
@@ -132,7 +152,6 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
             Log.i("SCRIPT", "Chamando metodo cadastrar ");
             finish();
         } catch (Exception e){
-            e.printStackTrace();
             Toast.makeText(getApplication(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
 
