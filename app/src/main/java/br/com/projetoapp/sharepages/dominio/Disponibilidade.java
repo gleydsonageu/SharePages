@@ -6,9 +6,9 @@ public class Disponibilidade {
     private int id;
     private String disponibilidade;
 
-    public String getNome() {return disponibilidade;}
+    public String getDisponibilidade() {return disponibilidade;}
 
-    public void setNome(String tipo) {
+    public void setDisponibilidade(String tipo) {
         this.disponibilidade = tipo;
     }
 
