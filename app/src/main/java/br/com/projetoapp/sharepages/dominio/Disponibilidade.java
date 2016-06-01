@@ -2,15 +2,8 @@ package br.com.projetoapp.sharepages.dominio;
 
 
 public class Disponibilidade {
-
     private int id;
-    private String disponibilidade;
-
-    public String getDisponibilidade() {return disponibilidade;}
-
-    public void setDisponibilidade(String tipo) {
-        this.disponibilidade = tipo;
-    }
+    private String disponibiliade;
 
     public int getId() {
         return id;
@@ -20,4 +13,11 @@ public class Disponibilidade {
         this.id = id;
     }
 
+    public String getDisponibiliade() {
+        return disponibiliade;
+    }
+
+    public void setDisponibiliade(String disponibiliade) {
+        this.disponibiliade = disponibiliade;
+    }
 }
