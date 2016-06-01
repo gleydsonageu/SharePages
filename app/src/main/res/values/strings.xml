@@ -22,5 +22,8 @@
 
     <string name="add">add</string>
     <string name="title_activity_menu_principal">MenuPrincipal</string>
+    <string name="title_activity_cadastro_livro">CadastroLivro</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
 
 </resources>

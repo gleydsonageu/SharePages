@@ -1,88 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.projetoapp.sharepages.gui.CadastroLivro">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Livro: "
+        android:id="@+id/nomeLivro"
+        android:layout_marginTop="65dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp">
+        android:layout_alignParentStart="true" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Selecione uma Foto"
-            android:id="@+id/selecionaFoto"
-            android:layout_marginTop="48dp"
-            android:onClick="selecionaFoto"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecionar Foto"
+        android:id="@+id/selecionarFoto"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="selecionarFoto"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nome do Livro:"
-            android:id="@+id/nomeLivro"
-            android:layout_marginTop="46dp"
-            android:layout_below="@+id/selecionaFoto"
-            android:layout_alignStart="@+id/selecionaFoto" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campoNomeLivro"
+        android:layout_alignTop="@+id/nomeLivro"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/nomeLivro" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/campoNomeLivro"
-            android:layout_alignTop="@+id/nomeLivro"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/nomeLivro"
-            android:singleLine="false" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Autor:"
+        android:id="@+id/autor"
+        android:layout_below="@+id/campoNomeLivro"
+        android:layout_alignParentStart="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fotoLivro"
-            android:layout_alignTop="@+id/selecionaFoto"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/campoNomeLivro"
-            android:layout_toEndOf="@+id/selecionaFoto" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campoAutor"
+        android:layout_below="@+id/campoNomeLivro"
+        android:layout_alignEnd="@+id/campoNomeLivro"
+        android:layout_toEndOf="@+id/autor" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="nomeAutor: "
-            android:id="@+id/autor"
-            android:layout_below="@+id/campoNomeLivro"
-            android:layout_alignStart="@+id/nomeLivro" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editora:"
+        android:id="@+id/editora"
+        android:layout_below="@+id/campoAutor"
+        android:layout_alignParentStart="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/campoAutor"
-            android:layout_below="@+id/campoNomeLivro"
-            android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/campoNomeLivro" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campoEditora"
+        android:layout_below="@+id/campoAutor"
+        android:layout_alignEnd="@+id/campoNomeLivro"
+        android:layout_toEndOf="@+id/editora" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Editora: "
-            android:id="@+id/editora"
-            android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/autor" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nº de Paginas:"
+        android:id="@+id/nPaginas"
+        android:layout_below="@+id/campoEditora"
+        android:layout_alignParentStart="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/campoEditora"
-            android:layout_below="@+id/campoAutor"
-            android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/campoAutor" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/campoNdePaginas"
+        android:layout_alignTop="@+id/nPaginas"
+        android:layout_alignStart="@+id/campoNomeLivro" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edição:"
+        android:id="@+id/edicao"
+        android:layout_below="@+id/campoNdePaginas"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campoEdicao"
+        android:layout_below="@+id/campoNdePaginas"
+        android:layout_alignStart="@+id/campoEditora"
+        android:layout_alignEnd="@+id/campoNomeLivro" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idioma:"
+        android:id="@+id/idioma"
+        android:layout_below="@+id/campoEdicao"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_below="@+id/campoEdicao"
+        android:layout_alignEnd="@+id/campoNomeLivro"
+        android:layout_toEndOf="@+id/idioma" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disponibilidade:"
+        android:id="@+id/disponibilidade"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tema:"
+        android:id="@+id/tema"
+        android:layout_below="@+id/disponibilidade"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/disponibilidadeSpinner"
+        android:layout_below="@+id/editText"
+        android:layout_toEndOf="@+id/nPaginas"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temaSpinner"
+        android:layout_below="@+id/tema"
+        android:layout_alignEnd="@+id/campoNdePaginas"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição:"
+        android:id="@+id/descricao"
+        android:layout_below="@+id/temaSpinner"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/campoDescricao"
+        android:layout_below="@+id/disponibilidadeSpinner"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/disponibilidadeSpinner" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar"
+        android:id="@+id/cadastrarLivro"
+        android:onClick="cadastrarLivro"
+        android:layout_below="@+id/campoDescricao"
+        android:layout_alignEnd="@+id/campoNomeLivro" />
 
 
 
-    </RelativeLayout>
 
 </RelativeLayout>
