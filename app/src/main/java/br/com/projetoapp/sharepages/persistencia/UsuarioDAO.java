@@ -16,8 +16,6 @@ public class UsuarioDAO {
     public DatabaseHelper databaseHelper;
     private static UsuarioDAO instancia;
 
-    //SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
     public static UsuarioDAO getInstancia(Context context) {
         if(instancia == null){
             instancia = new UsuarioDAO();
@@ -27,7 +25,6 @@ public class UsuarioDAO {
     }
 
     public long inserir(Usuario usuario) throws SharepagesException{
-        long id = usuario.getId();
 
         try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
@@ -39,16 +36,8 @@ public class UsuarioDAO {
 
             Log.i("SCRIPT", "cadastradoooo " + usuario.getEmail());
 
-            if (id != 0) {
-                String _id = String.valueOf(usuario.getId());
-                String[] whereArgs = new String[]{_id};
-                return database.update(DatabaseHelper.TABLE_USUARIOS, values, "_id=?", whereArgs);
-            } else {
-                id = database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
-                return id;
-            }
+            return database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
         }
-
     }
 
     public Usuario consultar(String email, String senha) {
@@ -57,8 +46,6 @@ public class UsuarioDAO {
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.USUARIO_EMAIL + " = ? AND "
                 + DatabaseHelper.USUARIO_SENHA + " = ?";
-
-
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
                 new String[]{ email, senha }, null, null, null);
@@ -110,23 +97,17 @@ public class UsuarioDAO {
     }
 
     public long alterar(Usuario usuario) throws SharepagesException {
-        long id = usuario.getId();
 
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-
             ContentValues values = new ContentValues();
 
             values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
-            values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
             values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
 
-        if (id != 0) {
-                String _id = String.valueOf(usuario.getId());
-                String[] whereArgs = new String[]{_id};
-                return database.update(DatabaseHelper.TABLE_USUARIOS, values, "_id=?", whereArgs);
-        }else {
-            return id;
-        }
+            String _id = String.valueOf(usuario.getId());
+            String[] whereArgs = new String[]{_id};
+            return database.update(DatabaseHelper.TABLE_USUARIOS, values, "id=?", whereArgs);
     }
+    //public Usuario buscarPorId ()
 }
