@@ -56,12 +56,15 @@ public class UsuarioServices {
     }
 
     public void alterarUsuario(Usuario usuario) throws  SharepagesException{
-        long id;
         try {
-            id = dao.alterar(usuario);
+            dao.alterar(usuario);
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    public void alterarUsuarioLogado(Usuario usuario) throws SharepagesException{
+        alterarUsuario(usuario);
+
     }
 
 }
