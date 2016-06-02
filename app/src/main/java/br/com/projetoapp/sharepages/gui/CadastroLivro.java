@@ -29,7 +29,7 @@ public class CadastroLivro extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_livro);
 
-        cadastrarLivro = (Button) findViewById(R.id.cadastrarLivro);
+        //cadastrarLivro = (Button) findViewById(R.id.cadastrarLivro);
 
 
         //Preencher o spinner com temas
@@ -51,7 +51,7 @@ public class CadastroLivro extends Activity {
 
 
 
-        cadastrarLivro.setOnClickListener(new View.OnClickListener() {
+        /*cadastrarLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -59,7 +59,7 @@ public class CadastroLivro extends Activity {
                 Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
                 Tema tema = (Tema) temaSpinner.getSelectedItem();
             }
-        });
+        });*/
     }
 
     private void adcDisponibilidadesNoSpinner() throws Exception {

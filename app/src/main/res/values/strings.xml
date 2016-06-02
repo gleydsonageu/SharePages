@@ -25,5 +25,18 @@
     <string name="title_activity_cadastro_livro">CadastroLivro</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+    <string name="editarPerfil">Editar Perfil</string>
+    <string name="cadastrar_livro">Cadastrar Livro</string>
+    <string name="selecionar_foto">Selecionar Foto</string>
+    <string name="nome_do_livro">Nome do livro:</string>
+    <string name="autor">Autor:</string>
+    <string name="editora">Editora:</string>
+    <string name="n_de_paginas">Nº de Paginas:</string>
+    <string name="edicao">Edição:</string>
+    <string name="idioma">Idioma:</string>
+    <string name="descricao">Descrição:</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="disponibilidade">Disponibilidade:</string>
+    <string name="tema">Tema:</string>
 
 </resources>
