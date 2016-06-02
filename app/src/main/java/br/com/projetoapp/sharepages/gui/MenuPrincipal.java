@@ -1,29 +1,36 @@
 package br.com.projetoapp.sharepages.gui;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.view.*;
+
 import br.com.projetoapp.sharepages.R;
-import android.content.*;
 
 public class MenuPrincipal extends Activity implements View.OnClickListener{
 
-    private Button editarPerfil;
+    private Button botaoEditarPerfil;
     private Button cadastrarLivroMenu;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
-        editarPerfil = (Button) findViewById(R.id.editarPerfil);
-        cadastrarLivroMenu = (Button) findViewById(R.id.cadastrarLivroMenu);
+        botaoEditarPerfil = (Button) findViewById(R.id.botaoEditarPerfil);
 
-        editarPerfil.setOnClickListener(this);
-        cadastrarLivroMenu.setOnClickListener(this);
+        botaoEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuPrincipal.this, PerfilDeUsuario.class);
+                startActivity(intent);
+            }
+        });
+
     }
-
 
     @Override
     public void onClick(View v) {

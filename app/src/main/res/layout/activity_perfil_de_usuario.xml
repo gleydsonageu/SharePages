@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.projetoapp.sharepages.gui.PerfilDeUsuario"
+    android:orientation="vertical">
+
+    <!-- Campo de texto nome-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nome"/>
+    <requestFocus />
+
+    <EditText android:id="@+id/textoNomePerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"/>
+
+    <!-- Campo de texto email-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email"/>
+
+    <EditText android:id="@+id/textoEmailPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+
+    <!-- Campo de texto Senha-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/senha_atual"/>
+
+    <EditText android:id="@+id/textoSenhaAtual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nova_senha"/>
+
+    <EditText android:id="@+id/textoNovaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cidade:"
+        android:id="@+id/cidade" />
+
+    <Spinner
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cidadeSpinnerPerfil" />
+
+    <Button
+        android:id="@+id/botaoAtualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/botao_atualizar"
+        android:onClick="atualizar"/>
+    <Button
+        android:id="@+id/botaoDeletar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="@string/botao_deletar"
+        android:onClick="deletar"/>
+
+</LinearLayout>

@@ -16,6 +16,8 @@ public class UsuarioDAO {
     public DatabaseHelper databaseHelper;
     private static UsuarioDAO instancia;
 
+    //SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
     public static UsuarioDAO getInstancia(Context context) {
         if(instancia == null){
             instancia = new UsuarioDAO();
@@ -24,15 +26,10 @@ public class UsuarioDAO {
         return instancia;
     }
 
-
-    //SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
     public long inserir(Usuario usuario) throws SharepagesException{
         long id = usuario.getId();
 
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-
-        try{
+        try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
 
             values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
@@ -42,16 +39,14 @@ public class UsuarioDAO {
 
             Log.i("SCRIPT", "cadastradoooo " + usuario.getEmail());
 
-            if (id != 0){
+            if (id != 0) {
                 String _id = String.valueOf(usuario.getId());
                 String[] whereArgs = new String[]{_id};
-                return database.update(DatabaseHelper.TABLE_USUARIOS,values,"_id=?", whereArgs);
-            }else {
+                return database.update(DatabaseHelper.TABLE_USUARIOS, values, "_id=?", whereArgs);
+            } else {
                 id = database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
                 return id;
             }
-        } finally {
-            database.close();
         }
 
     }
@@ -60,7 +55,6 @@ public class UsuarioDAO {
         Usuario usuarioEncontrado = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
         String query = DatabaseHelper.USUARIO_EMAIL + " = '" + email + "' AND "
                 + DatabaseHelper.USUARIO_SENHA + " = '" + senha + "'";
 
@@ -89,7 +83,6 @@ public class UsuarioDAO {
         Usuario emailEncontrado = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
         Cursor cursor = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USUARIOS + " WHERE "
                 + DatabaseHelper.USUARIO_EMAIL + " = ? " ,new String[]{email});
 
@@ -106,18 +99,30 @@ public class UsuarioDAO {
             emailEncontrado.setNome(senhaUsuario);
             emailEncontrado.setIdCidade(idCidade);
 
-
             cursor.moveToNext();
-
         }
         database.close();
         return emailEncontrado;
     }
 
+    public long alterar(Usuario usuario) throws SharepagesException {
+        long id = usuario.getId();
 
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+
+            values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
+            values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
+            values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
+            values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
+
+        if (id != 0) {
+                String _id = String.valueOf(usuario.getId());
+                String[] whereArgs = new String[]{_id};
+                return database.update(DatabaseHelper.TABLE_USUARIOS, values, "_id=?", whereArgs);
+        }else {
+            return id;
+        }
+    }
 }
-
-//String query = DatabaseHelper.USUARIO_EMAIL + " = '" + email + "'";
-//Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, new String[]{email}, null,null,null);
-
-//DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, new String[]{email}, null,null,null

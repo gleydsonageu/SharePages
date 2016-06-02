@@ -39,4 +39,14 @@
     <string name="disponibilidade">Disponibilidade:</string>
     <string name="tema">Tema:</string>
 
+    <!-- tela menu-->
+    <string name="botao_editar_perfil">Editar Perfil</string>
+
+    <!-- tela de editar perfil -->
+    <string name="title_activity_perfil_de_usuario">PerfilDeUsuario</string>
+    <string name="senha_atual">Senha Atual</string>
+    <string name="nova_senha">Nova Senha</string>
+    <string name="botao_atualizar">Atualizar</string>
+    <string name="botao_deletar">Deletar</string>
+
 </resources>

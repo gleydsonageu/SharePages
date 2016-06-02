@@ -2,7 +2,6 @@ package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -73,8 +72,6 @@ public class CadastroLivro extends Activity {
 
         disponibilidadeSpinner.getSelectedItem();
 
-
-
     }
 
     private void adcTemasNoSpinner() throws Exception {
@@ -87,8 +84,6 @@ public class CadastroLivro extends Activity {
         temaSpinner.setAdapter(dataAdapter);
 
         temaSpinner.getSelectedItem();
-
-
 
     }
 }

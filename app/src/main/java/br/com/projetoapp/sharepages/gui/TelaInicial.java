@@ -1,9 +1,9 @@
 package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +22,6 @@ public class TelaInicial extends Activity {
     private EditText textoSenha;
     private Button botaoEntrar;
     private TextView botaoFazerCadastro;
-    private static Context context;
 
     UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
 
@@ -31,7 +30,6 @@ public class TelaInicial extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_inicial);
 
-        context = this;
         textoUsuario = (EditText) findViewById(R.id.textoUsuario);
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoEntrar = (Button) findViewById(R.id.botaoEntrar);
@@ -44,7 +42,7 @@ public class TelaInicial extends Activity {
                 if (validarCampos()) {
                     Toast.makeText(getApplication(), "Por favor preencha o usuario/senha", Toast.LENGTH_LONG).show();
                 } else {
-                    logarUsuario();
+                    loginUsuario();
                 }
             }
         });
@@ -63,14 +61,16 @@ public class TelaInicial extends Activity {
         return textoUsuario.getText().length() == 0 || textoSenha.getText().length() == 0;
     }
 
-    public void logarUsuario(){
+    public void loginUsuario(){
         Usuario usuario = new Usuario();
         usuario.setEmail(textoUsuario.getText().toString());
         usuario.setSenha(textoSenha.getText().toString());
         try {
-            Usuario usuarioEncontrado = usuarioServices.validarUsuario(usuario);
+            Usuario usuarioEncontrado = usuarioServices.validarLoginUsuario(usuario);
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
             Toast.makeText(getApplication(), "Seja bem vindo!", Toast.LENGTH_LONG).show();
+
+            Log.i("SCRIPT", "usuario logado é ");
 
             chamarMenuPrincipal();
 

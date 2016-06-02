@@ -22,9 +22,9 @@ import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class CadastroUsuario extends Activity implements View.OnClickListener {
 
-    EditText textoNome, textoEmail, textoSenha;
-    Button botaoCadastrar;
-    Spinner cidadeSpinner;
+    private EditText textoNome, textoEmail, textoSenha;
+    private Button botaoCadastrar;
+    private Spinner cidadeSpinner;
 
     private UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
 
@@ -39,15 +39,18 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
 
         //Preencher o spinner com as cidades
-
         try {
             adcCidadesNoSpinner();
         } catch (Exception e) {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
+            chamarBotaoCadastrar();
 
+    }
 
-        botaoCadastrar.setOnClickListener(new View.OnClickListener(){
+    public void chamarBotaoCadastrar() {
+
+        botaoCadastrar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -65,7 +68,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
                     Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!validarEmail(email)){
+                if (!validarEmail(email)) {
                     Toast.makeText(getApplication(), "Verifique o email", Toast.LENGTH_LONG).show();
                     return;
                 } else {
@@ -94,14 +97,13 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
 
         cidadeSpinner.getSelectedItem();
 
-
-
     }
 
     @Override
     public void onClick(View v) {
 
     }
+
     //validação de campos preenchidos
     public boolean validarCamposPreenchidos(Usuario usuario) {
         boolean validacao = true;
@@ -119,6 +121,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         }
         return validacao;
     }
+
     // validação do padrão do email
     public boolean validarEmail(String email){
         boolean emailValido = false;
@@ -133,6 +136,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         }
         return emailValido;
     }
+
     //CADASTRAR usuario no banco
     public void cadastrar(Usuario usuario) {
         try {
