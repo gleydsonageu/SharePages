@@ -8,11 +8,10 @@ import android.widget.Button;
 
 import br.com.projetoapp.sharepages.R;
 
-public class MenuPrincipal extends Activity implements View.OnClickListener{
+public class MenuPrincipal extends Activity{
 
     private Button botaoEditarPerfil;
-    private Button cadastrarLivroMenu;
-
+    private Button botaoCadastrarLivro;
 
 
     @Override
@@ -21,6 +20,9 @@ public class MenuPrincipal extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_menu_principal);
 
         botaoEditarPerfil = (Button) findViewById(R.id.botaoEditarPerfil);
+        botaoCadastrarLivro = (Button) findViewById(R.id.botaoCadastrarLivro);
+
+
 
         botaoEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,17 +32,14 @@ public class MenuPrincipal extends Activity implements View.OnClickListener{
             }
         });
 
-    }
+        botaoCadastrarLivro.setOnClickListener(new View.OnClickListener() {
 
-    @Override
-    public void onClick(View v) {
-
-        if(v == cadastrarLivroMenu){
-            Intent it = new Intent(this, CadastroLivro.class);
-            startActivity(it);
-        }
-
-
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(MenuPrincipal.this, CadastroLivro.class);
+                startActivity(it);
+            }
+        });
 
     }
 }

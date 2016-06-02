@@ -17,16 +17,18 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.CidadeArrayAdapter;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
-public class CadastroUsuario extends Activity implements View.OnClickListener {
+public class CadastroUsuario extends Activity {
 
     private EditText textoNome, textoEmail, textoSenha;
     private Button botaoCadastrar;
     private Spinner cidadeSpinner;
 
     private UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
+    private CidadeServices cidadeServices = CidadeServices.getInstancia(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,21 +88,22 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
         });
     }
 
-    private void adcCidadesNoSpinner() throws Exception {
+    private void adcCidadesNoSpinner() throws SharepagesException {
         cidadeSpinner = (Spinner) findViewById(R.id.cidadeSpinner);
 
-        ArrayList<Cidade> cidades = CidadeServices.getInstancia(this).pegarCidades();
+        ArrayList<Cidade> cidades = null;
+
+        try {
+            cidades = cidadeServices.pegarCidades();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         CidadeArrayAdapter dataAdapter = new CidadeArrayAdapter(this, android.R.layout.simple_spinner_item, cidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cidadeSpinner.setAdapter(dataAdapter);
 
         cidadeSpinner.getSelectedItem();
-
-    }
-
-    @Override
-    public void onClick(View v) {
 
     }
 

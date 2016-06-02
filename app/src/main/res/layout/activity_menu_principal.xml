@@ -18,7 +18,7 @@
         android:onClick="editarPefil"/>
 
     <Button
-        android:id="@+id/cadastrarLivroMenu"
+        android:id="@+id/botaoCadastrarLivro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cadastrar_livro"

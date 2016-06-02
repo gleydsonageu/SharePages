@@ -3,21 +3,24 @@ package br.com.projetoapp.sharepages.gui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 
 public class PerfilDeUsuario extends Activity {
 
-    EditText textoNomePerfil, textoEmailPerfil, textoSenhaAtual, textoNovaSenha;
-    Button botaoAtualizar, botaoDeletar;
-    Spinner cidadeSpinnerPerfil;
+    private EditText textoNomePerfil, textoEmailPerfil, textoSenhaAtual, textoNovaSenha;
+    private Button botaoAtualizar, botaoDeletar;
+    private Spinner cidadeSpinnerPerfil;
+
+    CidadeServices cidadeServices = CidadeServices.getInstancia(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +41,10 @@ public class PerfilDeUsuario extends Activity {
         if (intent != null) {
                 Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
 
-                Log.i("SCRIPT", "usaurio logado" + usuario);
-
                 textoNomePerfil.setText(usuario.getNome());
                 textoEmailPerfil.setText(usuario.getEmail());
                 textoNovaSenha.setText(usuario.getSenha());
-
-                //Log.i("SCRIPT", "usaurio logado-----------------" + usuario);
-
+                cidadeSpinnerPerfil.setAdapter((SpinnerAdapter) cidade);
         }
 
     }
