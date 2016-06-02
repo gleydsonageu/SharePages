@@ -9,7 +9,7 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 12;
+    public static final int VERSION = 13;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -82,6 +82,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             DISPONIBILIDADE_NOME + " TEXT NOT NULL)";
 
 
+    //Criando tabela TemaDAO
+    public static final String TABLE_TEMAS = "temas";
+
+    public static final String TEMAS_ID = "id";
+    public static final String TEMAS_NOME = "nome";
+    public static final String[] TEMA_COLUNAS = {TEMAS_ID, TEMAS_NOME};
+
+    private static final String DATABASE_TEMA = "CREATE TABLE " + TABLE_TEMAS + "(" +
+            TEMAS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            TABLE_TEMAS + " TEXT NOT NULL)";
+
+
 
 
 
@@ -93,12 +105,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_UNIDADELIVRO);
         database.execSQL(DATABASE_CIDADE);
         database.execSQL(DATABASE_DISPONIBILIDADE);
+        database.execSQL(DATABASE_TEMA);
 
 
         //Lista para inserir disponibilidades
         String nomeDisponibilidades[] = {"Doacao", "Troca"};
         for (String nomeDisponibilidade : nomeDisponibilidades) {
             inserirDisponibilidade(database, nomeDisponibilidade);
+        }
+
+        //Lista para inserir Temas
+        String nomeTemas[] = {"Romantico", "Ficção Cientifíca", "Terror", "Guerra"};
+        for(String nomeTema : nomeTemas) {
+            inserirTema(database, nomeTema);
         }
 
 
@@ -136,10 +155,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.insert(TABLE_CIDADES, null, values);
     }
 
-    public void inserirDisponibilidade (SQLiteDatabase database, String nomeDisponibilidade) {
+    public void inserirDisponibilidade(SQLiteDatabase database, String nomeDisponibilidade) {
         ContentValues values = new ContentValues();
         values.put(DISPONIBILIDADE_NOME, nomeDisponibilidade);
         database.insert(TABLE_DISPONIBILIDADES, null, values);
+    }
+
+    public void inserirTema(SQLiteDatabase database, String nomeTema) {
+        ContentValues values = new ContentValues();
+        values.put(TEMAS_NOME, nomeTema);
+        database.insert(TABLE_TEMAS, null, values);
     }
 
     @Override
@@ -147,6 +172,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USUARIOS);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_UNIDADELIVROS);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_CIDADES);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_DISPONIBILIDADES);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_TEMAS);
         onCreate(db);
     }
 }

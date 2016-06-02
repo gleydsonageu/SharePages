@@ -8,7 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import br.com.projetoapp.sharepages.dominio.Cidade;
+
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
 
 public class DisponibilidadeDAO {
@@ -35,10 +35,10 @@ public class DisponibilidadeDAO {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 Disponibilidade disponibilidade = new Disponibilidade();
-                int idCidade = cursor.getInt(0);
-                String nomeCidade = cursor.getString(1);
-                disponibilidade.setId(idCidade);
-                disponibilidade.setNome(nomeCidade);
+                int idDisponibilidade = cursor.getInt(0);
+                String nomeDisponibilidade = cursor.getString(1);
+                disponibilidade.setId(idDisponibilidade);
+                disponibilidade.setNome(nomeDisponibilidade);
                 listaDisponibilidade.add(disponibilidade);
                 cursor.moveToNext();
             }

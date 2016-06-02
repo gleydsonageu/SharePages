@@ -3,12 +3,12 @@ package br.com.projetoapp.sharepages.dominio;
 
 public class Tema {
     private int id;
-    private String tema;
+    private String nome;
 
-    public String getTema() {return tema;}
+    public String getNome() {return nome;}
 
-    public void setTema(String tipo) {
-        this.tema = tipo;
+    public void setNome(String tipo) {
+        this.nome = tipo;
     }
 
     public int getId() {
