@@ -33,8 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             USUARIO_SENHA + " TEXT NOT NULL, "+
             USUARIO_ID_CIDADE + " TEXT NOT NULL)";
 
-   // private static final String DATABASE_USUARIO_SEED = "INSERT INTO " + TABLE_USUARIOS
-       //     + " VALUES (NULL,'Joao','joao@gmail.com','123456', 1)";
+
 
     // Criando a tabela UnidadeLivroDAO
     public static final String TABLE_UNIDADELIVROS = "UnidadeLivros";
@@ -59,7 +58,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //Criando tabela CidadeDAO
-
     public static final String TABLE_CIDADES = "Cidades";
 
     public static final String CIDADE_ID = "id";
@@ -72,9 +70,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             CIDADE_NOME + " TEXT NOT NULL)";
 
 
+    //Criando tabela DisponibilidadeDAO
+    public static final String TABLE_DISPONIBILIDADES = "disponibilidades";
 
-    //private static final String DATABASE_CIDADE_SEED = "INSERT INTO " + TABLE_CIDADES
-      //      + " VALUES (NULL,'Jaboatão'), (NULL, 'Olinda'), (NULL, 'Recife')";
+    public static final String DISPONIBILIDADE_ID = "id";
+    public static final String DISPONIBILIDADE_NOME = "nome";
+    public static final String[] DISPONIBILIDADE_COLUNAS = {DISPONIBILIDADE_ID, DISPONIBILIDADE_NOME};
+
+    private static final String DATABASE_DISPONIBILIDADE = "CREATE TABLE " + TABLE_DISPONIBILIDADES + "(" +
+            DISPONIBILIDADE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+            DISPONIBILIDADE_NOME + " TEXT NOT NULL)";
+
+
+
+
+
 
 
     @Override
@@ -82,12 +92,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_USUARIO);
         database.execSQL(DATABASE_UNIDADELIVRO);
         database.execSQL(DATABASE_CIDADE);
+        database.execSQL(DATABASE_DISPONIBILIDADE);
 
+
+        //Lista para inserir disponibilidades
+        String nomeDisponibilidades[] = {"Doacao", "Troca"};
+        for (String nomeDisponibilidade : nomeDisponibilidades) {
+            inserirDisponibilidade(database, nomeDisponibilidade);
+        }
+
+
+
+        //Lista para inserir cidades
         String nomeCidades[] = { "Jaboatao", "Olinda", "Recife" };
         for(String nomeCidade : nomeCidades) {
             inserirCidade(database, nomeCidade);
         }
 
+        //criando usuario para inserir no banco
         Usuario usuario = new Usuario();
         usuario.setNome("Joao");
         usuario.setEmail("joao@gmail.com");
@@ -112,6 +134,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CIDADE_NOME, nomeCidade);
         database.insert(TABLE_CIDADES, null, values);
+    }
+
+    public void inserirDisponibilidade (SQLiteDatabase database, String nomeDisponibilidade) {
+        ContentValues values = new ContentValues();
+        values.put(DISPONIBILIDADE_NOME, nomeDisponibilidade);
+        database.insert(TABLE_DISPONIBILIDADES, null, values);
     }
 
     @Override

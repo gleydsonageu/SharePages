@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.infra.CidadeArrayAdapter;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
@@ -93,19 +94,7 @@ public class CadastroUsuario extends Activity implements View.OnClickListener {
 
         cidadeSpinner.getSelectedItem();
 
-      /*  cidadeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view,
-                                       int posicao, long id) {
-                // Here you get the current item (a User object) that is selected by its position
-                Cidade cidade = (Cidade) adapterView.getItemAtPosition(posicao);
-                // Here you can do the action you want to...
-                Toast.makeText(getApplication(), "ID: " + cidade.getId() + "\nName: " + cidade.getNome(), Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapter) {  }
-        });*/
 
     }
 

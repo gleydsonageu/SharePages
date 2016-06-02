@@ -1,4 +1,4 @@
-package br.com.projetoapp.sharepages.gui;
+package br.com.projetoapp.sharepages.infra;
 
 import android.content.Context;
 import android.graphics.Color;

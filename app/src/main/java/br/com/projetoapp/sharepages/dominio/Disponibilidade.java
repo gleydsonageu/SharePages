@@ -3,7 +3,7 @@ package br.com.projetoapp.sharepages.dominio;
 
 public class Disponibilidade {
     private int id;
-    private String disponibiliade;
+    private String nome;
 
     public int getId() {
         return id;
@@ -13,11 +13,11 @@ public class Disponibilidade {
         this.id = id;
     }
 
-    public String getDisponibiliade() {
-        return disponibiliade;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDisponibiliade(String disponibiliade) {
-        this.disponibiliade = disponibiliade;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
