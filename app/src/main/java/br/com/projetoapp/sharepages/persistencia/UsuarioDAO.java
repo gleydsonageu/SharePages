@@ -55,10 +55,13 @@ public class UsuarioDAO {
         Usuario usuarioEncontrado = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        String query = DatabaseHelper.USUARIO_EMAIL + " = '" + email + "' AND "
-                + DatabaseHelper.USUARIO_SENHA + " = '" + senha + "'";
+        String filtro = DatabaseHelper.USUARIO_EMAIL + " = ? AND "
+                + DatabaseHelper.USUARIO_SENHA + " = ?";
 
-        Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, query, null, null, null, null);
+
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
+                new String[]{ email, senha }, null, null, null);
         cursor.moveToFirst();
         if (!cursor.isAfterLast()) {
             int idUsuario = cursor.getInt(0);
@@ -83,8 +86,9 @@ public class UsuarioDAO {
         Usuario emailEncontrado = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USUARIOS + " WHERE "
-                + DatabaseHelper.USUARIO_EMAIL + " = ? " ,new String[]{email});
+        String filtro = DatabaseHelper.USUARIO_EMAIL + " = ?";
+        Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
+                new String[]{email}, null, null, null);
 
         if (cursor.moveToFirst()){
             int idUsuario = cursor.getInt(0);

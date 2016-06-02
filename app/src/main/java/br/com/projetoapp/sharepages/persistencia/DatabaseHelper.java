@@ -9,7 +9,7 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 13;
+    public static final int VERSION = 15;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -90,8 +90,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String[] TEMA_COLUNAS = {TEMAS_ID, TEMAS_NOME};
 
     private static final String DATABASE_TEMA = "CREATE TABLE " + TABLE_TEMAS + "(" +
-            TEMAS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            TABLE_TEMAS + " TEXT NOT NULL)";
+            TEMAS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+            TEMAS_NOME + " TEXT NOT NULL)";
 
 
 
