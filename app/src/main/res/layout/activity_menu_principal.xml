@@ -9,10 +9,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.projetoapp.sharepages.gui.MenuPrincipal">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bemvindo"
-        android:layout_centerHorizontal="true"/>
+        android:text="@string/cadastrar_livro"
+        android:id="@+id/cadastrarLivroMenu"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editarPerfil"
+        android:id="@+id/editarPerfil"
+        android:layout_above="@+id/cadastrarLivroMenu"
+        android:layout_marginBottom="40dp"
+        android:layout_alignEnd="@+id/cadastrarLivroMenu"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

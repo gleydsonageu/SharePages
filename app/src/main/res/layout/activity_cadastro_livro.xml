@@ -169,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cadastrar"
-        android:id="@+id/cadastrarLivro"
+        android:id="@+id/cadastrarLivroMenu"
         android:onClick="cadastrarLivro"
         android:layout_below="@+id/campoDescricao"
         android:layout_alignEnd="@+id/campoNomeLivro" />
