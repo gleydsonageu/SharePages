@@ -76,9 +76,12 @@ public class CadastroUsuario extends Activity {
                 } else {
                     try {
                         cadastrar(usuario);
+
                         Log.i("SCRIPT", "Chamando metodo para cadastrar nome " + nome);
                         Log.i("SCRIPT", "Chamando metodo para cadastrar email " + email);
                         Log.i("SCRIPT", "Chamando metodo para cadastrar senha " + senha);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar cidade"+ cidade);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -150,7 +153,5 @@ public class CadastroUsuario extends Activity {
         } catch (Exception e){
             Toast.makeText(getApplication(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
-
     }
-
 }

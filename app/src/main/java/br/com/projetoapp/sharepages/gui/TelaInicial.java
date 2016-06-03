@@ -1,9 +1,9 @@
 package br.com.projetoapp.sharepages.gui;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +12,7 @@ import android.widget.Toast;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Usuario;
-import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
-
 
 public class TelaInicial extends Activity {
 
@@ -65,15 +63,11 @@ public class TelaInicial extends Activity {
         Usuario usuario = new Usuario();
         usuario.setEmail(textoUsuario.getText().toString());
         usuario.setSenha(textoSenha.getText().toString());
+
         try {
-            Usuario usuarioEncontrado = usuarioServices.validarLoginUsuario(usuario);
-            SessaoUsuario.getInstancia().setUsuarioLogado(usuarioEncontrado);
+            usuarioServices.validarLoginUsuario(usuario);
             Toast.makeText(getApplication(), "Seja bem vindo!", Toast.LENGTH_LONG).show();
-
-            Log.i("SCRIPT", "usuario logado é ");
-
             chamarMenuPrincipal();
-
         } catch (Exception e) {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }

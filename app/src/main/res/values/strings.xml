@@ -44,7 +44,8 @@
 
     <!-- tela de editar perfil -->
     <string name="title_activity_perfil_de_usuario">PerfilDeUsuario</string>
-    <string name="senha_atual">Senha Atual</string>
+    <string name="nome_perfil">Nome*</string>
+    <string name="senha_atual">Senha Atual*</string>
     <string name="nova_senha">Nova Senha</string>
     <string name="botao_atualizar">Atualizar</string>
     <string name="botao_deletar">Deletar</string>

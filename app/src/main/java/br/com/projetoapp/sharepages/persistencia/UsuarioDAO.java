@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
@@ -33,8 +32,6 @@ public class UsuarioDAO {
             values.put(DatabaseHelper.USUARIO_EMAIL, usuario.getEmail());
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
             values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
-
-            Log.i("SCRIPT", "cadastradoooo " + usuario.getEmail());
 
             return database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
         }
@@ -99,15 +96,40 @@ public class UsuarioDAO {
     public long alterar(Usuario usuario) throws SharepagesException {
 
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues();
 
-            values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
-            values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
-            values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
+        values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
+        values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
+        values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
 
-            String _id = String.valueOf(usuario.getId());
-            String[] whereArgs = new String[]{_id};
-            return database.update(DatabaseHelper.TABLE_USUARIOS, values, "id=?", whereArgs);
+        String _id = String.valueOf(usuario.getId());
+        String[] whereArgs = new String[]{_id};
+        return database.update(DatabaseHelper.TABLE_USUARIOS, values, "id=?", whereArgs);
     }
-    //public Usuario buscarPorId ()
+
+    public Usuario buscarPorId (int id) {
+        Usuario usuarioEncontrado = null;
+
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        String filtro = DatabaseHelper.USUARIO_ID + "=?";
+        Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
+                new String[]{String.valueOf(id)}, null, null, null);
+
+        cursor.moveToFirst();
+
+        int idUsuario = cursor.getInt(0);
+        String nomeUsuario = cursor.getString(1);
+        String emailUsuario = cursor.getString(2);
+        String senhaUsuario = cursor.getString(3);
+        int idCidade = cursor.getInt(4);
+        usuarioEncontrado = new Usuario();
+        usuarioEncontrado.setId(idUsuario);
+        usuarioEncontrado.setNome(nomeUsuario);
+        usuarioEncontrado.setEmail(emailUsuario);
+        usuarioEncontrado.setSenha(senhaUsuario);
+        usuarioEncontrado.setIdCidade(idCidade);
+
+        database.close();
+        return usuarioEncontrado;
+    }
 }

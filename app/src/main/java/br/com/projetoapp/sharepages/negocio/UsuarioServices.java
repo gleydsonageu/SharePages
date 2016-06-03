@@ -45,7 +45,6 @@ public class UsuarioServices {
             emailEncontrado = dao.buscarEmail(usuario.getEmail());
 
         } catch (Exception e){
-            e.printStackTrace();
             throw new SharepagesException("Erro ao verificar email digitado");
         }
         if (emailEncontrado != null){
@@ -55,16 +54,22 @@ public class UsuarioServices {
         }
     }
 
-    public void alterarUsuario(Usuario usuario) throws  SharepagesException{
+    public void alterarUsuario(Usuario alteracaoUsuario) throws  SharepagesException{
         try {
-            dao.alterar(usuario);
+            dao.alterar(alteracaoUsuario);
         }catch (Exception e){
-            e.printStackTrace();
+
         }
     }
-    public void alterarUsuarioLogado(Usuario usuario) throws SharepagesException{
-        alterarUsuario(usuario);
+    public void alterarUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
+        alterarUsuario(alteracaoUsuario);
+        try {
+            dao.buscarPorId(alteracaoUsuario.getId());
+            Usuario usuarioSalvo = dao.buscarPorId(alteracaoUsuario.getId());
+            SessaoUsuario.getInstancia().setUsuarioLogado(usuarioSalvo);
+        }catch (Exception e){
 
+        }
     }
 
 }
