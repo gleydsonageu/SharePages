@@ -121,6 +121,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(" + UNIDADELIVRO_ID_USUARIO + ") REFERENCES " + TABLE_USUARIOS + "(" + USUARIO_ID + "))";
 
 
+
+    public void listaDisponibilidade(SQLiteDatabase database) {
+        String nomeDisponibilidades[] = {"Doacao", "Troca"};
+        for (String nomeDisponibilidade : nomeDisponibilidades) {
+            inserirDisponibilidade(database, nomeDisponibilidade);
+        }
+    }
+
+    public void listaTemas(SQLiteDatabase database){
+        String nomeTemas[] = {"Romantico", "Ficção Cientifíca", "Terror", "Guerra"};
+        for (String nomeTema : nomeTemas) {
+            inserirTema(database, nomeTema);
+        }
+    }
+
+    public void listaCidades(SQLiteDatabase database) {
+        String nomeCidades[] = {"Jaboatao", "Olinda", "Recife"};
+        for (String nomeCidade : nomeCidades) {
+            inserirCidade(database, nomeCidade);
+        }
+    }
+
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_USUARIO);
@@ -132,24 +154,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         //Lista para inserir disponibilidades
-        String nomeDisponibilidades[] = {"Doacao", "Troca"};
-        for (String nomeDisponibilidade : nomeDisponibilidades) {
-            inserirDisponibilidade(database, nomeDisponibilidade);
-        }
+        listaDisponibilidade(database);
 
         //Lista para inserir Temas
-        String nomeTemas[] = {"Romantico", "Ficção Cientifíca", "Terror", "Guerra"};
-        for(String nomeTema : nomeTemas) {
-            inserirTema(database, nomeTema);
-        }
+        listaTemas(database);
 
 
 
         //Lista para inserir cidades
-        String nomeCidades[] = { "Jaboatao", "Olinda", "Recife" };
-        for(String nomeCidade : nomeCidades) {
-            inserirCidade(database, nomeCidade);
-        }
+        listaCidades(database);
 
         //criando usuario para inserir no banco
         Usuario usuario = new Usuario();
@@ -159,6 +172,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         usuario.setIdCidade(1);
         inserirUsuario(database, usuario);
     }
+
 
     public void inserirUsuario(SQLiteDatabase database, Usuario usuario)  {
 
