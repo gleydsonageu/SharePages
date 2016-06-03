@@ -12,6 +12,7 @@ public class UnidadeLivro {
     private Foto foto;
     private Disponibilidade disponibilidade;
     private int idDisponibilidade;
+    private int idUsuario;
 
     public int getId() {
         return id;
@@ -91,5 +92,13 @@ public class UnidadeLivro {
 
     public void setLivro(Livro livro) {
         this.livro = livro;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

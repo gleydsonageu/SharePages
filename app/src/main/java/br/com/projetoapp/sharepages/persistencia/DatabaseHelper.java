@@ -9,12 +9,24 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 18;
+    public static final int VERSION = 19;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE, null, VERSION);
     }
+
+    //Criando tabela CidadeDAO
+    public static final String TABLE_CIDADES = "Cidades";
+
+    public static final String CIDADE_ID = "id";
+    public static final String CIDADE_NOME = "nome";
+    public static final String[] CIDADE_COLUNAS = {CIDADE_ID , CIDADE_NOME };
+
+
+    private static final String DATABASE_CIDADE = "CREATE TABLE " + TABLE_CIDADES + "(" +
+            CIDADE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            CIDADE_NOME + " TEXT NOT NULL)";
 
     //Criando a tabela usuarioDAO
     public static final String TABLE_USUARIOS = "usuarios";
@@ -31,7 +43,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             USUARIO_NOME +" TEXT NOT NULL, "+
             USUARIO_EMAIL + " TEXT NOT NULL UNIQUE, "+
             USUARIO_SENHA + " TEXT NOT NULL, "+
-            USUARIO_ID_CIDADE + " TEXT NOT NULL)";
+            USUARIO_ID_CIDADE + " TEXT NOT NULL, " +
+            "FOREIGN KEY(" + USUARIO_ID_CIDADE + ") REFERENCES " + TABLE_CIDADES + "(" + CIDADE_ID + "))";
+
+    //Criando tabela TemaDAO
+    public static final String TABLE_TEMAS = "temas";
+
+    public static final String TEMAS_ID = "id";
+    public static final String TEMAS_NOME = "nome";
+    public static final String[] TEMA_COLUNAS = {TEMAS_ID, TEMAS_NOME};
+
+    private static final String DATABASE_TEMA = "CREATE TABLE " + TABLE_TEMAS + "(" +
+            TEMAS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+            TEMAS_NOME + " TEXT NOT NULL)";
+
 
 
     //Criando a tabela LivroDAO
@@ -39,11 +64,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String LIVRO_ID = "id";
     public static final String LIVRO_NOME = "nome";
     public static final String LIVRO_AUTOR = "autor";
+    public static final String LIVRO_ID_TEMA = "idTema";
+
+    public static final String[] LIVRO_COLUNAS = {LIVRO_ID, LIVRO_NOME, LIVRO_AUTOR, LIVRO_ID_TEMA};
 
     private static final String DATABASE_LIVRO = "CREATE TABLE " + TABLE_LIVRO + "(" +
             LIVRO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
             LIVRO_NOME + " TEXT NOT NULL, "+
-            LIVRO_AUTOR + " TEXT NOT NULL)";
+            LIVRO_AUTOR + " TEXT NOT NULL, " +
+            LIVRO_ID_TEMA + " INTEGER NOT NULL, " +
+            "FOREIGN KEY(" + LIVRO_ID_TEMA + ") REFERENCES " + TABLE_TEMAS + "(" + TEMAS_ID + "))";
 
 
     //Criando tabela DisponibilidadeDAO
@@ -89,40 +119,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(" + UNIDADELIVRO_ID_LIVRO + ") REFERENCES " + TABLE_LIVRO + "(" + LIVRO_ID + "), " +
             "FOREIGN KEY(" + UNIDADELIVRO_ID_DISPONIBILIDADE + ") REFERENCES " + TABLE_DISPONIBILIDADES + "(" + DISPONIBILIDADE_ID + "), " +
             "FOREIGN KEY(" + UNIDADELIVRO_ID_USUARIO + ") REFERENCES " + TABLE_USUARIOS + "(" + USUARIO_ID + "))";
-
-
-
-    //Criando tabela CidadeDAO
-    public static final String TABLE_CIDADES = "Cidades";
-
-    public static final String CIDADE_ID = "id";
-    public static final String CIDADE_NOME = "nome";
-    public static final String[] CIDADE_COLUNAS = {CIDADE_ID , CIDADE_NOME };
-
-
-    private static final String DATABASE_CIDADE = "CREATE TABLE " + TABLE_CIDADES + "(" +
-            CIDADE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
-            CIDADE_NOME + " TEXT NOT NULL)";
-
-
-
-
-
-    //Criando tabela TemaDAO
-    public static final String TABLE_TEMAS = "temas";
-
-    public static final String TEMAS_ID = "id";
-    public static final String TEMAS_NOME = "nome";
-    public static final String[] TEMA_COLUNAS = {TEMAS_ID, TEMAS_NOME};
-
-    private static final String DATABASE_TEMA = "CREATE TABLE " + TABLE_TEMAS + "(" +
-            TEMAS_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
-            TEMAS_NOME + " TEXT NOT NULL)";
-
-
-
-
-
 
 
     @Override
@@ -204,4 +200,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LIVRO);
         onCreate(db);
     }
+
 }

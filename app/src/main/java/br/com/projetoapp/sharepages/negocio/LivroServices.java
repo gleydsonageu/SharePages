@@ -2,7 +2,10 @@ package br.com.projetoapp.sharepages.negocio;
 
 
 import android.content.Context;
+import android.util.Log;
 
+import br.com.projetoapp.sharepages.dominio.Livro;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.LivroDAO;
 
 public class LivroServices {
@@ -17,4 +20,26 @@ public class LivroServices {
         }
         return instancia;
     }
+
+    public Livro inserirLivroSeNaoExistir(Livro livro) throws SharepagesException {
+        Livro livroEncontrado;
+        try {
+            livroEncontrado = dao.buscarLivro(livro.getNome(), livro.getAutor());
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new SharepagesException("Erro");
+        }
+
+        if (livroEncontrado != null){
+            Log.i("SCRIPT","LIVROOOOO "+ livroEncontrado);
+            return livroEncontrado;
+
+        }else {
+           int idLivro = (int) dao.inserirLivro(livro);
+            livro.setId(idLivro);
+            return livro;
+        }
+    }
+
+
 }

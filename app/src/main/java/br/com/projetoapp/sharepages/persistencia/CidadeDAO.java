@@ -24,7 +24,6 @@ public class CidadeDAO {
         return instancia;
     }
 
-
     public ArrayList<Cidade> pegarCidades() throws Exception{
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();

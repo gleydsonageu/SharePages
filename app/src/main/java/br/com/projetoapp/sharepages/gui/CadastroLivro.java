@@ -2,7 +2,6 @@ package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,15 +16,23 @@ import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.DisponibilidadeArrayAdapter;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.infra.TemaArrayAdapter;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
+import br.com.projetoapp.sharepages.negocio.LivroServices;
+import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
 public class CadastroLivro extends Activity {
 
     EditText campoNomeLivro, campoAutor, campoEditora, camponDePaginas, campoEdicao, campoDescricao, campoIdioma;
     Button selecionarFoto, cadastrarLivro;
     Spinner disponibilidadeSpinner, temaSpinner;
+
+    LivroServices livroServices = LivroServices.getInstancia(this);
+    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +65,12 @@ public class CadastroLivro extends Activity {
         }
 
 
-
+        chamarBotaoCadastrarLivro();
 
 
     }
 
-    public void chamarBotaoCadastrar() {
+    public void chamarBotaoCadastrarLivro() {
 
         cadastrarLivro.setOnClickListener(new View.OnClickListener() {
 
@@ -72,25 +79,40 @@ public class CadastroLivro extends Activity {
                 String nome = campoNomeLivro.getText().toString();
                 String autor = campoAutor.getText().toString();
                 String editora = campoEditora.getText().toString();
-                int nDePaginas = Integer.parseInt(camponDePaginas.getText().toString());
-                String edicao = campoEdicao.getText().toString();
-                String descricao = campoDescricao.getText().toString();
-                String idioma = campoIdioma.getText().toString();
-                Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
-                Tema tema = (Tema) temaSpinner.getSelectedItem();
 
-                Livro livro = new Livro();
-                livro.setNome(nome);
-                livro.setAutor(autor);
-                livro.setTema(tema);
-                UnidadeLivro unidadeLivro = new UnidadeLivro();
-                unidadeLivro.setEditora(editora);
-                unidadeLivro.setNumeroPaginas(nDePaginas);
-                unidadeLivro.setEdicao(edicao);
-                unidadeLivro.setDescricao(descricao);
-                unidadeLivro.setIdioma(idioma);
-                unidadeLivro.setDisponibilidade(disponibilidade);
+                try {
+                    int nDePaginas = Integer.parseInt(camponDePaginas.getText().toString());
+                    String edicao = campoEdicao.getText().toString();
+                    String descricao = campoDescricao.getText().toString();
+                    String idioma = campoIdioma.getText().toString();
+                    Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
+                    Tema tema = (Tema) temaSpinner.getSelectedItem();
 
+                    Livro livro = new Livro();
+                    livro.setNome(nome);
+                    livro.setAutor(autor);
+                    livro.setTema(tema);
+                    livro.setIdTema(tema.getId());
+                    UnidadeLivro unidadeLivro = new UnidadeLivro();
+                    unidadeLivro.setEditora(editora);
+                    unidadeLivro.setNumeroPaginas(nDePaginas);
+                    unidadeLivro.setEdicao(edicao);
+                    unidadeLivro.setDescricao(descricao);
+                    unidadeLivro.setIdioma(idioma);
+                    unidadeLivro.setDisponibilidade(disponibilidade);
+                    unidadeLivro.setIdDisponibilidade(disponibilidade.getId());
+                    unidadeLivro.setIdUsuario(SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+
+                    try {
+                        livro = livroServices.inserirLivroSeNaoExistir(livro);
+                        unidadeLivro.setIdLivro(livro.getId());
+                        unidadeLivroService.inserirUnidadeLivro(unidadeLivro);
+                    } catch (SharepagesException e) {
+                        e.printStackTrace();
+                    }
+                }catch (NumberFormatException e){
+                    Toast.makeText(getApplication(),"insira numeros de paginas",Toast.LENGTH_LONG).show();
+                }
 
 
 

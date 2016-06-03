@@ -32,6 +32,9 @@ public class UnidadeLivroDAO {
             values.put(DatabaseHelper.UNIDADELIVRO_EDICAO, unidadeLivro.getEdicao());
             values.put(DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS, unidadeLivro.getNumeroPaginas());
             values.put(DatabaseHelper.UNIDADELIVRO_EDITORA, unidadeLivro.getEditora());
+            values.put(DatabaseHelper.UNIDADELIVRO_ID_LIVRO, unidadeLivro.getIdLivro());
+            values.put(DatabaseHelper.UNIDADELIVRO_ID_USUARIO, unidadeLivro.getIdUsuario());
+            values.put(DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE, unidadeLivro.getIdDisponibilidade());
 
 
             Log.i("SCRIPT", " UnidadeLivro cadastrado " + unidadeLivro.getEditora());
