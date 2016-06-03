@@ -8,8 +8,10 @@ public class UnidadeLivro {
     private int numeroPaginas;
     private String editora;
     private Livro livro;
+    private int idLivro;
     private Foto foto;
     private Disponibilidade disponibilidade;
+    private int idDisponibilidade;
 
     public int getId() {
         return id;
@@ -59,4 +61,35 @@ public class UnidadeLivro {
         this.editora = editora;
     }
 
+    public int getIdDisponibilidade() {
+        return idDisponibilidade;
+    }
+
+    public void setIdDisponibilidade(int idDisponibilidade) {
+        this.idDisponibilidade = idDisponibilidade;
+    }
+
+    public Disponibilidade getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(Disponibilidade disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
+
+    public int getIdLivro() {
+        return idLivro;
+    }
+
+    public void setIdLivro(int idLivro) {
+        this.idLivro = idLivro;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
 }
