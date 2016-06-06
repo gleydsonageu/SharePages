@@ -8,6 +8,15 @@ public class Livro {
     private Tema tema;
     private int idTema;
 
+    public Livro(String nome, String autor, Tema tema, int idTema) {
+        this.nome = nome;
+        this.autor = autor;
+        this.tema = tema;
+        this.idTema = idTema;
+    }
+
+    public Livro(){}
+
     public int getId() {
         return id;
     }

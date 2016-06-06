@@ -143,6 +143,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void criarUsuarioDefault (SQLiteDatabase database) {
+        Usuario usuario = new Usuario();
+        usuario.setNome("Joao");
+        usuario.setEmail("joao@gmail.com");
+        usuario.setSenha("123456");
+        usuario.setIdCidade(1);
+        inserirUsuario(database, usuario);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_USUARIO);
@@ -152,27 +161,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_TEMA);
         database.execSQL(DATABASE_LIVRO);
 
-
         //Lista para inserir disponibilidades
         listaDisponibilidade(database);
 
         //Lista para inserir Temas
         listaTemas(database);
 
-
-
         //Lista para inserir cidades
         listaCidades(database);
 
         //criando usuario para inserir no banco
-        Usuario usuario = new Usuario();
-        usuario.setNome("Joao");
-        usuario.setEmail("joao@gmail.com");
-        usuario.setSenha("123456");
-        usuario.setIdCidade(1);
-        inserirUsuario(database, usuario);
-    }
+        criarUsuarioDefault(database);
 
+    }
 
     public void inserirUsuario(SQLiteDatabase database, Usuario usuario)  {
 

@@ -14,6 +14,17 @@ public class UnidadeLivro {
     private int idDisponibilidade;
     private int idUsuario;
 
+    public UnidadeLivro(String editora, int nDePaginas, String edicao, String descricao, String idioma, Disponibilidade disponibilidade, int idDisponibilidade, int idUsuario) {
+        this.editora = editora;
+        this.numeroPaginas = nDePaginas;
+        this.edicao = edicao;
+        this.descricao = descricao;
+        this.idioma = idioma;
+        this.disponibilidade = disponibilidade;
+        this.idDisponibilidade = idDisponibilidade;
+        this.idUsuario = idUsuario;
+    }
+
     public int getId() {
         return id;
     }

@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:ems="10"
+        android:ems="5"
         android:id="@+id/campoNdePaginas"
         android:layout_alignTop="@+id/nPaginas"
         android:layout_alignStart="@+id/campoNomeLivro" />
@@ -96,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/campoEdicao"
+        android:ems="8"
         android:layout_below="@+id/campoNdePaginas"
         android:layout_alignStart="@+id/campoEditora"
         android:layout_alignEnd="@+id/campoNomeLivro" />

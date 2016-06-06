@@ -25,7 +25,7 @@ public class LivroDAO {
 
     public long inserirLivro(Livro livro) throws SharepagesException {
 
-        try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
 
             values.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
@@ -35,8 +35,10 @@ public class LivroDAO {
 
             Log.i("SCRIPT", " livro nome " + livro.getNome());
 
-            return database.insert(DatabaseHelper.TABLE_LIVRO, null, values);
-        }
+
+            long retorno = database.insert(DatabaseHelper.TABLE_LIVRO, null, values);
+            database.close();
+            return retorno;
     }
 
     public Livro buscarLivro(String nome, String autor){

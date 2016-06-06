@@ -42,10 +42,12 @@ public class TemaDAO {
             }
             Log.d("AQUI", listaTemas.toString());
 
+            database.close();
             return listaTemas;
         } catch (Exception e) {
             throw e;
         }
+
     }
 
 }

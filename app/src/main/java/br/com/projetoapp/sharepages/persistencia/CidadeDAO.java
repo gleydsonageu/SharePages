@@ -43,6 +43,7 @@ public class CidadeDAO {
                 }
             Log.d("AQUI", listaCidades.toString());
 
+            database.close();
             return listaCidades;
         } catch (Exception e) {
             throw e;

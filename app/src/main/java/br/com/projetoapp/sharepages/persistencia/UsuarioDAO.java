@@ -16,12 +16,18 @@ public class UsuarioDAO {
     private static UsuarioDAO instancia;
 
     public static UsuarioDAO getInstancia(Context context) {
-        if(instancia == null){
             instancia = new UsuarioDAO();
             instancia.databaseHelper = new DatabaseHelper(context);
-        }
         return instancia;
     }
+
+//    public static UsuarioDAO getInstancia(Context context) {
+//        if(instancia == null){
+//            instancia = new UsuarioDAO();
+//            instancia.databaseHelper = new DatabaseHelper(context);
+//        }
+//        return instancia;
+//    }
 
     public long inserir(Usuario usuario) throws SharepagesException{
 
@@ -33,7 +39,9 @@ public class UsuarioDAO {
             values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
             values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
 
-            return database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
+            long retorno = database.insert(DatabaseHelper.TABLE_USUARIOS, null, values);
+            database.close();
+            return retorno;
         }
     }
 
@@ -104,7 +112,9 @@ public class UsuarioDAO {
 
         String _id = String.valueOf(usuario.getId());
         String[] whereArgs = new String[]{_id};
-        return database.update(DatabaseHelper.TABLE_USUARIOS, values, "id=?", whereArgs);
+        long retorno = database.update(DatabaseHelper.TABLE_USUARIOS, values, "id=?", whereArgs);
+        database.close();
+        return retorno;
     }
 
     public Usuario buscarPorId (int id) {

@@ -15,12 +15,19 @@ public class UnidadeLivroDAO {
     private static UnidadeLivroDAO instancia;
 
     public static UnidadeLivroDAO getInstancia(Context context) {
-        if(instancia == null){
             instancia = new UnidadeLivroDAO();
             instancia.databaseHelper = new DatabaseHelper(context);
-        }
+
         return instancia;
     }
+
+//    public static UnidadeLivroDAO getInstancia(Context context) {
+//        if(instancia == null){
+//            instancia = new UnidadeLivroDAO();
+//            instancia.databaseHelper = new DatabaseHelper(context);
+//        }
+//        return instancia;
+//    }
 
     public long inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
 
@@ -39,7 +46,9 @@ public class UnidadeLivroDAO {
 
             Log.i("SCRIPT", " UnidadeLivro cadastrado " + unidadeLivro.getEditora());
 
-            return database.insert(DatabaseHelper.TABLE_UNIDADELIVROS, null, values);
+            long retorno = database.insert(DatabaseHelper.TABLE_UNIDADELIVROS, null, values);
+            database.close();
+            return retorno;
         }
     }
 }

@@ -44,6 +44,7 @@ public class DisponibilidadeDAO {
             }
             Log.d("AQUI", listaDisponibilidade.toString());
 
+            database.close();
             return listaDisponibilidade;
         } catch (Exception e) {
             throw e;

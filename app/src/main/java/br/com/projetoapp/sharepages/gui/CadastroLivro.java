@@ -88,33 +88,15 @@ public class CadastroLivro extends Activity {
                     Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
                     Tema tema = (Tema) temaSpinner.getSelectedItem();
 
-                    Livro livro = new Livro();
-                    livro.setNome(nome);
-                    livro.setAutor(autor);
-                    livro.setTema(tema);
-                    livro.setIdTema(tema.getId());
-                    UnidadeLivro unidadeLivro = new UnidadeLivro();
-                    unidadeLivro.setEditora(editora);
-                    unidadeLivro.setNumeroPaginas(nDePaginas);
-                    unidadeLivro.setEdicao(edicao);
-                    unidadeLivro.setDescricao(descricao);
-                    unidadeLivro.setIdioma(idioma);
-                    unidadeLivro.setDisponibilidade(disponibilidade);
-                    unidadeLivro.setIdDisponibilidade(disponibilidade.getId());
-                    unidadeLivro.setIdUsuario(SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+                    Livro livro = new Livro(nome, autor, tema, tema.getId());
 
-                    try {
-                        livro = livroServices.inserirLivroSeNaoExistir(livro);
-                        unidadeLivro.setIdLivro(livro.getId());
-                        unidadeLivroService.inserirUnidadeLivro(unidadeLivro);
-                    } catch (SharepagesException e) {
-                        e.printStackTrace();
-                    }
+                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao,idioma, disponibilidade, disponibilidade.getId(),SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+
+                    cadastrarLivro(livro, unidadeLivro);
+
                 }catch (NumberFormatException e){
                     Toast.makeText(getApplication(),"insira numeros de paginas",Toast.LENGTH_LONG).show();
                 }
-
-
 
             }
 
@@ -146,5 +128,18 @@ public class CadastroLivro extends Activity {
 
         temaSpinner.getSelectedItem();
 
+    }
+
+    public void cadastrarLivro(Livro livro, UnidadeLivro unidadeLivro){
+
+        try {
+            livro = livroServices.inserirLivroSeNaoExistir(livro);
+            unidadeLivro.setIdLivro(livro.getId());
+            unidadeLivroService.inserirUnidadeLivro(unidadeLivro);
+            Toast.makeText(getApplication(),"Livro cadastrado",Toast.LENGTH_LONG).show();
+            finish();
+        } catch (SharepagesException e) {
+
+        }
     }
 }

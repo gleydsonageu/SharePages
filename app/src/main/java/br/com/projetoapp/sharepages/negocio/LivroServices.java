@@ -37,6 +37,7 @@ public class LivroServices {
         }else {
            int idLivro = (int) dao.inserirLivro(livro);
             livro.setId(idLivro);
+
             return livro;
         }
     }

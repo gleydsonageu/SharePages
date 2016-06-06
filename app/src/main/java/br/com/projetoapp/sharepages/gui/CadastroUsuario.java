@@ -63,7 +63,7 @@ public class CadastroUsuario extends Activity {
 
                 Usuario usuario = new Usuario(nome, email, senha, cidade.getId());
 
-                // /* chamada dos metodos validarCamposPreenchidos, validarEMail e cadastrar.
+                // /* chamada dos metodos validarCamposPreenchidos, validarEMail e cadastrarLivro.
                 // Gerar um carregamento de tela na confirmação da conta.
                 // */
                 if (!validarCamposPreenchidos(usuario)) {
@@ -75,12 +75,12 @@ public class CadastroUsuario extends Activity {
                     return;
                 } else {
                     try {
-                        cadastrar(usuario);
+                        cadastrarUsuario(usuario);
 
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar nome " + nome);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar email " + email);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar senha " + senha);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar cidade"+ cidade);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro nome " + nome);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro email " + email);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro senha " + senha);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro cidade"+ cidade);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -144,11 +144,11 @@ public class CadastroUsuario extends Activity {
     }
 
     //CADASTRAR usuario no banco
-    public void cadastrar(Usuario usuario) {
+    public void cadastrarUsuario(Usuario usuario) throws SharepagesException {
         try {
             usuarioServices.inserirUsuario(usuario);
             Toast.makeText(getApplication(),"Usuário cadastrado",Toast.LENGTH_LONG).show();
-            Log.i("SCRIPT", "Chamando metodo cadastrar ");
+            Log.i("SCRIPT", "Chamando metodo cadastrarUsuario ");
             finish();
         } catch (Exception e){
             Toast.makeText(getApplication(),e.getMessage(),Toast.LENGTH_LONG).show();
