@@ -26,22 +26,32 @@ public class DisponibilidadeDAO {
     }
 
     public ArrayList<Disponibilidade> pegarDisponibilidades() throws Exception{
-
+        Disponibilidade disponibilidade = null;
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
             ArrayList<Disponibilidade> listaDisponibilidade = new ArrayList<Disponibilidade>();
 
             Cursor cursor = database.query(DatabaseHelper.TABLE_DISPONIBILIDADES, DatabaseHelper.DISPONIBILIDADE_COLUNAS, null, null, null, null, null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                Disponibilidade disponibilidade = new Disponibilidade();
-                int idDisponibilidade = cursor.getInt(0);
-                String nomeDisponibilidade = cursor.getString(1);
-                disponibilidade.setId(idDisponibilidade);
-                disponibilidade.setNome(nomeDisponibilidade);
-                listaDisponibilidade.add(disponibilidade);
-                cursor.moveToNext();
+
+            if(cursor.getCount()> 0){
+                cursor.moveToFirst();
+
+                while (!cursor.isAfterLast()){
+                    disponibilidade = objetoDisponibilidade(cursor);
+                    listaDisponibilidade.add(disponibilidade);
+                        cursor.moveToNext();
+                }
             }
+//            while (!cursor.isAfterLast()) {
+//                Disponibilidade disponibilidade = new Disponibilidade();
+//                int idDisponibilidade = cursor.getInt(0);
+//                String nomeDisponibilidade = cursor.getString(1);
+//                disponibilidade.setId(idDisponibilidade);
+//                disponibilidade.setNome(nomeDisponibilidade);
+//                listaDisponibilidade.add(disponibilidade);
+//                cursor.moveToNext();
+//            }
+
             Log.d("AQUI", listaDisponibilidade.toString());
 
             database.close();
@@ -49,5 +59,15 @@ public class DisponibilidadeDAO {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public Disponibilidade objetoDisponibilidade(Cursor cursor){
+        Disponibilidade disponibilidade = null;
+
+        disponibilidade = new Disponibilidade();
+        disponibilidade.setId(cursor.getInt(0));
+        disponibilidade.setNome(cursor.getString(1));
+
+        return disponibilidade;
     }
 }

@@ -15,19 +15,19 @@ public class UsuarioDAO {
     public DatabaseHelper databaseHelper;
     private static UsuarioDAO instancia;
 
-    public static UsuarioDAO getInstancia(Context context) {
-            instancia = new UsuarioDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-        return instancia;
-    }
-
 //    public static UsuarioDAO getInstancia(Context context) {
-//        if(instancia == null){
 //            instancia = new UsuarioDAO();
 //            instancia.databaseHelper = new DatabaseHelper(context);
-//        }
 //        return instancia;
 //    }
+
+    public static UsuarioDAO getInstancia(Context context) {
+        if(instancia == null){
+            instancia = new UsuarioDAO();
+            instancia.databaseHelper = new DatabaseHelper(context);
+        }
+        return instancia;
+    }
 
     public long inserir(Usuario usuario) throws SharepagesException{
 
@@ -54,22 +54,29 @@ public class UsuarioDAO {
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
                 new String[]{ email, senha }, null, null, null);
-        cursor.moveToFirst();
-        if (!cursor.isAfterLast()) {
-            int idUsuario = cursor.getInt(0);
-            String nomeUsuario = cursor.getString(1);
-            String emailUsuario = cursor.getString(2);
-            String senhaUsuario = cursor.getString(3);
-            int idCidade = cursor.getInt(4);
-            usuarioEncontrado = new Usuario();
-            usuarioEncontrado.setId(idUsuario);
-            usuarioEncontrado.setNome(nomeUsuario);
-            usuarioEncontrado.setEmail(emailUsuario);
-            usuarioEncontrado.setSenha(senhaUsuario);
-            usuarioEncontrado.setIdCidade(idCidade);
 
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()){
+            usuarioEncontrado = objetoUsuario(cursor);
             cursor.moveToNext();
         }
+
+//        cursor.moveToFirst();
+//        if (!cursor.isAfterLast()) {
+//            int idUsuario = cursor.getInt(0);
+//            String nomeUsuario = cursor.getString(1);
+//            String emailUsuario = cursor.getString(2);
+//            String senhaUsuario = cursor.getString(3);
+//            int idCidade = cursor.getInt(4);
+//            usuarioEncontrado = new Usuario();
+//            usuarioEncontrado.setId(idUsuario);
+//            usuarioEncontrado.setNome(nomeUsuario);
+//            usuarioEncontrado.setEmail(emailUsuario);
+//            usuarioEncontrado.setSenha(senhaUsuario);
+//            usuarioEncontrado.setIdCidade(idCidade);
+//
+//            cursor.moveToNext();
+//        }
         database.close();
         return usuarioEncontrado;
     }
@@ -82,21 +89,26 @@ public class UsuarioDAO {
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
                 new String[]{email}, null, null, null);
 
-        if (cursor.moveToFirst()){
-            int idUsuario = cursor.getInt(0);
-            String nomeUsuario = cursor.getString(1);
-            String emailUsuario = cursor.getString(2);
-            String senhaUsuario = cursor.getString(3);
-            int idCidade = cursor.getInt(4);
-            emailEncontrado = new Usuario();
-            emailEncontrado.setId(idUsuario);
-            emailEncontrado.setNome(nomeUsuario);
-            emailEncontrado.setNome(emailUsuario);
-            emailEncontrado.setNome(senhaUsuario);
-            emailEncontrado.setIdCidade(idCidade);
-
+        if(cursor.moveToFirst()){
+            emailEncontrado = objetoUsuario(cursor);
             cursor.moveToNext();
         }
+
+//        if (cursor.moveToFirst()){
+//            int idUsuario = cursor.getInt(0);
+//            String nomeUsuario = cursor.getString(1);
+//            String emailUsuario = cursor.getString(2);
+//            String senhaUsuario = cursor.getString(3);
+//            int idCidade = cursor.getInt(4);
+//            emailEncontrado = new Usuario();
+//            emailEncontrado.setId(idUsuario);
+//            emailEncontrado.setNome(nomeUsuario);
+//            emailEncontrado.setNome(emailUsuario);
+//            emailEncontrado.setNome(senhaUsuario);
+//            emailEncontrado.setIdCidade(idCidade);
+//
+//            cursor.moveToNext();
+//        }
         database.close();
         return emailEncontrado;
     }
@@ -127,19 +139,34 @@ public class UsuarioDAO {
 
         cursor.moveToFirst();
 
-        int idUsuario = cursor.getInt(0);
-        String nomeUsuario = cursor.getString(1);
-        String emailUsuario = cursor.getString(2);
-        String senhaUsuario = cursor.getString(3);
-        int idCidade = cursor.getInt(4);
-        usuarioEncontrado = new Usuario();
-        usuarioEncontrado.setId(idUsuario);
-        usuarioEncontrado.setNome(nomeUsuario);
-        usuarioEncontrado.setEmail(emailUsuario);
-        usuarioEncontrado.setSenha(senhaUsuario);
-        usuarioEncontrado.setIdCidade(idCidade);
+        usuarioEncontrado = objetoUsuario(cursor);
+
+//        int idUsuario = cursor.getInt(0);
+//        String nomeUsuario = cursor.getString(1);
+//        String emailUsuario = cursor.getString(2);
+//        String senhaUsuario = cursor.getString(3);
+//        int idCidade = cursor.getInt(4);
+//        usuarioEncontrado = new Usuario();
+//        usuarioEncontrado.setId(idUsuario);
+//        usuarioEncontrado.setNome(nomeUsuario);
+//        usuarioEncontrado.setEmail(emailUsuario);
+//        usuarioEncontrado.setSenha(senhaUsuario);
+//        usuarioEncontrado.setIdCidade(idCidade);
 
         database.close();
         return usuarioEncontrado;
+    }
+
+    public Usuario objetoUsuario(Cursor cursor){
+        Usuario usuario = null;
+
+            usuario = new Usuario();
+            usuario.setId(cursor.getInt(0));
+            usuario.setNome(cursor.getString(1));
+            usuario.setEmail(cursor.getString(2));
+            usuario.setSenha(cursor.getString(3));
+            usuario.setIdCidade(cursor.getInt(4));
+
+        return usuario;
     }
 }

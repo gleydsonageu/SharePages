@@ -77,10 +77,10 @@ public class CadastroUsuario extends Activity {
                     try {
                         cadastrarUsuario(usuario);
 
-                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro nome " + nome);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro email " + email);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro senha " + senha);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrarLivro cidade"+ cidade);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar nome " + nome);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar email " + email);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar senha " + senha);
+                        Log.i("SCRIPT", "Chamando metodo para cadastrar cidade"+ cidade);
 
                     } catch (Exception e) {
                         e.printStackTrace();

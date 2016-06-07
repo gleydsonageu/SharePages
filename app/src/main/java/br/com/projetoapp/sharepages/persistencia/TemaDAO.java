@@ -24,22 +24,33 @@ public class TemaDAO {
     }
 
     public ArrayList<Tema> pegarTemas() throws Exception{
-
+        Tema tema = null;
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
             ArrayList<Tema> listaTemas = new ArrayList<Tema>();
 
             Cursor cursor = database.query(DatabaseHelper.TABLE_TEMAS, DatabaseHelper.TEMA_COLUNAS, null, null, null, null, null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                Tema tema = new Tema();
-                int idTema = cursor.getInt(0);
-                String nomeTema = cursor.getString(1);
-                tema.setId(idTema);
-                tema.setNome(nomeTema);
-                listaTemas.add(tema);
-                cursor.moveToNext();
+
+            if(cursor.getCount()> 0){
+                cursor.moveToFirst();
+
+                while (!cursor.isAfterLast()){
+                    tema = objetoTema(cursor);
+                    listaTemas.add(tema);
+                    cursor.moveToNext();
+                }
+
             }
+//            while (!cursor.isAfterLast()) {
+//                Tema tema = new Tema();
+//                int idTema = cursor.getInt(0);
+//                String nomeTema = cursor.getString(1);
+//                tema.setId(idTema);
+//                tema.setNome(nomeTema);
+//                listaTemas.add(tema);
+//                cursor.moveToNext();
+//            }
+
             Log.d("AQUI", listaTemas.toString());
 
             database.close();
@@ -48,6 +59,15 @@ public class TemaDAO {
             throw e;
         }
 
+    }
+    public Tema objetoTema(Cursor cursor){
+        Tema tema = null;
+
+        tema = new Tema();
+        tema.setId(cursor.getInt(0));
+        tema.setNome(cursor.getString(1));
+
+        return tema;
     }
 
 }

@@ -25,22 +25,33 @@ public class CidadeDAO {
     }
 
     public ArrayList<Cidade> pegarCidades() throws Exception{
+        Cidade cidade = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
             ArrayList<Cidade> listaCidades = new ArrayList<Cidade>();
 
                 Cursor cursor = database.query(DatabaseHelper.TABLE_CIDADES, DatabaseHelper.CIDADE_COLUNAS, null, null, null, null, null);
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    Cidade cidade = new Cidade();
-                    int idCidade = cursor.getInt(0);
-                    String nomeCidade = cursor.getString(1);
-                    cidade.setId(idCidade);
-                    cidade.setNome(nomeCidade);
-                    listaCidades.add(cidade);
-                    cursor.moveToNext();
+
+                if(cursor.getCount()> 0){
+                    cursor.moveToFirst();
+
+                    while (!cursor.isAfterLast()){
+                        cidade = objetoCidade(cursor);
+                        listaCidades.add(cidade);
+
+                        cursor.moveToNext();
+                    }
                 }
+//            while (!cursor.isAfterLast()) {
+//                    Cidade cidade = new Cidade();
+//                    int idCidade = cursor.getInt(0);
+//                    String nomeCidade = cursor.getString(1);
+//                    cidade.setId(idCidade);
+//                    cidade.setNome(nomeCidade);
+//                    listaCidades.add(cidade);
+//                    cursor.moveToNext();
+//                }
             Log.d("AQUI", listaCidades.toString());
 
             database.close();
@@ -48,6 +59,16 @@ public class CidadeDAO {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public Cidade objetoCidade(Cursor cursor){
+        Cidade cidade = null;
+
+        cidade = new Cidade();
+        cidade.setId(cursor.getInt(0));
+        cidade.setNome(cursor.getString(1));
+
+        return cidade;
     }
 
 }

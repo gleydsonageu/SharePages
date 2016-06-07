@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
@@ -49,20 +52,55 @@ public class LivroDAO {
         Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO, DatabaseHelper.LIVRO_COLUNAS, filtro,
                 new String[]{nome, autor}, null, null, null);
 
-        if (cursor.moveToFirst()){
-            int idLivro = cursor.getInt(0);
-            String nomeLivro = cursor.getString(1);
-            String nomeAutor = cursor.getString(2);
-            livroEncontrado = new Livro();
-            livroEncontrado.setId(idLivro);
-            livroEncontrado.setNome(nomeLivro);
-            livroEncontrado.setAutor(nomeAutor);
-
-            cursor.moveToNext();
-        }
+          if(cursor.getCount()> 0){
+              while (cursor.moveToNext()){
+                  livroEncontrado = objetoLivro(cursor);
+              }
+          }
+//        if (cursor.moveToFirst()){
+//            int idLivro = cursor.getInt(0);
+//            String nomeLivro = cursor.getString(1);
+//            String nomeAutor = cursor.getString(2);
+//            livroEncontrado = new Livro();
+//            livroEncontrado.setId(idLivro);
+//            livroEncontrado.setNome(nomeLivro);
+//            livroEncontrado.setAutor(nomeAutor);
+//
+//            cursor.moveToNext();
+//        }
         database.close();
         return livroEncontrado;
     }
 
+    public List<Livro> livroList(String nome){
+        Livro livro = null;
 
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        List<Livro> listaLivros = new ArrayList<Livro>();
+        String filtro = DatabaseHelper.LIVRO_NOME + "= ? ";
+        Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO,DatabaseHelper.LIVRO_COLUNAS, filtro,
+                new String[]{"%"+nome+"%"}, null, null, null);
+
+        if(cursor.getCount()> 0){
+            while (cursor.moveToNext()){
+                livro = objetoLivro(cursor);
+                listaLivros.add(livro);
+            }
+        }
+        database.close();
+        return listaLivros;
+    }
+
+    public Livro objetoLivro(Cursor cursor){
+        Livro livro = null;
+
+        if(cursor.getCount()> 0){
+            livro = new Livro();
+            livro.setId(cursor.getInt(0));
+            livro.setNome(cursor.getString(1));
+            livro.setAutor(cursor.getString(2));
+        }
+        return livro;
+    }
 }
