@@ -133,7 +133,7 @@ public class UsuarioDAO {
         Usuario usuarioEncontrado = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        String filtro = DatabaseHelper.USUARIO_ID + "=?";
+        String filtro = DatabaseHelper.USUARIO_ID + " =? ";
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
                 new String[]{String.valueOf(id)}, null, null, null);
 

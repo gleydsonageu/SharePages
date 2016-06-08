@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.projetoapp.sharepages" >
+    package="br.com.projetoapp.sharepages">
 
     <application
         android:allowBackup="true"
@@ -12,23 +12,22 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".gui.CadastroUsuario"/>
-            <!--android:label="@string/title_activity_cadastro_usuario"/>-->
-        <activity
-            android:name=".gui.MenuPrincipal"/>
-            <!--android:label="@string/title_activity_menu_principal"/>-->
+        <activity android:name=".gui.CadastroUsuario" />
+        <!-- android:label="@string/title_activity_cadastro_usuario"/> -->
+        <activity android:name=".gui.MenuPrincipal" />
+        <!-- android:label="@string/title_activity_menu_principal"/> -->
 
         <activity
             android:name=".gui.PerfilDeUsuario"
-            android:label="@string/title_activity_perfil_de_usuario" >
-        </activity>
+            android:label="@string/title_activity_perfil_de_usuario"></activity>
+        <activity android:name=".gui.CadastroLivro"></activity>
         <activity
-            android:name=".gui.CadastroLivro">
-        </activity>
+            android:name=".gui.Pesquisa"
+            android:label="@string/title_activity_pesquisa"></activity>
     </application>
 
 </manifest>

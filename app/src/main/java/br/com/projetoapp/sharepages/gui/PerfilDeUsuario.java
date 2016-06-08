@@ -76,6 +76,7 @@ public class PerfilDeUsuario extends Activity {
 
     public boolean validarCamposPreenchidos(Usuario usuario) {
         boolean validacao = true;
+
         Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
         if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
@@ -122,6 +123,7 @@ public class PerfilDeUsuario extends Activity {
             textoEmailPerfil.setText(usuario.getEmail());
             textoEmailPerfil.setEnabled(false);
             try {
+
                 adcCidadesNoSpinner();
                 selectCidadeSpinnerItemById(usuario.getIdCidade());
             } catch (SharepagesException e) {

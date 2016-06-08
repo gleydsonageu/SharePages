@@ -78,6 +78,7 @@ public class LivroDAO {
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         List<Livro> listaLivros = new ArrayList<Livro>();
+
         String filtro = DatabaseHelper.LIVRO_NOME + "= ? ";
         Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO,DatabaseHelper.LIVRO_COLUNAS, filtro,
                 new String[]{"%"+nome+"%"}, null, null, null);
