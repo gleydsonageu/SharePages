@@ -1,7 +1,6 @@
 package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -69,7 +68,6 @@ public class PerfilDeUsuario extends Activity {
         for (int position = 0; position < adapter.getCount(); position++) {
             if(adapter.getItem(position).getId() == id) {
                 cidadeSpinner.setSelection(position);
-                return;
             }
         }
     }
@@ -78,6 +76,7 @@ public class PerfilDeUsuario extends Activity {
         boolean validacao = true;
 
         Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
+
         if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
             textoNomePerfil.setError(getString(R.string.campo_obrigatorio));
@@ -97,6 +96,7 @@ public class PerfilDeUsuario extends Activity {
                 Cidade cidade = (Cidade) cidadeSpinner.getSelectedItem();
 
                 Usuario usuario = new Usuario(nome, null, senha, cidade.getId());
+
                 usuario.setId(SessaoUsuario.getInstancia().getUsuarioLogado().getId());
 
                 if(!validarCamposPreenchidos(usuario)){
@@ -104,8 +104,9 @@ public class PerfilDeUsuario extends Activity {
                     return;
                 }else {
                     try{
-                        usuarioServices.alterarUsuarioLogado(usuario);
-
+                        usuarioServices.alterarPerfilUsuarioLogado(usuario);
+                        Toast.makeText(getApplication(), "Perfil atualizado", Toast.LENGTH_LONG).show();
+                        finish();
                     } catch (SharepagesException e) {
                         Toast.makeText(getApplication(),"erro ao alterar usuario", Toast.LENGTH_LONG).show();
                     }
@@ -115,21 +116,17 @@ public class PerfilDeUsuario extends Activity {
     }
 
     public void carregarPerfil(){
-        Intent intent = getIntent();
-        if (intent != null) {
-            Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
+        Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
 
             textoNomePerfil.setText(usuario.getNome());
             textoEmailPerfil.setText(usuario.getEmail());
             textoEmailPerfil.setEnabled(false);
             try {
-
                 adcCidadesNoSpinner();
                 selectCidadeSpinnerItemById(usuario.getIdCidade());
             } catch (SharepagesException e) {
-                e.printStackTrace();
+
             }
-        }
     }
 
 }

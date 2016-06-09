@@ -25,7 +25,7 @@
     <string name="title_activity_menu_principal">MenuPrincipal</string>
     <string name="title_activity_cadastro_livro">CadastroLivro</string>
     <string name="editarPerfil">Editar Perfil</string>
-    <string name="cadastrar_livro">Cadastrar Livro</string>
+
     <string name="selecionar_foto">Selecionar Foto</string>
     <string name="nome_do_livro">Nome do livro:</string>
     <string name="autor">Autor:</string>
@@ -40,6 +40,8 @@
 
     <!-- tela menu-->
     <string name="botao_editar_perfil">Editar Perfil</string>
+    <string name="botao_minha_prateleira">Minha Prateleira</string>
+    <string name="cadastrar_livro">Cadastrar Livro</string>
 
     <!-- tela de editar perfil -->
     <string name="title_activity_perfil_de_usuario">PerfilDeUsuario</string>
@@ -52,5 +54,8 @@
     <!--tela pesquisa-->
     <string name="title_activity_pesquisa">Pesquisa</string>
     <string name="botao_pesquisa">Pesquisa</string>
+    <string name="title_activity_perfil_de_livro">PerfilDeLivro</string>
+
+    <string name="item_lista_livro">itemLivro</string>
 
 </resources>

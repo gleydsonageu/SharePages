@@ -72,7 +72,7 @@ public class LivroDAO {
         return livroEncontrado;
     }
 
-    public List<Livro> livroList(String nome){
+    public List<Livro> pequisarLivroPorNome(String nome){
         Livro livro = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -91,6 +91,30 @@ public class LivroDAO {
         }
         database.close();
         return listaLivros;
+    }
+
+    public List<Livro> buscarLivro (String nome){
+        Livro livro = null;
+
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        List<Livro> listLivro = new ArrayList<Livro>();
+
+        String filtro = DatabaseHelper.LIVRO_NOME + " = ? ";
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO,DatabaseHelper.LIVRO_COLUNAS, filtro,
+                new String[]{nome}, null, null, null);
+        
+        Log.i("SCRIPT","buscandoLIVRO ------------------- teste");
+        if(cursor.getCount() > 0){
+            while (cursor.moveToNext()){
+                livro = objetoLivro(cursor);
+                listLivro.add(livro);
+            }
+            Log.i("SCRIPT","buscando livro"+ listLivro);
+        }
+        database.close();
+        return listLivro;
     }
 
     public Livro objetoLivro(Cursor cursor){

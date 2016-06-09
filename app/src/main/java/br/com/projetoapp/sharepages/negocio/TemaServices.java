@@ -26,7 +26,6 @@ public class TemaServices {
         try {
             return daoTema.pegarTemas();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception("Houve um erro ao listar temas, tente novamente");
         }
     }

@@ -8,8 +8,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class DisponibilidadeDAO {
 
@@ -25,7 +25,7 @@ public class DisponibilidadeDAO {
 
     }
 
-    public ArrayList<Disponibilidade> pegarDisponibilidades() throws Exception{
+    public ArrayList<Disponibilidade> pegarDisponibilidades() throws SharepagesException{
         Disponibilidade disponibilidade = null;
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
@@ -57,7 +57,7 @@ public class DisponibilidadeDAO {
             database.close();
             return listaDisponibilidade;
         } catch (Exception e) {
-            throw e;
+            throw new SharepagesException("Houve um erro ao listar disponibilidade");
         }
     }
 

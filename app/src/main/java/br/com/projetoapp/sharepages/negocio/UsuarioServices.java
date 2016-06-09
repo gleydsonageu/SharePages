@@ -28,7 +28,6 @@ public class UsuarioServices {
             sessaoUsuario.setUsuarioLogado(usuarioEncontrado);
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new SharepagesException("Houve um erro, tente novamente");
         }
 
@@ -58,17 +57,17 @@ public class UsuarioServices {
         try {
             dao.alterar(alteracaoUsuario);
         }catch (Exception e){
-
+            throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }
-    public void alterarUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
+    public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
         alterarUsuario(alteracaoUsuario);
         try {
             dao.buscarPorId(alteracaoUsuario.getId());
             Usuario usuarioSalvo = dao.buscarPorId(alteracaoUsuario.getId());
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioSalvo);
         }catch (Exception e){
-
+            throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }
 

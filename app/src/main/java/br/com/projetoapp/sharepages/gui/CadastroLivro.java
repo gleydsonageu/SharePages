@@ -25,9 +25,9 @@ import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
 public class CadastroLivro extends Activity {
 
-    EditText campoNomeLivro, campoAutor, campoEditora, camponDePaginas, campoEdicao, campoDescricao, campoIdioma;
-    Button selecionarFoto, cadastrarLivro;
-    Spinner disponibilidadeSpinner, temaSpinner;
+    private EditText campoNomeLivro, campoAutor, campoEditora, camponDePaginas, campoEdicao, campoDescricao, campoIdioma;
+    private Button selecionarFoto, cadastrarLivro;
+    private Spinner disponibilidadeSpinner, temaSpinner;
 
     LivroServices livroServices = LivroServices.getInstancia(this);
     UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
@@ -63,9 +63,7 @@ public class CadastroLivro extends Activity {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
-
         chamarBotaoCadastrarLivro();
-
 
     }
 
@@ -132,7 +130,7 @@ public class CadastroLivro extends Activity {
     public void cadastrarLivro(Livro livro, UnidadeLivro unidadeLivro){
 
         try {
-            livro = livroServices.inserirLivroSeNaoExistir(livro);
+            livro = livroServices.inserirLivro(livro);
             unidadeLivro.setIdLivro(livro.getId());
             unidadeLivroService.inserirUnidadeLivro(unidadeLivro);
             Toast.makeText(getApplication(),"Livro cadastrado",Toast.LENGTH_LONG).show();

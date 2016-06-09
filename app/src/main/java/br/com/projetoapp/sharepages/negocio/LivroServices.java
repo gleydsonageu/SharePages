@@ -2,7 +2,8 @@ package br.com.projetoapp.sharepages.negocio;
 
 
 import android.content.Context;
-import android.util.Log;
+
+import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
@@ -21,8 +22,9 @@ public class LivroServices {
         return instancia;
     }
 
-    public Livro inserirLivroSeNaoExistir(Livro livro) throws SharepagesException {
+    public Livro inserirLivro(Livro livro) throws SharepagesException {
         Livro livroEncontrado;
+
         try {
             livroEncontrado = dao.buscarLivro(livro.getNome(), livro.getAutor());
         } catch (Exception e){
@@ -31,7 +33,7 @@ public class LivroServices {
         }
 
         if (livroEncontrado != null){
-            Log.i("SCRIPT","LIVROOOOO "+ livroEncontrado);
+
             return livroEncontrado;
 
         }else {
@@ -41,6 +43,13 @@ public class LivroServices {
             return livro;
         }
     }
+
+    public List<Livro> consultarLivro(String nome){
+
+        return dao.buscarLivro(nome);
+
+    }
+
 
 
 }

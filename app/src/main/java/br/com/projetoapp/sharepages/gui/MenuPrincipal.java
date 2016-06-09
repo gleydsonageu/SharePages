@@ -12,6 +12,7 @@ public class MenuPrincipal extends Activity{
 
     private Button botaoEditarPerfil;
     private Button botaoCadastrarLivro;
+    private Button botaoMinhaPrateleira;
 
 
     @Override
@@ -21,14 +22,13 @@ public class MenuPrincipal extends Activity{
 
         botaoEditarPerfil = (Button) findViewById(R.id.botaoEditarPerfil);
         botaoCadastrarLivro = (Button) findViewById(R.id.botaoCadastrarLivro);
-
-
+        botaoMinhaPrateleira = (Button) findViewById(R.id.botaoMinhaPrateleira);
 
         botaoEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuPrincipal.this, PerfilDeUsuario.class);
-                startActivity(intent);
+                Intent itPerfilDeUsuario = new Intent(MenuPrincipal.this, PerfilDeUsuario.class);
+                startActivity(itPerfilDeUsuario);
             }
         });
 
@@ -36,10 +36,19 @@ public class MenuPrincipal extends Activity{
 
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(MenuPrincipal.this, CadastroLivro.class);
-                startActivity(it);
+                Intent itCadastroLivro = new Intent(MenuPrincipal.this, CadastroLivro.class);
+                startActivity(itCadastroLivro);
             }
         });
+
+        botaoMinhaPrateleira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent itMinhaPratileira = new Intent(MenuPrincipal.this, MinhaPrateleira.class);
+                startActivity(itMinhaPratileira);
+            }
+        });
+
 
     }
 }

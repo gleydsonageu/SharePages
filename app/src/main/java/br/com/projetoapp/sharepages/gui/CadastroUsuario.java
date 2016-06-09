@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
-import br.com.projetoapp.sharepages.dominio.Modelo;
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
@@ -76,15 +75,10 @@ public class CadastroUsuario extends Activity {
                     return;
                 } else {
                     try {
+                        validarCamposPreenchidos(usuario);
                         cadastrarUsuario(usuario);
-
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar nome " + nome);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar email " + email);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar senha " + senha);
-                        Log.i("SCRIPT", "Chamando metodo para cadastrar cidade"+ cidade);
-
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Toast.makeText(getApplication(),"Não cadastrou",Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -100,7 +94,7 @@ public class CadastroUsuario extends Activity {
         try {
             cidades = cidadeServices.pegarCidades();
         } catch (Exception e) {
-            e.printStackTrace();
+            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         ModeloArrayAdapter<Cidade> dataAdapter = new ModeloArrayAdapter<Cidade>(this, android.R.layout.simple_spinner_item, cidades);
@@ -114,6 +108,7 @@ public class CadastroUsuario extends Activity {
     //validação de campos preenchidos
     public boolean validarCamposPreenchidos(Usuario usuario) {
         boolean validacao = true;
+
         Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
         if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
@@ -122,9 +117,12 @@ public class CadastroUsuario extends Activity {
         if (usuario.getEmail() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
             textoEmail.setError(getString(R.string.campo_obrigatorio));
+
         }
         if (usuario.getSenha() == null || usuario.getSenha().equalsIgnoreCase("")) {
+            validacao = false;
             textoSenha.setError(getString(R.string.campo_obrigatorio));
+
         }
         return validacao;
     }

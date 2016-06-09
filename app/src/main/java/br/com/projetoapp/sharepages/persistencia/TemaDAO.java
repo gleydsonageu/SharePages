@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Tema;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class TemaDAO {
 
@@ -23,7 +24,7 @@ public class TemaDAO {
         return instancia;
     }
 
-    public ArrayList<Tema> pegarTemas() throws Exception{
+    public ArrayList<Tema> pegarTemas() throws SharepagesException{
         Tema tema = null;
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
@@ -56,7 +57,7 @@ public class TemaDAO {
             database.close();
             return listaTemas;
         } catch (Exception e) {
-            throw e;
+            throw new SharepagesException("Houve um erro ao listar temas");
         }
 
     }

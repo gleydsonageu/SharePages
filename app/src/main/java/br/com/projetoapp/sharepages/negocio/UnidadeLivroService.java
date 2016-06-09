@@ -20,12 +20,12 @@ public class UnidadeLivroService {
         return instancia;
     }
 
-    public UnidadeLivro inserirUnidadeLivro(UnidadeLivro unidadeLivro){
+    public UnidadeLivro inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException{
 
         try {
             dao.inserirUnidadeLivro(unidadeLivro);
         } catch (SharepagesException e) {
-            e.printStackTrace();
+            throw new SharepagesException("Houve um erro inserir livro");
         }
         return unidadeLivro;
 

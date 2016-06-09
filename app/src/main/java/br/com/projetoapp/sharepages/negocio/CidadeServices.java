@@ -26,7 +26,6 @@ public class CidadeServices {
         try {
            return daoCidade.pegarCidades();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new Exception("Houve um erro ao listar cidades, tente novamente");
         }
     }
