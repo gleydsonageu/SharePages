@@ -1,14 +1,22 @@
 package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
@@ -63,6 +71,7 @@ public class CadastroLivro extends Activity {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
+        chamarBotaoSelecionarFoto();
         chamarBotaoCadastrarLivro();
 
     }
@@ -87,7 +96,14 @@ public class CadastroLivro extends Activity {
 
                     Livro livro = new Livro(nome, autor, tema, tema.getId());
 
-                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao,idioma, disponibilidade, disponibilidade.getId(),SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao,idioma,
+                            disponibilidade, disponibilidade.getId(),SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+
+                    if (!validarCamposPreenchidosLivro(livro, unidadeLivro)) {
+                        Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
 
                     cadastrarLivro(livro, unidadeLivro);
 
@@ -95,10 +111,35 @@ public class CadastroLivro extends Activity {
                     Toast.makeText(getApplication(),"insira numeros de paginas",Toast.LENGTH_LONG).show();
                 }
 
+                Intent intent = new Intent(CadastroLivro.this, MenuPrincipal.class);
+                startActivity(intent);
+
             }
 
         });
     }
+
+    //validação de campos preenchidos
+    public boolean validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro) {
+        boolean validacao = true;
+        Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
+        if (livro.getNome() == null) {
+            validacao = false;
+            campoNomeLivro.setError(getString(R.string.campo_obrigatorio));
+        }
+        if (livro.getAutor() == null) {
+            validacao = false;
+            campoAutor.setError(getString(R.string.campo_obrigatorio));
+        }
+        if (unidadeLivro.getEdicao() == null) {
+            campoEdicao.setError(getString(R.string.campo_obrigatorio));
+        }
+        if (unidadeLivro.getEditora() == null) {
+            campoEditora.setError(getString(R.string.campo_obrigatorio));
+        }
+        return validacao;
+    }
+
 
 
     private void adcDisponibilidadesNoSpinner() throws Exception {
@@ -138,5 +179,29 @@ public class CadastroLivro extends Activity {
         } catch (SharepagesException e) {
 
         }
+    }
+
+    public void chamarBotaoSelecionarFoto() {
+
+        selecionarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nomeFoto = DateFormat.format(
+                        "yyyy-MM-dd_hhmmss", new Date()).toString();
+
+               File caminhoFoto = new File(
+                        Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES),
+                        nomeFoto);
+
+                Intent it = new Intent(
+                        MediaStore.ACTION_IMAGE_CAPTURE);
+                it.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(caminhoFoto));
+                startActivityForResult(it, 0);
+            }
+
+           });
+
     }
 }
