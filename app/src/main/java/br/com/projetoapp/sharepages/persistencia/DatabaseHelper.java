@@ -76,6 +76,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(" + LIVRO_ID_TEMA + ") REFERENCES " + TABLE_TEMAS + "(" + TEMAS_ID + "))";
 
 
+    //Criando tabela FotoDAO
+    public static final String TABLE_FOTOS = "fotos";
+
+
     //Criando tabela DisponibilidadeDAO
     public static final String TABLE_DISPONIBILIDADES = "disponibilidades";
 

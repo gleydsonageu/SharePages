@@ -15,9 +15,8 @@ import br.com.projetoapp.sharepages.dominio.Disponibilidade;
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
-import br.com.projetoapp.sharepages.infra.DisponibilidadeArrayAdapter;
+import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
-import br.com.projetoapp.sharepages.infra.TemaArrayAdapter;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
 import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
@@ -109,7 +108,7 @@ public class CadastroLivro extends Activity {
 
         ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia(this).pegarDisponibilidades();
 
-        DisponibilidadeArrayAdapter dataAdapter = new DisponibilidadeArrayAdapter(this, android.R.layout.simple_spinner_item, disponibilidades);
+        ModeloArrayAdapter<Disponibilidade> dataAdapter = new ModeloArrayAdapter<Disponibilidade>(this, android.R.layout.simple_spinner_item, disponibilidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         disponibilidadeSpinner.setAdapter(dataAdapter);
 
@@ -122,7 +121,7 @@ public class CadastroLivro extends Activity {
 
         ArrayList<Tema> temas = TemaServices.getInstancia(this).pegarCidades();
 
-        TemaArrayAdapter dataAdapter = new TemaArrayAdapter(this, android.R.layout.simple_spinner_item, temas);
+        ModeloArrayAdapter<Tema> dataAdapter = new ModeloArrayAdapter<Tema>(this, android.R.layout.simple_spinner_item, temas);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         temaSpinner.setAdapter(dataAdapter);
 

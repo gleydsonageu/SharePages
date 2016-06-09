@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
-import br.com.projetoapp.sharepages.infra.CidadeArrayAdapter;
+import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
@@ -58,14 +58,14 @@ public class PerfilDeUsuario extends Activity {
             e.printStackTrace();
         }
 
-        CidadeArrayAdapter dataAdapter = new CidadeArrayAdapter(this, android.R.layout.simple_spinner_item, cidades);
+        ModeloArrayAdapter<Cidade> dataAdapter = new ModeloArrayAdapter<Cidade>(this, android.R.layout.simple_spinner_item, cidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cidadeSpinner.setAdapter(dataAdapter);
     }
 
     public void selectCidadeSpinnerItemById(int id) {
 
-        CidadeArrayAdapter adapter = (CidadeArrayAdapter) cidadeSpinner.getAdapter();
+        ModeloArrayAdapter<Cidade> adapter = (ModeloArrayAdapter<Cidade>) cidadeSpinner.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
             if(adapter.getItem(position).getId() == id) {
                 cidadeSpinner.setSelection(position);

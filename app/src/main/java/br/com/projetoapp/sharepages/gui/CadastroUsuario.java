@@ -15,8 +15,9 @@ import java.util.regex.Pattern;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
+import br.com.projetoapp.sharepages.dominio.Modelo;
 import br.com.projetoapp.sharepages.dominio.Usuario;
-import br.com.projetoapp.sharepages.infra.CidadeArrayAdapter;
+import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
@@ -102,7 +103,7 @@ public class CadastroUsuario extends Activity {
             e.printStackTrace();
         }
 
-        CidadeArrayAdapter dataAdapter = new CidadeArrayAdapter(this, android.R.layout.simple_spinner_item, cidades);
+        ModeloArrayAdapter<Cidade> dataAdapter = new ModeloArrayAdapter<Cidade>(this, android.R.layout.simple_spinner_item, cidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cidadeSpinner.setAdapter(dataAdapter);
 

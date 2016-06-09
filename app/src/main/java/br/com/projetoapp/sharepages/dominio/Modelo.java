@@ -1,8 +1,9 @@
 package br.com.projetoapp.sharepages.dominio;
 
-public class Foto {
+
+public class Modelo {
     private int id;
-    private String caminho;
+    private String nome;
 
     public int getId() {
         return id;
@@ -12,11 +13,11 @@ public class Foto {
         this.id = id;
     }
 
-    public String getCaminho() {
-        return caminho;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCaminho(String caminho) {
-        this.caminho = caminho;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

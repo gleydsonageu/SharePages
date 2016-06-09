@@ -1,5 +1,6 @@
 package br.com.projetoapp.sharepages.infra;
 
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -9,15 +10,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.projetoapp.sharepages.dominio.Cidade;
+import br.com.projetoapp.sharepages.dominio.Modelo;
 
-
-public class CidadeArrayAdapter extends ArrayAdapter<Cidade> {
+public class ModeloArrayAdapter<T extends Modelo> extends ArrayAdapter<T> {
 
     private Context context;
-    private ArrayList<Cidade> values;
+    private ArrayList<T> values;
 
-    public CidadeArrayAdapter(Context context, int textViewResourceId, ArrayList<Cidade> values) {
+    public ModeloArrayAdapter(Context context, int textViewResourceId, ArrayList<T> values) {
         super(context, textViewResourceId, values);
         this.context = context;
         this.values = values;
@@ -27,7 +27,7 @@ public class CidadeArrayAdapter extends ArrayAdapter<Cidade> {
         return values.size();
     }
 
-    public Cidade getItem(int posicao){
+    public T getItem(int posicao){
         return values.get(posicao);
     }
 
