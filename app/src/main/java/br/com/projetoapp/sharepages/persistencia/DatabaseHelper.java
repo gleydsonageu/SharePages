@@ -9,7 +9,7 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 19;
+    public static final int VERSION = 20;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -127,21 +127,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public void listaDisponibilidade(SQLiteDatabase database) {
-        String nomeDisponibilidades[] = {"Doacao", "Troca"};
+        String nomeDisponibilidades[] = {"Doação", "Troca"};
         for (String nomeDisponibilidade : nomeDisponibilidades) {
             inserirDisponibilidade(database, nomeDisponibilidade);
         }
     }
 
     public void listaTemas(SQLiteDatabase database){
-        String nomeTemas[] = {"Romantico", "Ficção Cientifíca", "Terror", "Guerra"};
+        String nomeTemas[] = {"Romântico", "Ficção Cientifíca", "Terror", "Guerra"};
         for (String nomeTema : nomeTemas) {
             inserirTema(database, nomeTema);
         }
     }
 
     public void listaCidades(SQLiteDatabase database) {
-        String nomeCidades[] = {"Jaboatao", "Olinda", "Recife"};
+        String nomeCidades[] = {"Jaboatão", "Olinda", "Recife"};
         for (String nomeCidade : nomeCidades) {
             inserirCidade(database, nomeCidade);
         }
