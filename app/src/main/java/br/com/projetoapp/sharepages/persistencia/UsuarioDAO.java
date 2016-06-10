@@ -79,7 +79,9 @@ public class UsuarioDAO {
         ContentValues values = new ContentValues();
 
         values.put(DatabaseHelper.USUARIO_NOME, usuario.getNome());
-        values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
+        if (usuario.getSenha() != null && !usuario.getSenha().equals("")) {
+            values.put(DatabaseHelper.USUARIO_SENHA, usuario.getSenha());
+        }
         values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
 
         String _id = String.valueOf(usuario.getId());

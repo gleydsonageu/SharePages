@@ -295,14 +295,11 @@ public class CadastroLivro extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == CODE_CAMERA_TIRAR) {
-            if (resultCode == Activity.RESULT_OK) {
-                // dao.salva(localDaFoto);
-
-            } else {
+            if (resultCode != Activity.RESULT_OK) {
                 caminhoFoto = null;
                 Toast.makeText(getApplication(), "Erro ao tirar foto", Toast.LENGTH_LONG).show();
 
-            }
+            } 
 
         }else if (requestCode == CODE_CAMERA_SELECIONAR) {
             if (resultCode == Activity.RESULT_OK) {

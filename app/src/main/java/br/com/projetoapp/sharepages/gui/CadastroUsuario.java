@@ -65,11 +65,11 @@ public class CadastroUsuario extends Activity {
 
                 if (!validarCamposPreenchidos(usuario)) {
                     Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
-                    return;
+
                 }
                 if (!validarEmail(email)) {
                     Toast.makeText(getApplication(), "Verifique o email", Toast.LENGTH_LONG).show();
-                    return;
+
                 } else {
                     try {
                         validarCamposPreenchidos(usuario);

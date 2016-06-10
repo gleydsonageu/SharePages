@@ -37,7 +37,7 @@ public class TelaInicial extends Activity {
             @Override
             public void onClick(View v) {
 
-                if (validarCampos()) {
+                if (!validarCampos()) {
                     Toast.makeText(getApplication(), "Por favor preencha o usuario/senha", Toast.LENGTH_LONG).show();
                 } else {
                     loginUsuario();
@@ -56,7 +56,7 @@ public class TelaInicial extends Activity {
     }
 
     public boolean validarCampos(){
-        return textoUsuario.getText().length() == 0 || textoSenha.getText().length() == 0;
+        return textoUsuario.getText().length() > 0 && textoSenha.getText().length() > 0;
     }
 
     public void loginUsuario(){

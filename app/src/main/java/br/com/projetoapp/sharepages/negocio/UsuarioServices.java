@@ -71,4 +71,10 @@ public class UsuarioServices {
         }
     }
 
+    public boolean validarSenhaAtual(String senha) {
+        return SessaoUsuario.getInstancia().getUsuarioLogado().getSenha().equals(senha);
+    }
+
+
+
 }

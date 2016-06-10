@@ -72,7 +72,7 @@ public class PerfilDeUsuario extends Activity {
         }
     }
 
-    public boolean validarCamposPreenchidos(Usuario usuario) {
+    public boolean validarCamposPreenchidos(Usuario usuario, String senhaAtual) {
         boolean validacao = true;
 
         Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
@@ -81,9 +81,9 @@ public class PerfilDeUsuario extends Activity {
             validacao = false;
             textoNomePerfil.setError(getString(R.string.campo_obrigatorio));
         }
-        if (usuario.getSenha() == null || usuario.getSenha().equalsIgnoreCase("")) {
+        if (senhaAtual == null || senhaAtual.equalsIgnoreCase("")) {
             validacao = false;
-            textoNovaSenha.setError(getString(R.string.campo_obrigatorio));
+            textoSenhaAtual.setError(getString(R.string.campo_obrigatorio));
         }
         return validacao;
     }
@@ -95,14 +95,17 @@ public class PerfilDeUsuario extends Activity {
                 String nome = textoNomePerfil.getText().toString().trim();
                 String senha = textoNovaSenha.getText().toString().trim();
                 Cidade cidade = (Cidade) cidadeSpinner.getSelectedItem();
+                String senhaAtual = textoSenhaAtual.getText().toString().trim();
 
                 Usuario usuario = new Usuario(nome, null, senha, cidade.getId());
 
                 usuario.setId(SessaoUsuario.getInstancia().getUsuarioLogado().getId());
 
-                if(!validarCamposPreenchidos(usuario)){
-                    Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
-                    return;
+                if(!validarCamposPreenchidos(usuario, senhaAtual)){
+                    Toast.makeText(getApplication(), "Favor preencher campos obrigatórios", Toast.LENGTH_LONG).show();
+                }else if (!UsuarioServices.getInstancia(PerfilDeUsuario.this).validarSenhaAtual(senhaAtual)){
+                    Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
+
                 }else {
                     try{
                         usuarioServices.alterarPerfilUsuarioLogado(usuario);
