@@ -6,8 +6,27 @@
     <TextView
         android:id="@+id/text"
         android:text="Livro"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:gravity="center_vertical"
+        android:textColor="#FF000000"
+        />
+
+    <TextView
+        android:id="@+id/autor"
+        android:text="autor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:gravity="center_vertical"
+        android:textColor="#FF000000"
+        />
+    <TextView
+        android:id="@+id/tema"
+        android:text="- tema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5sp"
         android:gravity="center_vertical"
         android:textColor="#FF000000"
