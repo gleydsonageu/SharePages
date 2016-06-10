@@ -43,7 +43,7 @@
     <string name="botao_minha_prateleira">Minha Prateleira</string>
     <string name="cadastrar_livro">Cadastrar Livro</string>
 
-    <!-- tela de editar perfil -->
+    <!-- tela de editar perfil usuario -->
     <string name="title_activity_perfil_de_usuario">PerfilDeUsuario</string>
     <string name="nome_perfil">Nome*</string>
     <string name="senha_atual">Senha Atual*</string>
@@ -58,4 +58,7 @@
 
     <string name="item_lista_livro">itemLivro</string>
 
+    <!--Tela de Editar perfilLivro-->
+    <string name="atualizar">Atualizar</string>
+    <string name="atualizar_foto">Atualizar Foto</string>
 </resources>

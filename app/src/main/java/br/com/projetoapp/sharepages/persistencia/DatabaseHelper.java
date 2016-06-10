@@ -61,20 +61,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Criando a tabela LivroDAO
     public static final String TABLE_LIVRO = "livros";
+
     public static final String LIVRO_ID = "id";
     public static final String LIVRO_NOME = "nome";
     public static final String LIVRO_AUTOR = "autor";
     public static final String LIVRO_ID_TEMA = "idTema";
 
     public static final String[] LIVRO_COLUNAS = {LIVRO_ID, LIVRO_NOME, LIVRO_AUTOR, LIVRO_ID_TEMA};
-
     private static final String DATABASE_LIVRO = "CREATE TABLE " + TABLE_LIVRO + "(" +
             LIVRO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
             LIVRO_NOME + " TEXT NOT NULL, "+
             LIVRO_AUTOR + " TEXT NOT NULL, " +
             LIVRO_ID_TEMA + " INTEGER NOT NULL, " +
             "FOREIGN KEY(" + LIVRO_ID_TEMA + ") REFERENCES " + TABLE_TEMAS + "(" + TEMAS_ID + "))";
-
 
     //Criando tabela DisponibilidadeDAO
     public static final String TABLE_DISPONIBILIDADES = "disponibilidades";
@@ -105,7 +104,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String[] UNIDADELIVRO_COLUNAS = { UNIDADELIVRO_ID, UNIDADELIVRO_DESCRICAO, UNIDADELIVRO_IDIOMA, UNIDADELIVRO_EDICAO,
             UNIDADELIVRO_NUMEROPAGINAS, UNIDADELIVRO_EDITORA, UNIDADELIVRO_ID_LIVRO, UNIDADELIVRO_ID_DISPONIBILIDADE,
             UNIDADELIVRO_ID_USUARIO};
-
     private static final String DATABASE_UNIDADELIVRO = "CREATE TABLE " + TABLE_UNIDADELIVROS + "(" +
             UNIDADELIVRO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
             UNIDADELIVRO_DESCRICAO + " TEXT NOT NULL, " +
@@ -177,16 +175,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_LIVRO);
         database.execSQL(DATABASE_FOTO);
 
-        //Lista para inserir disponibilidades
         listaDisponibilidade(database);
-
-        //Lista para inserir Temas
         listaTemas(database);
-
-        //Lista para inserir cidades
         listaCidades(database);
-
-        //criando usuario para inserir no banco
         criarUsuarioDefault(database);
 
     }
@@ -201,7 +192,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         database.insert(TABLE_USUARIOS, null, content);
     }
-
 
     public void inserirCidade(SQLiteDatabase database, String nomeCidade) {
         ContentValues values = new ContentValues();

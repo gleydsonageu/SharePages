@@ -3,8 +3,6 @@ package br.com.projetoapp.sharepages.negocio;
 
 import android.content.Context;
 
-import java.util.List;
-
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.LivroDAO;
@@ -43,13 +41,5 @@ public class LivroServices {
             return livro;
         }
     }
-
-    public List<Livro> consultarLivro(String nome){
-
-        return dao.buscarLivro(nome);
-
-    }
-
-
 
 }

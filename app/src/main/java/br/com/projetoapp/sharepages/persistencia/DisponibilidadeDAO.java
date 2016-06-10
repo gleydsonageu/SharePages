@@ -14,13 +14,11 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 public class DisponibilidadeDAO {
 
     public DatabaseHelper databaseHelper;
-    private static DisponibilidadeDAO instancia;
+
 
     public static DisponibilidadeDAO getInstancia (Context context) {
-        if (instancia == null){
-            instancia = new DisponibilidadeDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-        }
+        DisponibilidadeDAO instancia = new DisponibilidadeDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
 
     }

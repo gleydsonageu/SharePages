@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
@@ -97,39 +95,31 @@ public class CadastroLivro extends Activity {
                 String nome = campoNomeLivro.getText().toString();
                 String autor = campoAutor.getText().toString();
                 String editora = campoEditora.getText().toString();
-
+                String edicao = campoEdicao.getText().toString();
+                String descricao = campoDescricao.getText().toString();
+                String idioma = campoIdioma.getText().toString();
+                Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
+                Tema tema = (Tema) temaSpinner.getSelectedItem();
                 try {
                     int nDePaginas = Integer.parseInt(camponDePaginas.getText().toString());
-                    String edicao = campoEdicao.getText().toString();
-                    String descricao = campoDescricao.getText().toString();
-                    String idioma = campoIdioma.getText().toString();
-                    Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
-                    Tema tema = (Tema) temaSpinner.getSelectedItem();
 
                     Livro livro = new Livro(nome, autor, tema, tema.getId());
-
-                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao, idioma,
-                            disponibilidade, disponibilidade.getId(), SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao, idioma, disponibilidade, disponibilidade.getId(), SessaoUsuario.getInstancia().getUsuarioLogado().getId());
 
                     Foto foto = new Foto(caminhoFoto);
 
                     if (!validarCamposPreenchidosLivro(livro, unidadeLivro, foto)) {
                         Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
-                    }else {
+                    } else {
                         cadastrarLivro(livro, unidadeLivro, foto);
                     }
-
-
-
 
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplication(), "insira numeros de paginas", Toast.LENGTH_LONG).show();
                 }
 
 
-
             }
-
         });
     }
 

@@ -25,6 +25,10 @@ public class UnidadeLivro {
         this.idUsuario = idUsuario;
     }
 
+    public  UnidadeLivro(){
+
+    }
+
     public int getId() {
         return id;
     }
@@ -104,6 +108,7 @@ public class UnidadeLivro {
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
+
 
     public int getIdUsuario() {
         return idUsuario;

@@ -12,13 +12,11 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 public class FotoDAO {
 
     public DatabaseHelper databaseHelper;
-    private static FotoDAO instancia;
+
 
     public static FotoDAO getInstancia(Context context) {
-        if (instancia == null){
-            instancia = new FotoDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-        }
+        FotoDAO instancia = new FotoDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 

@@ -10,14 +10,13 @@ import br.com.projetoapp.sharepages.persistencia.DisponibilidadeDAO;
 
 public class DisponibilidadeServices {
 
-    private static DisponibilidadeServices instancia;
+
     private DisponibilidadeDAO daoDisponibilidade;
 
     public static DisponibilidadeServices getInstancia(Context context){
-        if(instancia == null){
-            instancia = new DisponibilidadeServices();
-            instancia.daoDisponibilidade = DisponibilidadeDAO.getInstancia(context);
-        }
+        DisponibilidadeServices  instancia = new DisponibilidadeServices();
+        instancia.daoDisponibilidade = DisponibilidadeDAO.getInstancia(context);
+
         return instancia;
     }
 

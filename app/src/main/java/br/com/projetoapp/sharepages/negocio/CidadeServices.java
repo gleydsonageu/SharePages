@@ -10,14 +10,13 @@ import br.com.projetoapp.sharepages.persistencia.CidadeDAO;
 
 public class CidadeServices {
 
-    private static CidadeServices instancia;
+
     private CidadeDAO daoCidade;
 
     public static CidadeServices getInstancia(Context context){
-        if(instancia == null){
-            instancia = new CidadeServices();
-            instancia.daoCidade = CidadeDAO.getInstancia(context);
-        }
+        CidadeServices  instancia = new CidadeServices();
+        instancia.daoCidade = CidadeDAO.getInstancia(context);
+
         return instancia;
     }
 

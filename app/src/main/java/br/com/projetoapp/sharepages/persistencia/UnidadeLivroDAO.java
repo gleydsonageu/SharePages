@@ -3,31 +3,29 @@ package br.com.projetoapp.sharepages.persistencia;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.projetoapp.sharepages.dominio.Disponibilidade;
+import br.com.projetoapp.sharepages.dominio.Livro;
+import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class UnidadeLivroDAO {
 
     public DatabaseHelper databaseHelper;
-    private static UnidadeLivroDAO instancia;
+
 
     public static UnidadeLivroDAO getInstancia(Context context) {
-            instancia = new UnidadeLivroDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-
+        UnidadeLivroDAO instancia = new UnidadeLivroDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
-
-//    public static UnidadeLivroDAO getInstancia(Context context) {
-//        if(instancia == null){
-//            instancia = new UnidadeLivroDAO();
-//            instancia.databaseHelper = new DatabaseHelper(context);
-//        }
-//        return instancia;
-//    }
 
     public long inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
 
@@ -43,12 +41,89 @@ public class UnidadeLivroDAO {
             values.put(DatabaseHelper.UNIDADELIVRO_ID_USUARIO, unidadeLivro.getIdUsuario());
             values.put(DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE, unidadeLivro.getIdDisponibilidade());
 
-
-            Log.i("SCRIPT", " UnidadeLivro cadastrado " + unidadeLivro.getEditora());
+            //Log.i("SCRIPT", " UnidadeLivro cadastrado " + unidadeLivro.getEditora());
 
             long retorno = database.insert(DatabaseHelper.TABLE_UNIDADELIVROS, null, values);
             database.close();
             return retorno;
         }
     }
+
+    public List<UnidadeLivro> buscarLivroPorIdUsuario (int id){
+        UnidadeLivro unidadeLivro = null;
+
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        List<UnidadeLivro> listUnidadeLivro = new ArrayList<UnidadeLivro>();
+
+        Log.i("SCRIPT","buscandoLIVRO -------------------" + id);
+
+        Cursor cursor = database.rawQuery(" SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_IDIOMA+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDICAO+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDITORA+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+", "
+                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+", "
+                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+", "
+                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+", "
+                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME
+                +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
+                +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
+                +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS
+                +" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
+                +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES
+                +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
+                +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " = ?;", new String[]{String.valueOf(id)});
+
+        Log.i("SCRIPT","Verificando o CURSOR ------------------"+ id );
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            unidadeLivro = carragandoUnidadeLivro(cursor);
+            listUnidadeLivro.add(unidadeLivro);
+            Log.i("SCRIPT", "Montei a unidadelivro " + unidadeLivro.toString());
+            cursor.moveToNext();
+        }
+        database.close();
+        return listUnidadeLivro;
+    }
+
+    public UnidadeLivro carragandoUnidadeLivro (Cursor cursor){
+        UnidadeLivro unidLivro = null;
+
+                unidLivro = new UnidadeLivro();
+                unidLivro.setId(cursor.getInt(0));
+                unidLivro.setDescricao(cursor.getString(1));
+                unidLivro.setIdioma(cursor.getString(2));
+                unidLivro.setEdicao(cursor.getString(3));
+                unidLivro.setNumeroPaginas(cursor.getInt(4));
+                unidLivro.setEditora(cursor.getString(5));
+                unidLivro.setIdLivro(cursor.getInt(6));
+                unidLivro.setIdDisponibilidade(cursor.getInt(7));
+                unidLivro.setIdUsuario(cursor.getInt(8));
+                Livro livro = new Livro();
+                livro.setId(cursor.getInt(9));
+                livro.setNome(cursor.getString(10));
+                livro.setAutor(cursor.getString(11));
+                livro.setIdTema(cursor.getInt(12));
+                Tema  tema = new Tema();
+                tema.setId(cursor.getInt(13));
+                tema.setNome(cursor.getString(14));
+                Disponibilidade disponibilidade = new Disponibilidade();
+                disponibilidade.setId(cursor.getInt(15));
+                disponibilidade.setNome(cursor.getString(16));
+
+                unidLivro.setLivro(livro);
+                livro.setTema(tema);
+                unidLivro.setDisponibilidade(disponibilidade);
+
+        return unidLivro;
+    }
+
 }

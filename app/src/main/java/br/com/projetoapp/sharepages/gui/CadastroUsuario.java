@@ -63,9 +63,6 @@ public class CadastroUsuario extends Activity {
 
                 Usuario usuario = new Usuario(nome, email, senha, cidade.getId());
 
-                // /* chamada dos metodos validarCamposPreenchidos, validarEMail e cadastrarLivro.
-                // Gerar um carregamento de tela na confirmação da conta.
-                // */
                 if (!validarCamposPreenchidos(usuario)) {
                     Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
                     return;
@@ -105,7 +102,6 @@ public class CadastroUsuario extends Activity {
 
     }
 
-    //validação de campos preenchidos
     public boolean validarCamposPreenchidos(Usuario usuario) {
         boolean validacao = true;
 
@@ -127,7 +123,6 @@ public class CadastroUsuario extends Activity {
         return validacao;
     }
 
-    // validação do padrão do email
     public boolean validarEmail(String email){
         boolean emailValido = false;
         if (email != null && email.length() > 0) {
@@ -142,7 +137,6 @@ public class CadastroUsuario extends Activity {
         return emailValido;
     }
 
-    //CADASTRAR usuario no banco
     public void cadastrarUsuario(Usuario usuario) throws SharepagesException {
         try {
             usuarioServices.inserirUsuario(usuario);

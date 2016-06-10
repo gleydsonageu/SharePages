@@ -11,17 +11,14 @@ import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Livro;
-
-/**
- * Created by gleydson on 09/06/16.
- */
+import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 
 public class AdapterListLivro extends BaseAdapter {
 
     private LayoutInflater inflater;
-    private List<Livro> itens;
+    private List<UnidadeLivro> itens;
 
-    public AdapterListLivro(Context context, List<Livro> itens){
+    public AdapterListLivro(Context context, List<UnidadeLivro> itens){
         this.itens = itens;
         inflater = LayoutInflater.from(context);
     }
@@ -32,7 +29,7 @@ public class AdapterListLivro extends BaseAdapter {
     }
 
     @Override
-    public Livro getItem(int position) {
+    public UnidadeLivro getItem(int position) {
         return itens.get(position);
     }
 
@@ -43,11 +40,12 @@ public class AdapterListLivro extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Livro item = itens.get(position);
+        UnidadeLivro item = itens.get(position);
+        Livro livro = item.getLivro();
 
         convertView = inflater.inflate(R.layout.item_lista_livro, null);
 
-        ((TextView) convertView.findViewById(R.id.text)).setText(item.getNome());
+        ((TextView) convertView.findViewById(R.id.text)).setText(livro.getNome());
 
         return convertView;
     }

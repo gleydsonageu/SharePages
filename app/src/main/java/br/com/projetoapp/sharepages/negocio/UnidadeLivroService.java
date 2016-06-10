@@ -3,20 +3,21 @@ package br.com.projetoapp.sharepages.negocio;
 
 import android.content.Context;
 
+import java.util.List;
+
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UnidadeLivroDAO;
 
 public class UnidadeLivroService {
 
-    private static UnidadeLivroService instancia;
+
     private UnidadeLivroDAO dao;
 
     public static UnidadeLivroService getInstancia(Context context) {
-        if(instancia == null){
-            instancia = new UnidadeLivroService();
-            instancia.dao = UnidadeLivroDAO.getInstancia(context);
-        }
+        UnidadeLivroService  instancia = new UnidadeLivroService();
+        instancia.dao = UnidadeLivroDAO.getInstancia(context);
+
         return instancia;
     }
 
@@ -29,6 +30,9 @@ public class UnidadeLivroService {
             throw new SharepagesException("Houve um erro inserir livro");
         }
         return unidadeLivro;
-
+    }
+    public List<UnidadeLivro> buscarLivroPorUsuario(int id){
+       // Log.i("SCRIPT","buscarlivroPorUsuario ======= "+id);
+        return dao.buscarLivroPorIdUsuario(id);
     }
 }

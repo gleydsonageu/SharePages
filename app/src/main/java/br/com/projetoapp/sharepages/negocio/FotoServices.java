@@ -9,14 +9,13 @@ import br.com.projetoapp.sharepages.persistencia.FotoDAO;
 
 public class FotoServices {
 
-    private static FotoServices instancia;
+
     private FotoDAO dao;
 
     public static FotoServices getInstancia(Context context) {
-        if(instancia == null){
-            instancia = new FotoServices();
-            instancia.dao = FotoDAO.getInstancia(context);
-        }
+        FotoServices  instancia = new FotoServices();
+        instancia.dao = FotoDAO.getInstancia(context);
+
         return instancia;
     }
 

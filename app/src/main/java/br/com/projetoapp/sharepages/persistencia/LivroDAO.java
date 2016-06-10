@@ -16,13 +16,11 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 public class LivroDAO {
 
     public DatabaseHelper databaseHelper;
-    private static LivroDAO instancia;
+
 
     public static LivroDAO getInstancia(Context context) {
-        if(instancia == null){
-            instancia = new LivroDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-        }
+        LivroDAO instancia = new LivroDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
@@ -49,6 +47,7 @@ public class LivroDAO {
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.LIVRO_NOME + " = ? AND " + DatabaseHelper.LIVRO_AUTOR + " = ? " ;
+
         Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO, DatabaseHelper.LIVRO_COLUNAS, filtro,
                 new String[]{nome, autor}, null, null, null);
 
@@ -93,29 +92,46 @@ public class LivroDAO {
         return listaLivros;
     }
 
-    public List<Livro> buscarLivro (String nome){
-        Livro livro = null;
-
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-
-        List<Livro> listLivro = new ArrayList<Livro>();
-
-        String filtro = DatabaseHelper.LIVRO_NOME + " = ? ";
-
-        Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO,DatabaseHelper.LIVRO_COLUNAS, filtro,
-                new String[]{nome}, null, null, null);
-        
-        Log.i("SCRIPT","buscandoLIVRO ------------------- teste");
-        if(cursor.getCount() > 0){
-            while (cursor.moveToNext()){
-                livro = objetoLivro(cursor);
-                listLivro.add(livro);
-            }
-            Log.i("SCRIPT","buscando livro"+ listLivro);
-        }
-        database.close();
-        return listLivro;
-    }
+//    public List<Livro> buscarLivroPorIdUsuario (int id){
+//        Livro livro = null;
+//
+//        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+//        List<Livro> listLivro = new ArrayList<Livro>();
+//
+//        //String filtro = DatabaseHelper.UNIDADELIVRO_ID_USUARIO + " = ? ";
+//        Log.i("SCRIPT","buscandoLIVRO -------------------" + id);
+//        Cursor cursor = database.rawQuery("SELECT" + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDICAO+","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS+","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDITORA+","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+","
+//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+","
+//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID+","
+//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+","
+//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+","
+//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+","
+//                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+","
+//                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+","
+//                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+","
+//                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME+","
+//                +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
+//                +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
+//                +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS+" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
+//                +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES+" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
+//                +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " =?;", new String[]{String.valueOf(id)});
+//
+//        if(cursor.getCount() > 0){
+//            while (cursor.moveToNext()){
+//                livro = objetoLivro(cursor);
+//                listLivro.add(livro);
+//            }
+//            Log.i("SCRIPT","buscando livro"+ listLivro);
+//        }
+//        database.close();
+//        return listLivro;
+//    }
 
     public Livro objetoLivro(Cursor cursor){
         Livro livro = null;

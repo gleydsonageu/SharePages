@@ -14,13 +14,10 @@ import br.com.projetoapp.sharepages.dominio.Cidade;
 public class CidadeDAO {
 
     public DatabaseHelper databaseHelper;
-    private static CidadeDAO instancia;
 
     public static CidadeDAO getInstancia(Context context) {
-        if (instancia == null){
-            instancia = new CidadeDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-        }
+        CidadeDAO instancia = new CidadeDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 

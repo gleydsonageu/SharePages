@@ -82,6 +82,7 @@ public class PerfilDeUsuario extends Activity {
             textoNomePerfil.setError(getString(R.string.campo_obrigatorio));
         }
         if (usuario.getSenha() == null || usuario.getSenha().equalsIgnoreCase("")) {
+            validacao = false;
             textoNovaSenha.setError(getString(R.string.campo_obrigatorio));
         }
         return validacao;

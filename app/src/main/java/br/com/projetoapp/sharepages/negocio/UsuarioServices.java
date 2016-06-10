@@ -9,14 +9,13 @@ import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
 public class UsuarioServices {
 
-    private static UsuarioServices instancia;
+
     private UsuarioDAO dao;
 
     public static UsuarioServices getInstancia(Context context) {
-        if(instancia == null){
-            instancia = new UsuarioServices();
-            instancia.dao = UsuarioDAO.getInstancia(context);
-        }
+        UsuarioServices  instancia = new UsuarioServices();
+        instancia.dao = UsuarioDAO.getInstancia(context);
+
         return instancia;
     }
 
@@ -60,6 +59,7 @@ public class UsuarioServices {
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }
+
     public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
         alterarUsuario(alteracaoUsuario);
         try {

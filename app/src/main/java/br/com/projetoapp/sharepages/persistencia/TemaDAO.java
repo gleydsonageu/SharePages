@@ -14,13 +14,11 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 public class TemaDAO {
 
     DatabaseHelper databaseHelper;
-    private static TemaDAO instancia;
+
 
     public static TemaDAO getInstancia(Context context) {
-        if (instancia == null){
-            instancia = new TemaDAO();
-            instancia.databaseHelper = new DatabaseHelper(context);
-        }
+        TemaDAO instancia = new TemaDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
