@@ -9,7 +9,7 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 20;
+    public static final int VERSION = 22;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -76,10 +76,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(" + LIVRO_ID_TEMA + ") REFERENCES " + TABLE_TEMAS + "(" + TEMAS_ID + "))";
 
 
-    //Criando tabela FotoDAO
-    public static final String TABLE_FOTOS = "fotos";
-
-
     //Criando tabela DisponibilidadeDAO
     public static final String TABLE_DISPONIBILIDADES = "disponibilidades";
 
@@ -125,6 +121,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY(" + UNIDADELIVRO_ID_USUARIO + ") REFERENCES " + TABLE_USUARIOS + "(" + USUARIO_ID + "))";
 
 
+    //Criando tabela FotoDAO
+    public static final String TABLE_FOTOS = "fotos";
+
+    public static final String FOTO_ID = "id";
+    public static final String FOTO_CAMINHO = "caminho";
+    public static final String FOTO_ID_UNIDADELIVRO = "idUnidadeLivro";
+    public static final String[] FOTO_COLUNAS = {FOTO_ID, FOTO_CAMINHO, FOTO_ID_UNIDADELIVRO};
+
+    private static final String DATABASE_FOTO = "CREATE TABLE " + TABLE_FOTOS + "(" +
+            FOTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            FOTO_CAMINHO + " TEXT NOT NULL, " +
+            FOTO_ID_UNIDADELIVRO + " INTEGER NOT NULL, " +
+            "FOREIGN KEY(" + FOTO_ID_UNIDADELIVRO + ") REFERENCES " + TABLE_UNIDADELIVROS + "(" + UNIDADELIVRO_ID + "))";
+
+
 
     public void listaDisponibilidade(SQLiteDatabase database) {
         String nomeDisponibilidades[] = {"Doação", "Troca"};
@@ -164,6 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_DISPONIBILIDADE);
         database.execSQL(DATABASE_TEMA);
         database.execSQL(DATABASE_LIVRO);
+        database.execSQL(DATABASE_FOTO);
 
         //Lista para inserir disponibilidades
         listaDisponibilidade(database);
@@ -217,6 +229,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_DISPONIBILIDADES);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_TEMAS);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LIVRO);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_FOTOS);
         onCreate(db);
     }
 

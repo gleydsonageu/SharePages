@@ -23,7 +23,8 @@ public class UnidadeLivroService {
     public UnidadeLivro inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException{
 
         try {
-            dao.inserirUnidadeLivro(unidadeLivro);
+         int  idUnidadeLivro = (int) dao.inserirUnidadeLivro(unidadeLivro);
+            unidadeLivro.setId(idUnidadeLivro);
         } catch (SharepagesException e) {
             throw new SharepagesException("Houve um erro inserir livro");
         }
