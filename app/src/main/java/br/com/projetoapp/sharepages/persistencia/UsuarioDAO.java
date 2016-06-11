@@ -8,20 +8,19 @@ import android.database.sqlite.SQLiteDatabase;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
+import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 
 
 public class UsuarioDAO {
 
-    public DatabaseHelper databaseHelper;
-
-
-    public static UsuarioDAO getInstancia(Context context) {
+    public static UsuarioDAO getInstancia() {
         UsuarioDAO instancia = new UsuarioDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
     public long inserir(Usuario usuario) throws SharepagesException{
+        SessaoUsuario sessao = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessao.getContext());
 
         try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();

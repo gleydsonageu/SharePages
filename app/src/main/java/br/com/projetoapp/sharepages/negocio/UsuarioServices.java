@@ -1,7 +1,5 @@
 package br.com.projetoapp.sharepages.negocio;
 
-import android.content.Context;
-
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
@@ -9,13 +7,13 @@ import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
 public class UsuarioServices {
 
+    private static UsuarioServices  instancia = new UsuarioServices();
 
     private UsuarioDAO dao;
-
-    public static UsuarioServices getInstancia(Context context) {
-        UsuarioServices  instancia = new UsuarioServices();
-        instancia.dao = UsuarioDAO.getInstancia(context);
-
+private UsuarioServices() {
+    this.dao = UsuarioDAO.getInstancia();
+}
+    public static UsuarioServices getInstancia() {
         return instancia;
     }
 

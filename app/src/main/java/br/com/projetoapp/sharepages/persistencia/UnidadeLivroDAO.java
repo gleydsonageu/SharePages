@@ -55,8 +55,6 @@ public class UnidadeLivroDAO {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         List<UnidadeLivro> listUnidadeLivro = new ArrayList<UnidadeLivro>();
 
-        Log.i("SCRIPT","buscandoLIVRO -------------------" + id);
-
         Cursor cursor = database.rawQuery(" SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
                 +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+", "
                 +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_IDIOMA+", "
@@ -82,7 +80,6 @@ public class UnidadeLivroDAO {
                 +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
                 +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " = ?;", new String[]{String.valueOf(id)});
 
-        Log.i("SCRIPT","Verificando o CURSOR ------------------"+ id );
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             unidadeLivro = carragandoUnidadeLivro(cursor);
