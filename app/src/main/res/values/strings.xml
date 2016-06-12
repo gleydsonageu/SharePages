@@ -2,12 +2,12 @@
     <string name="app_name">SharePages</string>
 
     <!-- tela_inicial-->
-    <string name="usuario">usuário</string>
-    <string name="senha">senha</string>
+    <string name="usuario">Usuário</string>
+    <string name="senha">Senha</string>
     <string name="botao_entrar">Entrar</string>
     <string name="fazer_cadastro">Não possui conta? Clique aqui</string>
-    <string name="title_activity_tela_inicial">Tela_inicial</string>
-    <string name="title_activity_cadastro_usuario">Cadastro_usuario</string>
+    <string name="title_activity_tela_inicial">Tela inicial</string>
+    <string name="title_activity_cadastro_usuario">Cadastro Usuário</string>
 
     <!--tela_cadastro_usuario-->
     <string name="email">Email</string>
@@ -22,11 +22,11 @@
     <!--<string name="hello_round">Hello Round World!</string>-->
 
     <string name="add">add</string>
-    <string name="title_activity_menu_principal">MenuPrincipal</string>
-    <string name="title_activity_cadastro_livro">CadastroLivro</string>
+    <string name="title_activity_menu_principal">Menu Principal</string>
+    <string name="title_activity_cadastro_livro">Cadastro Livro</string>
     <string name="editarPerfil">Editar Perfil</string>
 
-    <string name="selecionar_foto">Selecionar Foto</string>
+    <string name="selecionar_foto">Selecionar foto</string>
     <string name="nome_do_livro">Nome do livro:</string>
     <string name="autor">Autor:</string>
     <string name="editora">Editora:</string>
@@ -44,21 +44,24 @@
     <string name="cadastrar_livro">Cadastrar Livro</string>
 
     <!-- tela de editar perfil usuario -->
-    <string name="title_activity_perfil_de_usuario">PerfilDeUsuario</string>
+    <string name="title_activity_perfil_de_usuario">Perfil de Usuário</string>
     <string name="nome_perfil">Nome*</string>
     <string name="senha_atual">Senha Atual*</string>
     <string name="nova_senha">Nova Senha</string>
     <string name="botao_atualizar">Atualizar</string>
     <string name="botao_deletar">Deletar</string>
 
-    <!--tela pesquisa-->
-    <string name="title_activity_pesquisa">Pesquisa</string>
+    <!--tela minha prateleira-->
+    <string name="title_activity_minhaPrateleira">Minha Prateleira</string>
     <string name="botao_pesquisa">Pesquisa</string>
-    <string name="title_activity_perfil_de_livro">PerfilDeLivro</string>
 
+    <!--tela de edicao perfil livro-->
+    <string name="title_activity_perfil_de_livro">Perfil de Livro</string>
     <string name="item_lista_livro">itemLivro</string>
 
     <!--Tela de Editar perfilLivro-->
     <string name="atualizar">Atualizar</string>
     <string name="atualizar_foto">Atualizar Foto</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
+
 </resources>
