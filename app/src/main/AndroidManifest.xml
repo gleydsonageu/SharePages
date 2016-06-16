@@ -13,6 +13,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -20,7 +21,7 @@
             android:name=".gui.TelaInicial"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
@@ -40,7 +41,10 @@
             android:label="@string/title_activity_minhaPrateleira" />
         <activity
             android:name=".gui.PerfilDeLivro"
-            android:label="@string/title_activity_perfil_de_livro"></activity>
+            android:label="@string/title_activity_perfil_de_livro" />
+        <activity
+            android:name=".gui.ColecaoDisponivel"
+            android:label="@string/title_activity_colecao_disponivel"></activity>
     </application>
 
 </manifest>

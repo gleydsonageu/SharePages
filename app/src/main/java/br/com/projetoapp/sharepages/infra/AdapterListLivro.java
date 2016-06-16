@@ -36,18 +36,22 @@ public class AdapterListLivro extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //Compoe o item com a posicao da Unidade livro
         UnidadeLivro item = itens.get(position);
+
         Livro livro = item.getLivro();
         String autor = item.getLivro().getAutor();
         Tema tema = item.getLivro().getTema();
 
+        //carrega o layout com os dados
         convertView = inflater.inflate(R.layout.item_lista_livro, null);
 
+        //compoe os TextView com as informacoes da UnidadeLivro relacionada
         ((TextView) convertView.findViewById(R.id.text)).setText(livro.getNome());
         ((TextView) convertView.findViewById(R.id.autor)).setText(autor);
         ((TextView) convertView.findViewById(R.id.tema)).setText(tema.getNome());

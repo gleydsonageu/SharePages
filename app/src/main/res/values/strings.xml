@@ -42,6 +42,7 @@
     <string name="botao_editar_perfil">Editar Perfil</string>
     <string name="botao_minha_prateleira">Minha Prateleira</string>
     <string name="cadastrar_livro">Cadastrar Livro</string>
+    <string name="colecao_disponivel">Coleção Disponível</string>
 
     <!-- tela de editar perfil usuario -->
     <string name="title_activity_perfil_de_usuario">Perfil de Usuário</string>
@@ -63,5 +64,6 @@
     <string name="atualizar">Atualizar</string>
     <string name="atualizar_foto">Atualizar Foto</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_colecao_disponivel">Colecao Disponível</string>
 
 </resources>

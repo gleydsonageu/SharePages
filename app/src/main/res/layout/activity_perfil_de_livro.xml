@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/disponibilidadeSpinnerPefil"
+            android:id="@+id/disponibilidadeSpinnerPerfil"
             android:layout_below="@+id/campoIdioma"
             android:layout_toEndOf="@+id/nPaginas"
             android:spinnerMode="dropdown" />
