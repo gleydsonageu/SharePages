@@ -17,7 +17,14 @@
         android:id="@+id/listaLivros"
         android:divider="#ECECEC"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnPesquisar" />
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/botaoEditarLivro"
+        android:layout_marginEnd="69dp"
+        android:layout_alignTop="@+id/listaLivros"
+        android:layout_alignEnd="@+id/listaLivros" />
 
 </RelativeLayout>

@@ -10,6 +10,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/preVisuFoto"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +24,8 @@
             android:id="@+id/selecionarFoto"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:onClick="selecionarFoto" />
+            android:onClick="selecionarFoto"
+            android:layout_gravity="right" />
 
         <Button
             android:layout_width="wrap_content"

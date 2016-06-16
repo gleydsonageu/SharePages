@@ -9,15 +9,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
@@ -26,11 +29,11 @@ import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
-import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
@@ -43,6 +46,7 @@ public class CadastroLivro extends Activity {
     public static final int CODE_CAMERA_SELECIONAR = 123;
     public static final int CODE_EXTERNAL_STORAGE_PERMISSION = 3232;
     private String caminhoFoto;
+    private ImageView preVisuFoto;
 
     LivroServices livroServices = LivroServices.getInstancia(this);
     UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
@@ -64,6 +68,7 @@ public class CadastroLivro extends Activity {
         campoEdicao = (EditText) findViewById(R.id.campoEdicao);
         campoDescricao = (EditText) findViewById(R.id.campoDescricao);
         campoIdioma = (EditText) findViewById(R.id.campoIdioma);
+        preVisuFoto = (ImageView) findViewById(R.id.preVisuFoto);
 
 
         //Preencher o spinner com temas
@@ -108,8 +113,11 @@ public class CadastroLivro extends Activity {
 
                     Foto foto = new Foto(caminhoFoto);
 
-                    if (!validarCamposPreenchidosLivro(livro, unidadeLivro, foto)) {
-                        Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
+
+                    List<String> listaCamposNaoPreenchidos = validarCamposPreenchidosLivro(livro, unidadeLivro, foto);
+                    if (listaCamposNaoPreenchidos.size() >= 1) {
+                        String msgError = TextUtils.join(", ", listaCamposNaoPreenchidos);
+                        Toast.makeText(getApplication(), "Favor preencher todos os campos: " + msgError, Toast.LENGTH_LONG).show();
                     } else {
                         cadastrarLivro(livro, unidadeLivro, foto);
                     }
@@ -124,34 +132,34 @@ public class CadastroLivro extends Activity {
     }
 
     //validação de campos preenchidos
-    public boolean validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
-        boolean validacao = true;
+    public List<String> validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
+
+        List<String> listaCampos = new ArrayList<String>();
         Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
-        if (livro.getNome() == null) {
-            validacao = false;
+        if (livro.getNome() == null || livro.getNome().equals("")) {
+            listaCampos.add("nome");
             campoNomeLivro.setError(getString(R.string.campo_obrigatorio));
         }
-        if (livro.getAutor() == null) {
-            validacao = false;
+        if (livro.getAutor() == null || livro.getAutor().equals("")) {
+            listaCampos.add("autor");
             campoAutor.setError(getString(R.string.campo_obrigatorio));
         }
-        if (unidadeLivro.getEdicao() == null) {
-            validacao = false;
+        if (unidadeLivro.getEdicao() == null || unidadeLivro.getEdicao().equals("")) {
+            listaCampos.add("edicao");
             campoEdicao.setError(getString(R.string.campo_obrigatorio));
         }
-        if (unidadeLivro.getEditora() == null) {
-            validacao = false;
+        if (unidadeLivro.getEditora() == null || unidadeLivro.getEditora().equals("")) {
+            listaCampos.add("editora");
             campoEditora.setError(getString(R.string.campo_obrigatorio));
         }
-        if (unidadeLivro.getIdioma() == null) {
-            validacao = false;
+        if (unidadeLivro.getIdioma() == null || unidadeLivro.getIdioma().equals("")) {
+            listaCampos.add("idioma");
             campoIdioma.setError(getString(R.string.campo_obrigatorio));
         }
         if (foto.getCaminho() == null) {
-            validacao = false;
-            selecionarFoto.setError(getString(R.string.campo_obrigatorio));
+            listaCampos.add("foto(Tire uma foto ou escolhe uma de sua galeria");
         }
-        return validacao;
+        return listaCampos;
     }
 
 
@@ -214,6 +222,7 @@ public class CadastroLivro extends Activity {
 
                 irParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFotoUri);
                 startActivityForResult(irParaCamera, CODE_CAMERA_TIRAR);
+
 
             }
 
@@ -299,14 +308,23 @@ public class CadastroLivro extends Activity {
                 caminhoFoto = null;
                 Toast.makeText(getApplication(), "Erro ao tirar foto", Toast.LENGTH_LONG).show();
 
-            } 
+            }else {
+                Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
+                preVisuFoto.setImageURI(visualizacao);
+                Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
+
+            }
 
         }else if (requestCode == CODE_CAMERA_SELECIONAR) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri imageUri = intent.getData();
                 imagePath = getImagePath(imageUri);
                 caminhoFoto = imagePath;
+                Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
+                preVisuFoto.setImageURI(visualizacao);
                 Log.d("AQUI", imagePath);
+                Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
+
             } else {
                 caminhoFoto = null;
                 Toast.makeText(getApplication(), "Erro ao selecionar foto", Toast.LENGTH_LONG).show();

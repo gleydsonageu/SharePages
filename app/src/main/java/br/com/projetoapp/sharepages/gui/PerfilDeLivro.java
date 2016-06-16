@@ -13,7 +13,7 @@ import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 public class PerfilDeLivro extends Activity {
 
     private EditText campoNomeLivroPerfil, campoAutorPerfil, campoEditoraPerfil, campoDePaginasPerfil, campoEdicaoPerfil, campoDescricaoPerfil, campoIdiomaPerfil;
-    private Button atualizarFoto, atualizarLivro;
+    private Button selecionarFoto, atualizarLivro, tirarFoto;
     private Spinner disponibilidadeSpinnerPerfil, temaSpinnerPerfil;
 
     @Override
@@ -28,7 +28,9 @@ public class PerfilDeLivro extends Activity {
         campoDescricaoPerfil = (EditText) findViewById(R.id.campoDescricaoPerfil);
         campoIdiomaPerfil = (EditText) findViewById(R.id.campoDescricaoPerfil);
         atualizarLivro = (Button) findViewById(R.id.atualizarLivro);
-        atualizarFoto = (Button) findViewById(R.id.atualizarFoto);
+        selecionarFoto = (Button) findViewById(R.id.selecionarFoto);
+        tirarFoto = (Button) findViewById(R.id.tirarFoto);
+
         disponibilidadeSpinnerPerfil = (Spinner) findViewById(R.id.disponibilidadeSpinnerPerfil);
         temaSpinnerPerfil = (Spinner) findViewById(R.id.temaSpinnerPerfil);
 

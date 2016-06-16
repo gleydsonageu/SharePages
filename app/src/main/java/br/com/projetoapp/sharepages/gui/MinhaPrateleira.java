@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class MinhaPrateleira extends Activity {
     private ListView listLivro;
     private AdapterListLivro adapterListLivro;
 
+    private ImageButton botaoEditarLivro;
 
     private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
 
@@ -31,6 +33,7 @@ public class MinhaPrateleira extends Activity {
 
         listLivro = (ListView) findViewById(R.id.listaLivros);
         listLivro.setOnItemClickListener(chamarPerfilLivro());
+        botaoEditarLivro = (ImageButton) findViewById(R.id.botaoEditarLivro);
 
 
         try {
@@ -52,6 +55,16 @@ public class MinhaPrateleira extends Activity {
             adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
             //Log.i("SCRIPT","buscando livro "+ adapterListView);
             listLivro.setAdapter(adapterListView);
+            botaoEditarLivro.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MinhaPrateleira.this, PerfilDeLivro.class);
+                    startActivity(intent);
+
+                }
+
+            });
         }catch (RuntimeException e){
             Toast.makeText(getApplication(), "Erro ao buscar", Toast.LENGTH_LONG).show();
         }

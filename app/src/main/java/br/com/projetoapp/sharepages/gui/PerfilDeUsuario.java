@@ -15,9 +15,9 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
-import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class PerfilDeUsuario extends Activity {
