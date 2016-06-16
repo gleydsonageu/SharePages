@@ -32,9 +32,6 @@ public class MinhaPrateleira extends Activity {
         setContentView(R.layout.activity_minha_prateleira);
 
         listLivro = (ListView) findViewById(R.id.listaLivros);
-        listLivro.setOnItemClickListener(chamarPerfilLivro());
-        botaoEditarLivro = (ImageButton) findViewById(R.id.botaoEditarLivro);
-
 
         try {
             listaLivrosDeUsuarioLogado();
@@ -55,37 +52,10 @@ public class MinhaPrateleira extends Activity {
             adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
             //Log.i("SCRIPT","buscando livro "+ adapterListView);
             listLivro.setAdapter(adapterListView);
-            botaoEditarLivro.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MinhaPrateleira.this, PerfilDeLivro.class);
-                    startActivity(intent);
-
-                }
-
-            });
         }catch (RuntimeException e){
+            e.printStackTrace();
             Toast.makeText(getApplication(), "Erro ao buscar", Toast.LENGTH_LONG).show();
         }
-    }
-
-    public AdapterView.OnItemClickListener chamarPerfilLivro(){
-        return(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                UnidadeLivro livro = adapterListLivro.getItem(position);
-                Intent intent = new Intent(getBaseContext(), PerfilDeLivro.class);
-                intent.putExtra("Livro", livro.getId());
-                setResult(Activity.RESULT_OK, intent);
-
-                startActivityForResult(intent, 0);
-
-
-            }
-        });
-
     }
 
 }

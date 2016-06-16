@@ -25,7 +25,7 @@ public class DisponibilidadeServices {
         try {
             return daoDisponibilidade.pegarDisponibilidades();
         } catch (Exception e) {
-
+            e.printStackTrace();
             throw new Exception("Houve um erro ao listar disponibilidades, tente novamente");
         }
     }

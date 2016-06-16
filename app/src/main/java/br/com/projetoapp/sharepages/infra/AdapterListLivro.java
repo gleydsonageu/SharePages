@@ -2,6 +2,7 @@ package br.com.projetoapp.sharepages.infra;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,34 +46,37 @@ public class AdapterListLivro extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         //Compoe o item com a posicao da Unidade livro
-        UnidadeLivro item = itens.get(position);
+        final UnidadeLivro item = itens.get(position);
 
         Livro livro = item.getLivro();
         String autor = item.getLivro().getAutor();
         Tema tema = item.getLivro().getTema();
        // Foto foto = item.getUnidadeLivro().getCaminho();
+        ImageButton editarLivro;
 
         //carrega o layout com os dados
         convertView = inflater.inflate(R.layout.item_lista_livro, null);
 
-        ImageButton botaoEditarLivro = (ImageButton) convertView.findViewById(R.id.botaoEditarLivro);
+        final View view = convertView;
 
-       botaoEditarLivro.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-
-        });
 
         //compoe os TextView com as informacoes da UnidadeLivro relacionada
-        ((TextView) convertView.findViewById(R.id.text)).setText(livro.getNome());
+        Log.d("grrr--", livro.getNome() + " " + livro.getAutor() + " " + livro.getTema());
+        ((TextView) convertView.findViewById(R.id.livro)).setText(livro.getNome());
         ((TextView) convertView.findViewById(R.id.autor)).setText(autor);
         ((TextView) convertView.findViewById(R.id.tema)).setText(tema.getNome());
+        editarLivro = (ImageButton) convertView.findViewById(R.id.editarLivro);
+        editarLivro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), PerfilDeLivro.class);
+                intent.putExtra("UnidadeLivro", item.getId());
+                view.getContext().startActivity(intent);
+            }
+        });
+
 
         return convertView;
     }

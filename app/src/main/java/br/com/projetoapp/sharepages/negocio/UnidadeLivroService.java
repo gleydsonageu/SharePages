@@ -35,4 +35,8 @@ public class UnidadeLivroService {
        // Log.i("SCRIPT","buscarlivroPorUsuario ======= "+id);
         return dao.buscarLivroPorIdUsuario(id);
     }
+
+    public UnidadeLivro buscarUnidadeLivroPorId(int id) {
+        return dao.buscarPorId(id);
+    }
 }

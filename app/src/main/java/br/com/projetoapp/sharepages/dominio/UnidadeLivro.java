@@ -117,4 +117,12 @@ public class UnidadeLivro {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
 }

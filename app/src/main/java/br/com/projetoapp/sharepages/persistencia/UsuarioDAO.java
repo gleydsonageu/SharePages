@@ -8,19 +8,19 @@ import android.database.sqlite.SQLiteDatabase;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
-import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
 
 
 public class UsuarioDAO {
 
-    public static UsuarioDAO getInstancia() {
+
+    public DatabaseHelper databaseHelper;
+    public static UsuarioDAO getInstancia(Context context) {
         UsuarioDAO instancia = new UsuarioDAO();
+        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
     public long inserir(Usuario usuario) throws SharepagesException{
-        SessaoUsuario sessao = SessaoUsuario.getInstancia();
-        DatabaseHelper databaseHelper = new DatabaseHelper(sessao.getContext());
 
         try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
@@ -57,7 +57,7 @@ public class UsuarioDAO {
     }
 
     public Usuario buscarEmail (String email){
-        Usuario emailEncontrado = null;
+        Usuario UsuarioemailEncontrado = null;
 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.USUARIO_EMAIL + " = ?";
@@ -65,11 +65,11 @@ public class UsuarioDAO {
                 new String[]{email}, null, null, null);
 
         if(cursor.moveToFirst()){
-            emailEncontrado = objetoUsuario(cursor);
+            UsuarioemailEncontrado = objetoUsuario(cursor);
             cursor.moveToNext();
         }
         database.close();
-        return emailEncontrado;
+        return UsuarioemailEncontrado;
     }
 
     public long alterar(Usuario usuario) throws SharepagesException {
