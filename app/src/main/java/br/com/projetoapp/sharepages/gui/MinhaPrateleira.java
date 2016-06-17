@@ -22,8 +22,7 @@ public class MinhaPrateleira extends Activity {
     private ListView listLivro;
     private AdapterListLivro adapterListLivro;
 
-
-    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
+    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,29 +31,16 @@ public class MinhaPrateleira extends Activity {
         listLivro = (ListView) findViewById(R.id.listaLivros);
         listLivro.setOnItemClickListener(chamarPerfilLivro());
 
-
         try {
             listaLivrosDeUsuarioLogado();
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(), "Erro ao listar livro. ", Toast.LENGTH_LONG).show();
         }
 
-    }
+//        String newString;
+//        Bundle extras = getIntent().getExtras();
+//        newString= extras.getString("Livro");
 
-    public void listaLivrosDeUsuarioLogado() throws SharepagesException {
-        int id = SessaoUsuario.getInstancia().getUsuarioLogado().getId();
-
-        AdapterListLivro adapterListView = null;
-
-        try {
-            List<UnidadeLivro> listaLivros = unidadeLivroService.buscarLivroPorUsuario(id);
-            //Log.i("SCRIPT","buscando livro depois do livro service "+ listaLivros);
-            adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
-            //Log.i("SCRIPT","buscando livro "+ adapterListView);
-            listLivro.setAdapter(adapterListView);
-        }catch (RuntimeException e){
-            Toast.makeText(getApplication(), "Erro ao buscar", Toast.LENGTH_LONG).show();
-        }
     }
 
     public AdapterView.OnItemClickListener chamarPerfilLivro(){
@@ -69,10 +55,22 @@ public class MinhaPrateleira extends Activity {
 
                 startActivityForResult(intent, 0);
 
-
             }
         });
 
+    }
+
+    public void listaLivrosDeUsuarioLogado() throws SharepagesException {
+        int id = SessaoUsuario.getInstancia().getUsuarioLogado().getId();
+
+        AdapterListLivro adapterListView = null;
+
+        SessaoUsuario.getInstancia().setContext(this);
+        List<UnidadeLivro> listaLivros = unidadeLivroService.buscarLivroPorUsuario(id);
+        //Log.i("SCRIPT","buscando livro depois do livro service "+ listaLivros);
+        adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
+        //Log.i("SCRIPT","buscando livro "+ adapterListView);
+        listLivro.setAdapter(adapterListView);
     }
 
 }

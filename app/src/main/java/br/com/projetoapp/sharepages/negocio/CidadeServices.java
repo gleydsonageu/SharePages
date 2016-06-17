@@ -1,7 +1,5 @@
 package br.com.projetoapp.sharepages.negocio;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Cidade;
@@ -10,20 +8,21 @@ import br.com.projetoapp.sharepages.persistencia.CidadeDAO;
 
 public class CidadeServices {
 
+    private static CidadeServices instancia = new CidadeServices();
+    private CidadeDAO cidadeDAO;
 
-    private CidadeDAO daoCidade;
+    private CidadeServices(){
+        this.cidadeDAO = CidadeDAO.getInstancia();
+    }
 
-    public static CidadeServices getInstancia(Context context){
-        CidadeServices  instancia = new CidadeServices();
-        instancia.daoCidade = CidadeDAO.getInstancia(context);
-
+    public static CidadeServices getInstancia(){
         return instancia;
     }
 
     public ArrayList<Cidade> pegarCidades() throws Exception {
 
         try {
-           return daoCidade.pegarCidades();
+           return cidadeDAO.pegarCidades();
         } catch (Exception e) {
             throw new Exception("Houve um erro ao listar cidades, tente novamente");
         }

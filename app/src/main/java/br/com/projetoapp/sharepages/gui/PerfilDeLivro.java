@@ -32,13 +32,12 @@ public class PerfilDeLivro extends Activity {
         disponibilidadeSpinnerPerfil = (Spinner) findViewById(R.id.disponibilidadeSpinnerPerfil);
         temaSpinnerPerfil = (Spinner) findViewById(R.id.temaSpinnerPerfil);
 
-        //Preencher o spinner com temas
-
 
     }
 
     public void carregarPerfilDeLivro(){
         Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
+
 
     }
 

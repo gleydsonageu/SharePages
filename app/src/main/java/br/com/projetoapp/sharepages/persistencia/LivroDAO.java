@@ -2,7 +2,6 @@ package br.com.projetoapp.sharepages.persistencia;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -11,21 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.Livro;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class LivroDAO {
 
-    public DatabaseHelper databaseHelper;
-
-
-    public static LivroDAO getInstancia(Context context) {
+    public static LivroDAO getInstancia() {
         LivroDAO instancia = new LivroDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
     public long inserirLivro(Livro livro) throws SharepagesException {
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
 
@@ -45,6 +43,8 @@ public class LivroDAO {
     public Livro buscarLivro(String nome, String autor){
         Livro livroEncontrado = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.LIVRO_NOME + " = ? AND " + DatabaseHelper.LIVRO_AUTOR + " = ? " ;
 
@@ -56,17 +56,6 @@ public class LivroDAO {
                   livroEncontrado = objetoLivro(cursor);
               }
           }
-//        if (cursor.moveToFirst()){
-//            int idLivro = cursor.getInt(0);
-//            String nomeLivro = cursor.getString(1);
-//            String nomeAutor = cursor.getString(2);
-//            livroEncontrado = new Livro();
-//            livroEncontrado.setId(idLivro);
-//            livroEncontrado.setNome(nomeLivro);
-//            livroEncontrado.setAutor(nomeAutor);
-//
-//            cursor.moveToNext();
-//        }
         database.close();
         return livroEncontrado;
     }
@@ -74,6 +63,8 @@ public class LivroDAO {
     public List<Livro> pequisarLivroPorNome(String nome){
         Livro livro = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         List<Livro> listaLivros = new ArrayList<Livro>();
@@ -91,47 +82,6 @@ public class LivroDAO {
         database.close();
         return listaLivros;
     }
-
-//    public List<Livro> buscarLivroPorIdUsuario (int id){
-//        Livro livro = null;
-//
-//        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-//        List<Livro> listLivro = new ArrayList<Livro>();
-//
-//        //String filtro = DatabaseHelper.UNIDADELIVRO_ID_USUARIO + " = ? ";
-//        Log.i("SCRIPT","buscandoLIVRO -------------------" + id);
-//        Cursor cursor = database.rawQuery("SELECT" + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDICAO+","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS+","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDITORA+","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+","
-//                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+","
-//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID+","
-//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+","
-//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+","
-//                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+","
-//                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+","
-//                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+","
-//                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+","
-//                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME+","
-//                +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
-//                +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
-//                +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS+" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
-//                +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES+" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
-//                +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " =?;", new String[]{String.valueOf(id)});
-//
-//        if(cursor.getCount() > 0){
-//            while (cursor.moveToNext()){
-//                livro = objetoLivro(cursor);
-//                listLivro.add(livro);
-//            }
-//            Log.i("SCRIPT","buscando livro"+ listLivro);
-//        }
-//        database.close();
-//        return listLivro;
-//    }
 
     public Livro objetoLivro(Cursor cursor){
         Livro livro = null;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import br.com.projetoapp.sharepages.R;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 
 public class SplashScreen extends Activity {
 
@@ -16,6 +17,8 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        SessaoUsuario.getInstancia().setContext(this);
 
         new Handler().postDelayed(new Runnable() {
             @Override

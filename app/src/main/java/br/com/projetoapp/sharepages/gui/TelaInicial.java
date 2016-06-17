@@ -1,6 +1,5 @@
 package br.com.projetoapp.sharepages.gui;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Usuario;
-import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class TelaInicial extends Activity {
@@ -21,6 +20,7 @@ public class TelaInicial extends Activity {
     private EditText textoSenha;
     private Button botaoEntrar;
     private TextView botaoFazerCadastro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class TelaInicial extends Activity {
 
         try {
             UsuarioServices usuarioServices = UsuarioServices.getInstancia();
-            SessaoUsuario.setContext(this);
+            SessaoUsuario.getInstancia().setContext(this);
             usuarioServices.validarLoginUsuario(usuario);
             Toast.makeText(getApplication(), "Seja bem vindo!", Toast.LENGTH_LONG).show();
             chamarMenuPrincipal();

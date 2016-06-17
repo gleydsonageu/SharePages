@@ -2,16 +2,16 @@ package br.com.projetoapp.sharepages.persistencia;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
-import br.com.projetoapp.sharepages.negocio.SessaoUsuario;
-
 
 public class UsuarioDAO {
+
+
 
     public static UsuarioDAO getInstancia() {
         UsuarioDAO instancia = new UsuarioDAO();
@@ -19,8 +19,9 @@ public class UsuarioDAO {
     }
 
     public long inserir(Usuario usuario) throws SharepagesException{
-        SessaoUsuario sessao = SessaoUsuario.getInstancia();
-        DatabaseHelper databaseHelper = new DatabaseHelper(sessao.getContext());
+
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
 
         try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
@@ -39,6 +40,8 @@ public class UsuarioDAO {
     public Usuario consultar(String email, String senha) {
         Usuario usuarioEncontrado = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.USUARIO_EMAIL + " = ? AND "
                 + DatabaseHelper.USUARIO_SENHA + " = ?";
@@ -59,6 +62,8 @@ public class UsuarioDAO {
     public Usuario buscarEmail (String email){
         Usuario emailEncontrado = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.USUARIO_EMAIL + " = ?";
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
@@ -74,6 +79,8 @@ public class UsuarioDAO {
 
     public long alterar(Usuario usuario) throws SharepagesException {
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -93,6 +100,8 @@ public class UsuarioDAO {
     public Usuario buscarPorId (int id) {
         Usuario usuarioEncontrado = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         String filtro = DatabaseHelper.USUARIO_ID + " =? ";
         Cursor cursor = database.query(DatabaseHelper.TABLE_USUARIOS, DatabaseHelper.USUARIO_COLUNAS, filtro,
