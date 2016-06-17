@@ -1,7 +1,6 @@
 package br.com.projetoapp.sharepages.persistencia;
 
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,21 +8,21 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Tema;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class TemaDAO {
 
-    DatabaseHelper databaseHelper;
-
-
-    public static TemaDAO getInstancia(Context context) {
+    public static TemaDAO getInstancia() {
         TemaDAO instancia = new TemaDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
     public ArrayList<Tema> pegarTemas() throws SharepagesException{
         Tema tema = null;
+
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
             ArrayList<Tema> listaTemas = new ArrayList<Tema>();
@@ -40,16 +39,6 @@ public class TemaDAO {
                 }
 
             }
-//            while (!cursor.isAfterLast()) {
-//                Tema tema = new Tema();
-//                int idTema = cursor.getInt(0);
-//                String nomeTema = cursor.getString(1);
-//                tema.setId(idTema);
-//                tema.setNome(nomeTema);
-//                listaTemas.add(tema);
-//                cursor.moveToNext();
-//            }
-
             Log.d("AQUI", listaTemas.toString());
 
             database.close();

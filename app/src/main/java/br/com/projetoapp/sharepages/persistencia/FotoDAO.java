@@ -2,26 +2,24 @@ package br.com.projetoapp.sharepages.persistencia;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import br.com.projetoapp.sharepages.dominio.Foto;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class FotoDAO {
 
-    public DatabaseHelper databaseHelper;
-
-
-    public static FotoDAO getInstancia(Context context) {
+    public static FotoDAO getInstancia() {
         FotoDAO instancia = new FotoDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
     public long inserirFoto(Foto foto) throws SharepagesException {
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 

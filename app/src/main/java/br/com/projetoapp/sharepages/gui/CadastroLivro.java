@@ -34,6 +34,7 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
@@ -48,10 +49,9 @@ public class CadastroLivro extends Activity {
     private String caminhoFoto;
     private ImageView preVisuFoto;
 
-    LivroServices livroServices = LivroServices.getInstancia(this);
-    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
-    FotoServices fotoServices = FotoServices.getInstancia(this);
-
+    LivroServices livroServices = LivroServices.getInstancia();
+    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    FotoServices fotoServices = FotoServices.getInstancia();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,6 @@ public class CadastroLivro extends Activity {
         campoDescricao = (EditText) findViewById(R.id.campoDescricao);
         campoIdioma = (EditText) findViewById(R.id.campoIdioma);
         preVisuFoto = (ImageView) findViewById(R.id.preVisuFoto);
-
 
         //Preencher o spinner com temas
         try {
@@ -97,21 +96,20 @@ public class CadastroLivro extends Activity {
 
             @Override
             public void onClick(View v) {
-                String nome = campoNomeLivro.getText().toString();
-                String autor = campoAutor.getText().toString();
-                String editora = campoEditora.getText().toString();
-                String edicao = campoEdicao.getText().toString();
-                String descricao = campoDescricao.getText().toString();
-                String idioma = campoIdioma.getText().toString();
-                Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
-                Tema tema = (Tema) temaSpinner.getSelectedItem();
-                try {
-                    int nDePaginas = Integer.parseInt(camponDePaginas.getText().toString());
+            String nome = campoNomeLivro.getText().toString();
+            String autor = campoAutor.getText().toString();
+            String editora = campoEditora.getText().toString();
+            String edicao = campoEdicao.getText().toString();
+            String descricao = campoDescricao.getText().toString();
+            String idioma = campoIdioma.getText().toString();
+            Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
+            Tema tema = (Tema) temaSpinner.getSelectedItem();
+            try {
+                int nDePaginas = Integer.parseInt(camponDePaginas.getText().toString());
 
-                    Livro livro = new Livro(nome, autor, tema, tema.getId());
-                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao, idioma, disponibilidade, disponibilidade.getId(), SessaoUsuario.getInstancia().getUsuarioLogado().getId());
-
-                    Foto foto = new Foto(caminhoFoto);
+                Livro livro = new Livro(nome, autor, tema, tema.getId());
+                UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao, idioma, disponibilidade, disponibilidade.getId(), SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+                Foto foto = new Foto(caminhoFoto);
 
 
                     List<String> listaCamposNaoPreenchidos = validarCamposPreenchidosLivro(livro, unidadeLivro, foto);
@@ -122,14 +120,14 @@ public class CadastroLivro extends Activity {
                         cadastrarLivro(livro, unidadeLivro, foto);
                     }
 
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getApplication(), "insira numeros de paginas", Toast.LENGTH_LONG).show();
-                }
-
+            } catch (NumberFormatException e) {
+                Toast.makeText(getApplication(), "insira numeros de paginas", Toast.LENGTH_LONG).show();
+            }
 
             }
         });
     }
+
 
     //validação de campos preenchidos
     public List<String> validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
@@ -162,11 +160,11 @@ public class CadastroLivro extends Activity {
         return listaCampos;
     }
 
-
     private void adcDisponibilidadesNoSpinner() throws Exception {
         disponibilidadeSpinner = (Spinner) findViewById(R.id.disponibilidadeSpinner);
 
-        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia(this).pegarDisponibilidades();
+        SessaoUsuario.getInstancia().setContext(this);
+        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia().pegarDisponibilidades();
 
         ModeloArrayAdapter<Disponibilidade> dataAdapter = new ModeloArrayAdapter<Disponibilidade>(this, android.R.layout.simple_spinner_item, disponibilidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -179,7 +177,8 @@ public class CadastroLivro extends Activity {
     private void adcTemasNoSpinner() throws Exception {
         temaSpinner = (Spinner) findViewById(R.id.temaSpinner);
 
-        ArrayList<Tema> temas = TemaServices.getInstancia(this).pegarCidades();
+        SessaoUsuario.getInstancia().setContext(this);
+        ArrayList<Tema> temas = TemaServices.getInstancia().pegarCidades();
 
         ModeloArrayAdapter<Tema> dataAdapter = new ModeloArrayAdapter<Tema>(this, android.R.layout.simple_spinner_item, temas);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -189,9 +188,19 @@ public class CadastroLivro extends Activity {
 
     }
 
+    public void chamarCadastrarLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto){
+
+        if (!validarCamposPreenchidosLivro(livro, unidadeLivro, foto)) {
+            Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
+        } else {
+            cadastrarLivro(livro, unidadeLivro, foto);
+        }
+    }
+
     public void cadastrarLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
 
         try {
+            SessaoUsuario.getInstancia().setContext(this);
             livro = livroServices.inserirLivro(livro);
             unidadeLivro.setIdLivro(livro.getId());
             unidadeLivroService.inserirUnidadeLivro(unidadeLivro);

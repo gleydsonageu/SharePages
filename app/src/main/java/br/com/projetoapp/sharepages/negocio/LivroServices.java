@@ -1,22 +1,20 @@
 package br.com.projetoapp.sharepages.negocio;
 
 
-import android.content.Context;
-
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.LivroDAO;
 
 public class LivroServices {
 
-    private static LivroServices instancia;
-    private LivroDAO dao;
+    private static LivroServices instancia = new LivroServices();
+    private LivroDAO livroDAO;
 
-    public static LivroServices getInstancia(Context context) {
-        if(instancia == null){
-            instancia = new LivroServices();
-            instancia.dao = LivroDAO.getInstancia(context);
-        }
+    private LivroServices(){
+        this.livroDAO = LivroDAO.getInstancia();
+    }
+
+    public static LivroServices getInstancia() {
         return instancia;
     }
 
@@ -24,7 +22,7 @@ public class LivroServices {
         Livro livroEncontrado;
 
         try {
-            livroEncontrado = dao.buscarLivro(livro.getNome(), livro.getAutor());
+            livroEncontrado = livroDAO.buscarLivro(livro.getNome(), livro.getAutor());
         } catch (Exception e){
             e.printStackTrace();
             throw new SharepagesException("Erro");
@@ -35,7 +33,7 @@ public class LivroServices {
             return livroEncontrado;
 
         }else {
-           int idLivro = (int) dao.inserirLivro(livro);
+           int idLivro = (int) livroDAO.inserirLivro(livro);
             livro.setId(idLivro);
 
             return livro;

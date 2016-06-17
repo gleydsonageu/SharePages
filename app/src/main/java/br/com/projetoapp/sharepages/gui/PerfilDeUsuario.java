@@ -18,6 +18,7 @@ import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class PerfilDeUsuario extends Activity {
@@ -26,8 +27,9 @@ public class PerfilDeUsuario extends Activity {
     private Button botaoAtualizar, botaoDeletar;
     private Spinner cidadeSpinner;
 
-    CidadeServices cidadeServices = CidadeServices.getInstancia(this);
-    UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
+    CidadeServices cidadeServices = CidadeServices.getInstancia();
+    UsuarioServices usuarioServices = UsuarioServices.getInstancia();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class PerfilDeUsuario extends Activity {
         botaoAtualizar = (Button) findViewById(R.id.botaoAtualizar);
         botaoDeletar = (Button) findViewById(R.id.botaoDeletar);
 
-        carregarPerfil();
+        carregarPerfilUsuario();
 
         chamarBotaoAtualizar();
 
@@ -52,6 +54,7 @@ public class PerfilDeUsuario extends Activity {
         ArrayList<Cidade> cidades = null;
 
         try {
+            SessaoUsuario.getInstancia().setContext(this);
             cidades = cidadeServices.pegarCidades();
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +79,6 @@ public class PerfilDeUsuario extends Activity {
         boolean validacao = true;
 
         Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
-
         if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
             textoNomePerfil.setError(getString(R.string.campo_obrigatorio));
@@ -103,7 +105,7 @@ public class PerfilDeUsuario extends Activity {
 
                 if(!validarCamposPreenchidos(usuario, senhaAtual)){
                     Toast.makeText(getApplication(), "Favor preencher campos obrigatórios", Toast.LENGTH_LONG).show();
-                }else if (!UsuarioServices.getInstancia(PerfilDeUsuario.this).validarSenhaAtual(senhaAtual)){
+                }else if (!usuarioServices.validarSenhaAtual(senhaAtual)){
                     Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
 
                 }else {
@@ -119,7 +121,7 @@ public class PerfilDeUsuario extends Activity {
         });
     }
 
-    public void carregarPerfil(){
+    public void carregarPerfilUsuario(){
         Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
 
             textoNomePerfil.setText(usuario.getNome());

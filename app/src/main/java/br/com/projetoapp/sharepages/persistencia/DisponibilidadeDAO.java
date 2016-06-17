@@ -1,7 +1,6 @@
 package br.com.projetoapp.sharepages.persistencia;
 
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,22 +8,23 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class DisponibilidadeDAO {
 
-    public DatabaseHelper databaseHelper;
 
 
-    public static DisponibilidadeDAO getInstancia (Context context) {
+    public static DisponibilidadeDAO getInstancia () {
         DisponibilidadeDAO instancia = new DisponibilidadeDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
-
     }
 
     public ArrayList<Disponibilidade> pegarDisponibilidades() throws SharepagesException{
         Disponibilidade disponibilidade = null;
+
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
             ArrayList<Disponibilidade> listaDisponibilidade = new ArrayList<Disponibilidade>();

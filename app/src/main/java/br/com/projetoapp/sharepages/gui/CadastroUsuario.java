@@ -17,6 +17,7 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
@@ -27,8 +28,9 @@ public class CadastroUsuario extends Activity {
     private Button botaoCadastrar;
     private Spinner cidadeSpinner;
 
-    private UsuarioServices usuarioServices = UsuarioServices.getInstancia(this);
-    private CidadeServices cidadeServices = CidadeServices.getInstancia(this);
+    private UsuarioServices usuarioServices = UsuarioServices.getInstancia();
+    private CidadeServices cidadeServices = CidadeServices.getInstancia();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,6 @@ public class CadastroUsuario extends Activity {
 
                 } else {
                     try {
-                        validarCamposPreenchidos(usuario);
                         cadastrarUsuario(usuario);
                     } catch (Exception e) {
                         Toast.makeText(getApplication(),"Não cadastrou",Toast.LENGTH_LONG).show();
@@ -89,6 +90,7 @@ public class CadastroUsuario extends Activity {
         ArrayList<Cidade> cidades = null;
 
         try {
+            SessaoUsuario.getInstancia().setContext(this);
             cidades = cidadeServices.pegarCidades();
         } catch (Exception e) {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -144,7 +146,7 @@ public class CadastroUsuario extends Activity {
             Log.i("SCRIPT", "Chamando metodo cadastrarUsuario ");
             finish();
         } catch (Exception e){
-            Toast.makeText(getApplication(),e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(),"Usuário não cadastrado",Toast.LENGTH_LONG).show();
         }
     }
 }

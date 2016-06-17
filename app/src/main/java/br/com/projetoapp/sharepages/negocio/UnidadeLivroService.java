@@ -1,8 +1,6 @@
 package br.com.projetoapp.sharepages.negocio;
 
 
-import android.content.Context;
-
 import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
@@ -12,19 +10,21 @@ import br.com.projetoapp.sharepages.persistencia.UnidadeLivroDAO;
 public class UnidadeLivroService {
 
 
-    private UnidadeLivroDAO dao;
+    private static UnidadeLivroService instancia = new UnidadeLivroService();
+    private UnidadeLivroDAO unidadeLivroDAO;
 
-    public static UnidadeLivroService getInstancia(Context context) {
-        UnidadeLivroService  instancia = new UnidadeLivroService();
-        instancia.dao = UnidadeLivroDAO.getInstancia(context);
+    private UnidadeLivroService(){
+        this.unidadeLivroDAO = UnidadeLivroDAO.getInstacia();
+    }
 
+    public static UnidadeLivroService getInstancia(){
         return instancia;
     }
 
     public UnidadeLivro inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException{
 
         try {
-         int  idUnidadeLivro = (int) dao.inserirUnidadeLivro(unidadeLivro);
+         int  idUnidadeLivro = (int) unidadeLivroDAO.inserirUnidadeLivro(unidadeLivro);
             unidadeLivro.setId(idUnidadeLivro);
         } catch (SharepagesException e) {
             throw new SharepagesException("Houve um erro inserir livro");
@@ -32,11 +32,13 @@ public class UnidadeLivroService {
         return unidadeLivro;
     }
     public List<UnidadeLivro> buscarLivroPorUsuario(int id){
-       // Log.i("SCRIPT","buscarlivroPorUsuario ======= "+id);
-        return dao.buscarLivroPorIdUsuario(id);
+
+        return unidadeLivroDAO.buscarLivroPorIdUsuario(id);
     }
 
     public UnidadeLivro buscarUnidadeLivroPorId(int id) {
         return dao.buscarPorId(id);
     }
+}
+
 }

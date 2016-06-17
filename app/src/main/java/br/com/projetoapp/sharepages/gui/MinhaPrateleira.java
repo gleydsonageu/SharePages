@@ -32,6 +32,8 @@ public class MinhaPrateleira extends Activity {
         setContentView(R.layout.activity_minha_prateleira);
 
         listLivro = (ListView) findViewById(R.id.listaLivros);
+        listLivro.setOnItemClickListener(chamarPerfilLivro());
+
 
         try {
             listaLivrosDeUsuarioLogado();
@@ -41,21 +43,37 @@ public class MinhaPrateleira extends Activity {
 
     }
 
+    }
+
+    public AdapterView.OnItemClickListener chamarPerfilLivro(){
+        return(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                UnidadeLivro livro = adapterListLivro.getItem(position);
+                Intent intent = new Intent(getBaseContext(), PerfilDeLivro.class);
+                intent.putExtra("Livro", livro.getId());
+                setResult(Activity.RESULT_OK, intent);
+
+                startActivityForResult(intent, 0);
+
+            }
+        });
+
+    }
+
     public void listaLivrosDeUsuarioLogado() throws SharepagesException {
         int id = SessaoUsuario.getInstancia().getUsuarioLogado().getId();
 
         AdapterListLivro adapterListView = null;
 
-        try {
-            List<UnidadeLivro> listaLivros = unidadeLivroService.buscarLivroPorUsuario(id);
-            //Log.i("SCRIPT","buscando livro depois do livro service "+ listaLivros);
-            adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
-            //Log.i("SCRIPT","buscando livro "+ adapterListView);
-            listLivro.setAdapter(adapterListView);
-        }catch (RuntimeException e){
-            e.printStackTrace();
-            Toast.makeText(getApplication(), "Erro ao buscar", Toast.LENGTH_LONG).show();
-        }
+        SessaoUsuario.getInstancia().setContext(this);
+        List<UnidadeLivro> listaLivros = unidadeLivroService.buscarLivroPorUsuario(id);
+        //Log.i("SCRIPT","buscando livro depois do livro service "+ listaLivros);
+        adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
+        //Log.i("SCRIPT","buscando livro "+ adapterListView);
+        listLivro.setAdapter(adapterListView);
     }
+}
 
 }

@@ -2,7 +2,6 @@ package br.com.projetoapp.sharepages.persistencia;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -15,21 +14,20 @@ import br.com.projetoapp.sharepages.dominio.Foto;
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class UnidadeLivroDAO {
 
-    public DatabaseHelper databaseHelper;
-
-
-    public static UnidadeLivroDAO getInstancia(Context context) {
+    public static UnidadeLivroDAO getInstacia(){
         UnidadeLivroDAO instancia = new UnidadeLivroDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
     public long inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         try (SQLiteDatabase database = databaseHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
 
@@ -53,6 +51,8 @@ public class UnidadeLivroDAO {
     public List<UnidadeLivro> buscarLivroPorIdUsuario (int id){
         UnidadeLivro unidadeLivro = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         List<UnidadeLivro> listUnidadeLivro = new ArrayList<UnidadeLivro>();
 

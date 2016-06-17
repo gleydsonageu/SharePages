@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import br.com.projetoapp.sharepages.R;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 
 public class MenuPrincipal extends Activity{
 
@@ -23,6 +24,8 @@ public class MenuPrincipal extends Activity{
         botaoEditarPerfil = (Button) findViewById(R.id.botaoEditarPerfil);
         botaoCadastrarLivro = (Button) findViewById(R.id.botaoCadastrarLivro);
         botaoMinhaPrateleira = (Button) findViewById(R.id.botaoMinhaPrateleira);
+        SessaoUsuario.getInstancia().setContext(this);
+
 
         botaoEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

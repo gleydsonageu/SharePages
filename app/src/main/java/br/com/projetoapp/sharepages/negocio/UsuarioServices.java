@@ -10,23 +10,26 @@ import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
 public class UsuarioServices {
 
-    private UsuarioDAO dao;
+    private static UsuarioServices  instancia = new UsuarioServices();
+    private UsuarioDAO usuarioDAO;
 
-    public static UsuarioServices getInstancia(Context context) {
-        UsuarioServices  instancia = new UsuarioServices();
-        instancia.dao = UsuarioDAO.getInstancia(context);
+    private UsuarioServices() {
+        this.usuarioDAO = UsuarioDAO.getInstancia();
+    }
 
-        return instancia;
+    public static UsuarioServices getInstancia(){
+            return instancia;
     }
 
     public Usuario validarLoginUsuario(Usuario usuario) throws SharepagesException {
         Usuario usuarioEncontrado;
         try {
-            usuarioEncontrado = dao.consultar(usuario.getEmail(), usuario.getSenha());
+            usuarioEncontrado = usuarioDAO.consultar(usuario.getEmail(), usuario.getSenha());
             SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
             sessaoUsuario.setUsuarioLogado(usuarioEncontrado);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new SharepagesException("Houve um erro, tente novamente");
         }
 
@@ -40,21 +43,22 @@ public class UsuarioServices {
     public void inserirUsuario(Usuario usuario) throws SharepagesException {
         Usuario emailEncontrado;
         try {
-            emailEncontrado = dao.buscarEmail(usuario.getEmail());
+            emailEncontrado = usuarioDAO.buscarEmail(usuario.getEmail());
 
         } catch (Exception e){
+            e.printStackTrace();
             throw new SharepagesException("Erro ao verificar email digitado");
         }
         if (emailEncontrado != null){
             throw new SharepagesException("Email já cadastrado");
         }else {
-            dao.inserir(usuario);
+            usuarioDAO.inserir(usuario);
         }
     }
 
     public void alterarUsuario(Usuario alteracaoUsuario) throws  SharepagesException{
         try {
-            dao.alterar(alteracaoUsuario);
+            usuarioDAO.alterar(alteracaoUsuario);
         }catch (Exception e){
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
@@ -63,10 +67,11 @@ public class UsuarioServices {
     public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
         alterarUsuario(alteracaoUsuario);
         try {
-            dao.buscarPorId(alteracaoUsuario.getId());
-            Usuario usuarioSalvo = dao.buscarPorId(alteracaoUsuario.getId());
+            usuarioDAO.buscarPorId(alteracaoUsuario.getId());
+            Usuario usuarioSalvo = usuarioDAO.buscarPorId(alteracaoUsuario.getId());
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioSalvo);
         }catch (Exception e){
+            e.printStackTrace();
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }
@@ -74,7 +79,5 @@ public class UsuarioServices {
     public boolean validarSenhaAtual(String senha) {
         return SessaoUsuario.getInstancia().getUsuarioLogado().getSenha().equals(senha);
     }
-
-
 
 }

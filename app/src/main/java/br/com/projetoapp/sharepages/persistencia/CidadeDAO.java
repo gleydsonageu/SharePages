@@ -1,7 +1,6 @@
 package br.com.projetoapp.sharepages.persistencia;
 
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,21 +8,22 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Cidade;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 
 public class CidadeDAO {
 
-    public DatabaseHelper databaseHelper;
-
-    public static CidadeDAO getInstancia(Context context) {
+    public static CidadeDAO getInstancia() {
         CidadeDAO instancia = new CidadeDAO();
-        instancia.databaseHelper = new DatabaseHelper(context);
         return instancia;
     }
 
-    public ArrayList<Cidade> pegarCidades() throws Exception{
+    public ArrayList<Cidade> pegarCidades() throws SharepagesException{
         Cidade cidade = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         try {
             ArrayList<Cidade> listaCidades = new ArrayList<Cidade>();
@@ -40,15 +40,6 @@ public class CidadeDAO {
                         cursor.moveToNext();
                     }
                 }
-//            while (!cursor.isAfterLast()) {
-//                    Cidade cidade = new Cidade();
-//                    int idCidade = cursor.getInt(0);
-//                    String nomeCidade = cursor.getString(1);
-//                    cidade.setId(idCidade);
-//                    cidade.setNome(nomeCidade);
-//                    listaCidades.add(cidade);
-//                    cursor.moveToNext();
-//                }
             Log.d("AQUI", listaCidades.toString());
 
             database.close();
@@ -69,4 +60,3 @@ public class CidadeDAO {
     }
 
 }
-
