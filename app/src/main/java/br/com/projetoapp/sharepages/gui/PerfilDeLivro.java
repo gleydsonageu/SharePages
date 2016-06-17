@@ -50,19 +50,17 @@ public class PerfilDeLivro extends Activity {
     public static final int CODE_CAMERA_SELECIONAR = 123;
     public static final int CODE_EXTERNAL_STORAGE_PERMISSION = 3232;
 
-    LivroServices livroServices = LivroServices.getInstancia(this);
-    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
-    FotoServices fotoServices = FotoServices.getInstancia(this);
+    LivroServices livroServices = LivroServices.getInstancia();
+    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    FotoServices fotoServices = FotoServices.getInstancia();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_de_livro);
-        int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivro", 0);
+        int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivro", -1);
 
         UnidadeLivro unidadeLivro = unidadeLivroService.buscarUnidadeLivroPorId(idUnidadeLivro);
-
-
 
         campoNomeLivroPerfil = (EditText) findViewById(R.id.campoNomeLivroPerfil);
         campoAutorPerfil = (EditText) findViewById(R.id.campoAutorPerfil);
@@ -77,6 +75,7 @@ public class PerfilDeLivro extends Activity {
         preVisuFoto = (ImageView) findViewById(R.id.preVisuFoto);
         disponibilidadeSpinnerPerfil = (Spinner) findViewById(R.id.disponibilidadeSpinnerPerfil);
         editTema = (EditText) findViewById(R.id.editTema);
+        atualizarLivro = (Button) findViewById(R.id.atualizarLivro);
 
 
         campoNomeLivroPerfil.setText(unidadeLivro.getLivro().getNome());
@@ -98,110 +97,64 @@ public class PerfilDeLivro extends Activity {
             adcDisponibilidadesNoSpinner();
             selectDisponibilidadeSpinnerItemById(unidadeLivro.getIdDisponibilidade());
         } catch (SharepagesException e) {
-
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Uri visualizacao = Uri.fromFile(new File(unidadeLivro.getFoto().getCaminho()));
+
+        Uri visualizacao = Uri.fromFile(new File(unidadeLivro.getFotos().get(0).getCaminho()));
         preVisuFoto.setImageURI(visualizacao);
-
-
 
         chamarBotaoTirarFoto();
         chamarBotaoSelecionarFoto();
-        chamarBotaoCadastrarLivro();
-
-
+        chamarBotaoAtualizarLivro(unidadeLivro);
     }
 
-    public void chamarBotaoCadastrarLivro() {
+    public void chamarBotaoAtualizarLivro(final UnidadeLivro unidadeLivroAtual) {
 
         atualizarLivro.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String nome = campoNomeLivroPerfil.getText().toString();
-                String autor = campoAutorPerfil.getText().toString();
-                String editora = campoEditoraPerfil.getText().toString();
-                String edicao = campoEdicaoPerfil.getText().toString();
-                String descricao = campoDescricaoPerfil.getText().toString();
-                String idioma = campoIdiomaPerfil.getText().toString();
-                Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinnerPerfil.getSelectedItem();
-                Tema tema = (Tema) temaSpinnerPerfil.getSelectedItem();
-                try {
-                    int nDePaginas = Integer.parseInt(campoDePaginasPerfil.getText().toString());
 
-                    Livro livro = new Livro(nome, autor, tema, tema.getId());
-                    UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao, idioma, disponibilidade, disponibilidade.getId(), SessaoUsuario.getInstancia().getUsuarioLogado().getId());
+                String descricao = campoDescricaoPerfil.getText().toString();
+                Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinnerPerfil.getSelectedItem();
+                try {
+                    UnidadeLivro alteracoesUnidadeLivro = new UnidadeLivro();
+                    alteracoesUnidadeLivro.setDescricao(descricao);
+                    alteracoesUnidadeLivro.setIdDisponibilidade(disponibilidade.getId());
+                    alteracoesUnidadeLivro.setId(unidadeLivroAtual.getId());
 
                     Foto foto = new Foto(caminhoFoto);
+                    foto.setId(unidadeLivroAtual.getFotos().get(0).getId());
 
-
-                    List<String> listaCamposNaoPreenchidos = validarCamposPreenchidosLivro(livro, unidadeLivro, foto);
-                    if (listaCamposNaoPreenchidos.size() >= 1) {
-                        String msgError = TextUtils.join(", ", listaCamposNaoPreenchidos);
-                        Toast.makeText(getApplication(), "Favor preencher todos os campos: " + msgError, Toast.LENGTH_LONG).show();
-                    } else {
-                        cadastrarLivro(livro, unidadeLivro, foto);
+                    try {
+                        unidadeLivroService.alterarLivro(alteracoesUnidadeLivro);
+                        if (caminhoFoto != null) {
+                            fotoServices.alterarFoto(foto);
+                        }
+                        Toast.makeText(getApplication(), "Alteracoes realizadas com sucesso!", Toast.LENGTH_LONG).show();
+                        finish();
+                    } catch (SharepagesException e) {
+                        e.printStackTrace();
                     }
-
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplication(), "insira numeros de paginas", Toast.LENGTH_LONG).show();
                 }
-
-
             }
         });
-    }
-
-    //validação de campos preenchidos
-    public List<String> validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
-
-        List<String> listaCampos = new ArrayList<String>();
-        Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
-        if (livro.getNome() == null || livro.getNome().equals("")) {
-            listaCampos.add("nome");
-            campoNomeLivroPerfil.setError(getString(R.string.campo_obrigatorio));
-        }
-        if (livro.getAutor() == null || livro.getAutor().equals("")) {
-            listaCampos.add("autor");
-            campoAutorPerfil.setError(getString(R.string.campo_obrigatorio));
-        }
-        if (unidadeLivro.getEdicao() == null || unidadeLivro.getEdicao().equals("")) {
-            listaCampos.add("edicao");
-            campoEdicaoPerfil.setError(getString(R.string.campo_obrigatorio));
-        }
-        if (unidadeLivro.getEditora() == null || unidadeLivro.getEditora().equals("")) {
-            listaCampos.add("editora");
-            campoEditoraPerfil.setError(getString(R.string.campo_obrigatorio));
-        }
-        if (unidadeLivro.getIdioma() == null || unidadeLivro.getIdioma().equals("")) {
-            listaCampos.add("idioma");
-            campoIdiomaPerfil.setError(getString(R.string.campo_obrigatorio));
-        }
-        if (foto.getCaminho() == null) {
-            listaCampos.add("foto(Tire uma foto ou escolhe uma de sua galeria");
-        }
-        return listaCampos;
     }
 
 
     private void adcDisponibilidadesNoSpinner() throws Exception {
         disponibilidadeSpinnerPerfil = (Spinner) findViewById(R.id.disponibilidadeSpinnerPerfil);
 
-        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia(this).pegarDisponibilidades();
-
-        Log.d("peteca", "" + disponibilidades.get(0));
-        Log.d("peteca", "" + disponibilidades.get(1));
-
+        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia().pegarDisponibilidades();
 
 
         ModeloArrayAdapter<Disponibilidade> dataAdapter = new ModeloArrayAdapter<Disponibilidade>(this, android.R.layout.simple_spinner_item, disponibilidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         disponibilidadeSpinnerPerfil.setAdapter(dataAdapter);
-
-        disponibilidadeSpinnerPerfil.getSelectedItem();
-
     }
 
     public void selectDisponibilidadeSpinnerItemById(int id) {
@@ -209,6 +162,7 @@ public class PerfilDeLivro extends Activity {
         ModeloArrayAdapter<Disponibilidade> adapter = (ModeloArrayAdapter<Disponibilidade>) disponibilidadeSpinnerPerfil.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
             if(adapter.getItem(position).getId() == id) {
+                Log.d("xalala", "Spinner set selected: " + id);
                 disponibilidadeSpinnerPerfil.setSelection(position);
             }
         }

@@ -25,7 +25,7 @@ public class MinhaPrateleira extends Activity {
 
     private ImageButton botaoEditarLivro;
 
-    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia(this);
+    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +40,6 @@ public class MinhaPrateleira extends Activity {
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(), "Erro ao listar livro. ", Toast.LENGTH_LONG).show();
         }
-
-    }
 
     }
 
@@ -74,6 +72,4 @@ public class MinhaPrateleira extends Activity {
         //Log.i("SCRIPT","buscando livro "+ adapterListView);
         listLivro.setAdapter(adapterListView);
     }
-}
-
 }

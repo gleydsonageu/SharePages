@@ -188,15 +188,6 @@ public class CadastroLivro extends Activity {
 
     }
 
-    public void chamarCadastrarLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto){
-
-        if (!validarCamposPreenchidosLivro(livro, unidadeLivro, foto)) {
-            Toast.makeText(getApplication(), "Favor preencher todos os campos", Toast.LENGTH_LONG).show();
-        } else {
-            cadastrarLivro(livro, unidadeLivro, foto);
-        }
-    }
-
     public void cadastrarLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
 
         try {

@@ -51,36 +51,14 @@ public class LivroDAO {
         Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO, DatabaseHelper.LIVRO_COLUNAS, filtro,
                 new String[]{nome, autor}, null, null, null);
 
-          if(cursor.getCount()> 0){
-              while (cursor.moveToNext()){
-                  livroEncontrado = objetoLivro(cursor);
-              }
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()){
+                livroEncontrado = objetoLivro(cursor);
+            }
           }
         database.close();
         return livroEncontrado;
-    }
-
-    public List<Livro> pequisarLivroPorNome(String nome){
-        Livro livro = null;
-
-        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
-        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-
-        List<Livro> listaLivros = new ArrayList<Livro>();
-
-        String filtro = DatabaseHelper.LIVRO_NOME + "= ? ";
-        Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO,DatabaseHelper.LIVRO_COLUNAS, filtro,
-                new String[]{"%"+nome+"%"}, null, null, null);
-
-        if(cursor.getCount()> 0){
-            while (cursor.moveToNext()){
-                livro = objetoLivro(cursor);
-                listaLivros.add(livro);
-            }
-        }
-        database.close();
-        return listaLivros;
     }
 
     public Livro objetoLivro(Cursor cursor){

@@ -31,4 +31,7 @@ public class FotoServices {
         return foto;
 
     }
+    public void alterarFoto(Foto alteracaoFoto) throws SharepagesException{
+        fotoDAO.alterar(alteracaoFoto);
+    }
 }

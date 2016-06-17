@@ -4,6 +4,7 @@ package br.com.projetoapp.sharepages.negocio;
 import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UnidadeLivroDAO;
 
@@ -37,8 +38,10 @@ public class UnidadeLivroService {
     }
 
     public UnidadeLivro buscarUnidadeLivroPorId(int id) {
-        return dao.buscarPorId(id);
+        return unidadeLivroDAO.buscarPorId(id);
     }
-}
 
+    public void alterarLivro(UnidadeLivro alteracaoUnidadeLivro) throws SharepagesException{
+        unidadeLivroDAO.alterar(alteracaoUnidadeLivro);
+    }
 }

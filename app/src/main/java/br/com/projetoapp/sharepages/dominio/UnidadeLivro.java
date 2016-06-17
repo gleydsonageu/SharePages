@@ -1,5 +1,7 @@
 package br.com.projetoapp.sharepages.dominio;
 
+import java.util.List;
+
 public class UnidadeLivro {
     private int id;
     private String descricao;
@@ -9,7 +11,7 @@ public class UnidadeLivro {
     private String editora;
     private Livro livro;
     private int idLivro;
-    private Foto foto;
+    private List<Foto> fotos;
     private Disponibilidade disponibilidade;
     private int idDisponibilidade;
     private int idUsuario;
@@ -118,11 +120,11 @@ public class UnidadeLivro {
         this.idUsuario = idUsuario;
     }
 
-    public Foto getFoto() {
-        return foto;
+    public List<Foto> getFotos() {
+        return fotos;
     }
 
-    public void setFoto(Foto foto) {
-        this.foto = foto;
+    public void setFotos(List<Foto> fotos) {
+        this.fotos = fotos;
     }
 }

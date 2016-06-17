@@ -48,6 +48,22 @@ public class UnidadeLivroDAO {
         }
     }
 
+    public long alterar(UnidadeLivro unidadeLivro) throws SharepagesException {
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DatabaseHelper.UNIDADELIVRO_DESCRICAO, unidadeLivro.getDescricao());
+        values.put(DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE, unidadeLivro.getIdDisponibilidade());
+
+        String id = String.valueOf(unidadeLivro.getId());
+        String[] whereArgs = new String[]{id};
+        long retorno = database.update(DatabaseHelper.TABLE_UNIDADELIVROS, values, "id = ?", whereArgs);
+        database.close();
+        return retorno;
+    }
+
     public List<UnidadeLivro> buscarLivroPorIdUsuario (int id){
         UnidadeLivro unidadeLivro = null;
 
@@ -72,16 +88,13 @@ public class UnidadeLivroDAO {
                 +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+", "
                 +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+", "
                 +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+", "
-                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME+", "
-                +DatabaseHelper.TABLE_FOTOS+"."+DatabaseHelper.FOTO_CAMINHO
+                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME
                 +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
                 +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
                 +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS
                 +" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
                 +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES
                 +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
-                +") INNER JOIN " +DatabaseHelper.TABLE_FOTOS
-                +" ON ("+DatabaseHelper.TABLE_FOTOS+"."+DatabaseHelper.FOTO_ID_UNIDADELIVRO+ " = " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID
                 +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " = ?;", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
@@ -119,14 +132,13 @@ public class UnidadeLivroDAO {
         Disponibilidade disponibilidade = new Disponibilidade();
         disponibilidade.setId(cursor.getInt(15));
         disponibilidade.setNome(cursor.getString(16));
-        Foto foto = new Foto(cursor.getString(17));
 
-
+        unidLivro.setFotos(FotoDAO.getInstancia().buscarFotosPorIdUnidadeLivro(unidLivro.getId()));
 
         unidLivro.setLivro(livro);
         livro.setTema(tema);
         unidLivro.setDisponibilidade(disponibilidade);
-        unidLivro.setFoto(foto);
+
 
         return unidLivro;
     }
@@ -134,6 +146,8 @@ public class UnidadeLivroDAO {
     public UnidadeLivro buscarPorId (int id){
         UnidadeLivro unidadeLivro = null;
 
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
         Cursor cursor = database.rawQuery(" SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
@@ -152,16 +166,13 @@ public class UnidadeLivroDAO {
                 +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+", "
                 +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+", "
                 +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+", "
-                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME+", "
-                +DatabaseHelper.TABLE_FOTOS+"."+DatabaseHelper.FOTO_CAMINHO
+                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME
                 +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
                 +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
                 +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS
                 +" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
                 +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES
                 +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
-                +") INNER JOIN " +DatabaseHelper.TABLE_FOTOS
-                +" ON ("+DatabaseHelper.TABLE_FOTOS+"."+DatabaseHelper.FOTO_ID_UNIDADELIVRO+ " = " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID
                 +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ " = ?;", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();

@@ -90,8 +90,8 @@ public class UsuarioDAO {
         }
         values.put(DatabaseHelper.USUARIO_ID_CIDADE, usuario.getIdCidade());
 
-        String _id = String.valueOf(usuario.getId());
-        String[] whereArgs = new String[]{_id};
+        String id = String.valueOf(usuario.getId());
+        String[] whereArgs = new String[]{id};
         long retorno = database.update(DatabaseHelper.TABLE_USUARIOS, values, "id=?", whereArgs);
         database.close();
         return retorno;
