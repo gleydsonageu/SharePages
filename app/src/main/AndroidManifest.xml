@@ -44,7 +44,10 @@
             android:label="@string/title_activity_perfil_de_livro" />
         <activity
             android:name=".gui.ColecaoDisponivel"
-            android:label="@string/title_activity_colecao_disponivel"></activity>
+            android:label="@string/title_activity_colecao_disponivel" />
+        <activity
+            android:name=".gui.TelaAnuncio"
+            android:label="@string/title_activity_tela_anuncio"></activity>
     </application>
 
 </manifest>

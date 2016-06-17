@@ -24,9 +24,10 @@ public class TemaDAO {
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        try {
-            ArrayList<Tema> listaTemas = new ArrayList<Tema>();
 
+        ArrayList<Tema> listaTemas = new ArrayList<Tema>();
+
+        try {
             Cursor cursor = database.query(DatabaseHelper.TABLE_TEMAS, DatabaseHelper.TEMA_COLUNAS, null, null, null, null, null);
 
             if(cursor.getCount()> 0){
@@ -42,12 +43,13 @@ public class TemaDAO {
             Log.d("AQUI", listaTemas.toString());
 
             database.close();
-            return listaTemas;
+
         } catch (Exception e) {
             throw new SharepagesException("Houve um erro ao listar temas");
         }
-
+        return listaTemas;
     }
+
     public Tema objetoTema(Cursor cursor){
         Tema tema = null;
 

@@ -11,9 +11,7 @@ import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 
 public class MenuPrincipal extends Activity{
 
-    private Button botaoEditarPerfil;
-    private Button botaoCadastrarLivro;
-    private Button botaoMinhaPrateleira;
+    private Button botaoEditarPerfil, botaoCadastrarLivro, botaoColecaoDisponivel, botaoMinhaPrateleira;
 
 
     @Override
@@ -24,6 +22,7 @@ public class MenuPrincipal extends Activity{
         botaoEditarPerfil = (Button) findViewById(R.id.botaoEditarPerfil);
         botaoCadastrarLivro = (Button) findViewById(R.id.botaoCadastrarLivro);
         botaoMinhaPrateleira = (Button) findViewById(R.id.botaoMinhaPrateleira);
+        botaoColecaoDisponivel = (Button) findViewById(R.id.botaoColecaoDisponivel);
         SessaoUsuario.getInstancia().setContext(this);
 
 
@@ -36,11 +35,18 @@ public class MenuPrincipal extends Activity{
         });
 
         botaoCadastrarLivro.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent itCadastroLivro = new Intent(MenuPrincipal.this, CadastroLivro.class);
                 startActivity(itCadastroLivro);
+            }
+        });
+
+        botaoColecaoDisponivel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent itColecaoDisponivel = new Intent(MenuPrincipal.this, ColecaoDisponivel.class);
+                startActivity(itColecaoDisponivel);
             }
         });
 
@@ -51,7 +57,6 @@ public class MenuPrincipal extends Activity{
                 startActivity(itMinhaPratileira);
             }
         });
-
 
     }
 }

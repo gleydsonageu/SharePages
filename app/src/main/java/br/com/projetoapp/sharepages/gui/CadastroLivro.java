@@ -34,7 +34,6 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
-import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
@@ -178,7 +177,7 @@ public class CadastroLivro extends Activity {
         temaSpinner = (Spinner) findViewById(R.id.temaSpinner);
 
         SessaoUsuario.getInstancia().setContext(this);
-        ArrayList<Tema> temas = TemaServices.getInstancia().pegarCidades();
+        ArrayList<Tema> temas = TemaServices.getInstancia().pegarTemas();
 
         ModeloArrayAdapter<Tema> dataAdapter = new ModeloArrayAdapter<Tema>(this, android.R.layout.simple_spinner_item, temas);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

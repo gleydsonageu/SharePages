@@ -65,5 +65,6 @@
     <string name="atualizar_foto">Atualizar Foto</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_colecao_disponivel">Colecao Disponível</string>
+    <string name="title_activity_tela_anuncio">Tela Anúncio</string>
 
 </resources>
