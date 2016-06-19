@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,22 +19,17 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
 import br.com.projetoapp.sharepages.dominio.Foto;
 import br.com.projetoapp.sharepages.dominio.Livro;
-import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
-import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
-import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
-import br.com.projetoapp.sharepages.negocio.TemaServices;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
 public class PerfilDeLivro extends Activity {
@@ -149,8 +143,7 @@ public class PerfilDeLivro extends Activity {
     private void adcDisponibilidadesNoSpinner() throws Exception {
         disponibilidadeSpinnerPerfil = (Spinner) findViewById(R.id.disponibilidadeSpinnerPerfil);
 
-        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia().pegarDisponibilidades();
-
+        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia().getDisponibilidades();
 
         ModeloArrayAdapter<Disponibilidade> dataAdapter = new ModeloArrayAdapter<Disponibilidade>(this, android.R.layout.simple_spinner_item, disponibilidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

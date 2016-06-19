@@ -18,7 +18,7 @@ public class TemaDAO {
         return instancia;
     }
 
-    public ArrayList<Tema> pegarTemas() throws SharepagesException{
+    public ArrayList<Tema> getTemas() throws SharepagesException{
         Tema tema = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -59,5 +59,4 @@ public class TemaDAO {
 
         return tema;
     }
-
 }

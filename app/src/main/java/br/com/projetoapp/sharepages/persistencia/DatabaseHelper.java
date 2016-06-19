@@ -5,11 +5,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.infra.Criptografia;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 22;
+    public static final int VERSION = 23;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -156,11 +160,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void criarUsuarioDefault (SQLiteDatabase database) {
+    public void criarUsuarioDefault (SQLiteDatabase database) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Usuario usuario = new Usuario();
+
+        Criptografia criptografia = new Criptografia();
+        String senhaDefault = criptografia.setSenha("123456");
+
         usuario.setNome("Joao");
         usuario.setEmail("joao@gmail.com");
-        usuario.setSenha("123456");
+        usuario.setSenha(senhaDefault);
         usuario.setIdCidade(1);
         inserirUsuario(database, usuario);
     }
@@ -178,8 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         listaDisponibilidade(database);
         listaTemas(database);
         listaCidades(database);
-        criarUsuarioDefault(database);
-
+        setUsuarioDefault(database);
     }
 
     public void inserirUsuario(SQLiteDatabase database, Usuario usuario)  {
@@ -223,4 +230,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void setUsuarioDefault(SQLiteDatabase database){
+        try {
+            criarUsuarioDefault(database);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 }

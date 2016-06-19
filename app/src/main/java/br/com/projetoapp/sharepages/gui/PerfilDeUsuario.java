@@ -2,7 +2,6 @@ package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.CidadeServices;
-import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 
 public class PerfilDeUsuario extends Activity {
@@ -29,7 +27,6 @@ public class PerfilDeUsuario extends Activity {
 
     CidadeServices cidadeServices = CidadeServices.getInstancia();
     UsuarioServices usuarioServices = UsuarioServices.getInstancia();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +52,9 @@ public class PerfilDeUsuario extends Activity {
 
         try {
             SessaoUsuario.getInstancia().setContext(this);
-            cidades = cidadeServices.pegarCidades();
-        } catch (Exception e) {
-            e.printStackTrace();
+            cidades = cidadeServices.getCidades();
+        } catch (SharepagesException e) {
+            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         ModeloArrayAdapter<Cidade> dataAdapter = new ModeloArrayAdapter<Cidade>(this, android.R.layout.simple_spinner_item, cidades);
@@ -75,10 +72,23 @@ public class PerfilDeUsuario extends Activity {
         }
     }
 
+    public void carregarPerfilUsuario(){
+        Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
+
+        textoNomePerfil.setText(usuario.getNome());
+        textoEmailPerfil.setText(usuario.getEmail());
+        textoEmailPerfil.setEnabled(false);
+        try {
+            adcCidadesNoSpinner();
+            selectCidadeSpinnerItemById(usuario.getIdCidade());
+        } catch (SharepagesException e) {
+            Toast.makeText(getApplication(), "Houve algum problema no carregamento.", Toast.LENGTH_LONG).show();
+        }
+    }
+
     public boolean validarCamposPreenchidos(Usuario usuario, String senhaAtual) {
         boolean validacao = true;
 
-        Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
         if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
             textoNomePerfil.setError(getString(R.string.campo_obrigatorio));
@@ -109,30 +119,21 @@ public class PerfilDeUsuario extends Activity {
                     Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
 
                 }else {
-                    try{
-                        usuarioServices.alterarPerfilUsuarioLogado(usuario);
-                        Toast.makeText(getApplication(), "Perfil atualizado", Toast.LENGTH_LONG).show();
-                        finish();
-                    } catch (SharepagesException e) {
-                        Toast.makeText(getApplication(),"erro ao alterar usuario", Toast.LENGTH_LONG).show();
-                    }
+                    AlterarPerfilUsuarioLogado(usuario);
                 }
             }
         });
     }
 
-    public void carregarPerfilUsuario(){
-        Usuario usuario = SessaoUsuario.getInstancia().getUsuarioLogado();
+    public void AlterarPerfilUsuarioLogado(Usuario usuario){
 
-            textoNomePerfil.setText(usuario.getNome());
-            textoEmailPerfil.setText(usuario.getEmail());
-            textoEmailPerfil.setEnabled(false);
-            try {
-                adcCidadesNoSpinner();
-                selectCidadeSpinnerItemById(usuario.getIdCidade());
-            } catch (SharepagesException e) {
-
-            }
+        try{
+            usuarioServices.alterarPerfilUsuarioLogado(usuario);
+            Toast.makeText(getApplication(), "Perfil atualizado", Toast.LENGTH_LONG).show();
+            finish();
+        } catch (SharepagesException e) {
+            Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

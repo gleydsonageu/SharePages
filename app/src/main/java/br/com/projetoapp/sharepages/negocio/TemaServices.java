@@ -20,18 +20,13 @@ public class TemaServices {
         return instancia;
     }
 
-    public ArrayList<Tema> getTemas() throws Exception {
+    public ArrayList<Tema> getTemas() throws SharepagesException {
 
         try {
-            return temaDAO.pegarTemas();
-        } catch (Exception e) {
-            throw new Exception("Houve um erro ao listar temas, tente novamente");
+            return temaDAO.getTemas();
+        } catch (SharepagesException e) {
+            throw new SharepagesException("Houve um erro ao listar temas, tente novamente");
         }
     }
 
-    public ArrayList<Tema> buscarTema() throws SharepagesException {
-
-        return temaDAO.pegarTemas();
-
-    }
 }

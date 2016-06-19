@@ -3,6 +3,7 @@ package br.com.projetoapp.sharepages.negocio;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Cidade;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.CidadeDAO;
 
 
@@ -19,12 +20,12 @@ public class CidadeServices {
         return instancia;
     }
 
-    public ArrayList<Cidade> pegarCidades() throws Exception {
+    public ArrayList<Cidade> getCidades() throws SharepagesException {
 
         try {
-           return cidadeDAO.pegarCidades();
-        } catch (Exception e) {
-            throw new Exception("Houve um erro ao listar cidades, tente novamente");
+           return cidadeDAO.getCidades();
+        } catch (SharepagesException e) {
+            throw new SharepagesException("Houve um erro ao listar cidades, tente novamente");
         }
     }
 }

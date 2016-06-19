@@ -4,10 +4,6 @@ package br.com.projetoapp.sharepages.persistencia;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
@@ -25,19 +21,15 @@ public class LivroDAO {
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues();
 
-            values.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
-            values.put(DatabaseHelper.LIVRO_AUTOR, livro.getAutor());
-            values.put(DatabaseHelper.LIVRO_ID_TEMA, livro.getIdTema());
+        values.put(DatabaseHelper.LIVRO_NOME, livro.getNome());
+        values.put(DatabaseHelper.LIVRO_AUTOR, livro.getAutor());
+        values.put(DatabaseHelper.LIVRO_ID_TEMA, livro.getIdTema());
 
-
-            Log.i("SCRIPT", " livro nome " + livro.getNome());
-
-
-            long retorno = database.insert(DatabaseHelper.TABLE_LIVRO, null, values);
-            database.close();
-            return retorno;
+        long retorno = database.insert(DatabaseHelper.TABLE_LIVRO, null, values);
+        database.close();
+        return retorno;
     }
 
     public Livro buscarLivro(String nome, String autor){
@@ -49,7 +41,7 @@ public class LivroDAO {
         String filtro = DatabaseHelper.LIVRO_NOME + " = ? AND " + DatabaseHelper.LIVRO_AUTOR + " = ? " ;
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_LIVRO, DatabaseHelper.LIVRO_COLUNAS, filtro,
-                new String[]{nome, autor}, null, null, null);
+        new String[]{nome, autor}, null, null, null);
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();

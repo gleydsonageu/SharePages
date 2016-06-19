@@ -12,6 +12,7 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.infra.AdapterlistTema;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
 
 public class ColecaoDisponivel extends Activity {
@@ -40,7 +41,7 @@ public class ColecaoDisponivel extends Activity {
 
     }
 
-    public void listarTemasDisponiveis() throws Exception {
+    public void listarTemasDisponiveis() throws SharepagesException {
 
         AdapterlistTema adapterlistTema = null;
 

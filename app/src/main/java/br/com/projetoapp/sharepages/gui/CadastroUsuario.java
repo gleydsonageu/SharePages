@@ -27,10 +27,8 @@ public class CadastroUsuario extends Activity {
     private EditText textoNome, textoEmail, textoSenha;
     private Button botaoCadastrar;
     private Spinner cidadeSpinner;
-
     private UsuarioServices usuarioServices = UsuarioServices.getInstancia();
     private CidadeServices cidadeServices = CidadeServices.getInstancia();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +40,8 @@ public class CadastroUsuario extends Activity {
         textoSenha = (EditText) findViewById(R.id.textoSenha);
         botaoCadastrar = (Button) findViewById(R.id.botaoCadastrar);
 
-        //Preencher o spinner com as cidades
-        try {
             adcCidadesNoSpinner();
-        } catch (Exception e) {
-            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+
             chamarBotaoCadastrar();
 
     }
@@ -75,7 +69,7 @@ public class CadastroUsuario extends Activity {
                 } else {
                     try {
                         cadastrarUsuario(usuario);
-                    } catch (Exception e) {
+                    } catch (SharepagesException e) {
                         Toast.makeText(getApplication(),"Não cadastrou",Toast.LENGTH_LONG).show();
                     }
                 }
@@ -84,15 +78,15 @@ public class CadastroUsuario extends Activity {
         });
     }
 
-    private void adcCidadesNoSpinner() throws SharepagesException {
+    private void adcCidadesNoSpinner() {
         cidadeSpinner = (Spinner) findViewById(R.id.cidadeSpinner);
 
         ArrayList<Cidade> cidades = null;
 
         try {
             SessaoUsuario.getInstancia().setContext(this);
-            cidades = cidadeServices.pegarCidades();
-        } catch (Exception e) {
+            cidades = cidadeServices.getCidades();
+        } catch (SharepagesException e) {
             Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
@@ -148,4 +142,5 @@ public class CadastroUsuario extends Activity {
             Toast.makeText(getApplication(),"Usuário não cadastrado",Toast.LENGTH_LONG).show();
         }
     }
+
 }

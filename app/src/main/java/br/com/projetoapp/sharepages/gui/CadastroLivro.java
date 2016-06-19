@@ -163,7 +163,7 @@ public class CadastroLivro extends Activity {
         disponibilidadeSpinner = (Spinner) findViewById(R.id.disponibilidadeSpinner);
 
         SessaoUsuario.getInstancia().setContext(this);
-        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia().pegarDisponibilidades();
+        ArrayList<Disponibilidade> disponibilidades = DisponibilidadeServices.getInstancia().getDisponibilidades();
 
         ModeloArrayAdapter<Disponibilidade> dataAdapter = new ModeloArrayAdapter<Disponibilidade>(this, android.R.layout.simple_spinner_item, disponibilidades);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -173,7 +173,7 @@ public class CadastroLivro extends Activity {
 
     }
 
-    private void adcTemasNoSpinner() throws Exception {
+    private void adcTemasNoSpinner() throws SharepagesException {
         temaSpinner = (Spinner) findViewById(R.id.temaSpinner);
 
         SessaoUsuario.getInstancia().setContext(this);

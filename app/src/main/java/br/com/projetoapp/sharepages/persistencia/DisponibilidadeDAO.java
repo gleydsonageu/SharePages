@@ -3,7 +3,6 @@ package br.com.projetoapp.sharepages.persistencia;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -12,8 +11,6 @@ import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class DisponibilidadeDAO {
-
-
 
     public static DisponibilidadeDAO getInstancia () {
         DisponibilidadeDAO instancia = new DisponibilidadeDAO();
@@ -40,18 +37,6 @@ public class DisponibilidadeDAO {
                         cursor.moveToNext();
                 }
             }
-//            while (!cursor.isAfterLast()) {
-//                Disponibilidade disponibilidade = new Disponibilidade();
-//                int idDisponibilidade = cursor.getInt(0);
-//                String nomeDisponibilidade = cursor.getString(1);
-//                disponibilidade.setId(idDisponibilidade);
-//                disponibilidade.setNome(nomeDisponibilidade);
-//                listaDisponibilidade.add(disponibilidade);
-//                cursor.moveToNext();
-//            }
-
-            Log.d("AQUI", listaDisponibilidade.toString());
-
             database.close();
             return listaDisponibilidade;
         } catch (Exception e) {

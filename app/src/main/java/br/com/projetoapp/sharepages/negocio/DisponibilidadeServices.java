@@ -4,6 +4,7 @@ package br.com.projetoapp.sharepages.negocio;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
+import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.DisponibilidadeDAO;
 
 public class DisponibilidadeServices {
@@ -20,13 +21,12 @@ public class DisponibilidadeServices {
         return instancia;
     }
 
-    public ArrayList<Disponibilidade> pegarDisponibilidades() throws Exception {
+    public ArrayList<Disponibilidade> getDisponibilidades() throws SharepagesException {
 
         try {
             return disponibilidadeDAO.pegarDisponibilidades();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Houve um erro ao listar disponibilidades, tente novamente");
+        } catch (SharepagesException e) {
+            throw new SharepagesException("Houve um erro ao listar disponibilidades, tente novamente");
         }
     }
 }

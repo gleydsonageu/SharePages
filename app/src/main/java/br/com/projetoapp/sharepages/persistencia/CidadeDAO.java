@@ -3,7 +3,6 @@ package br.com.projetoapp.sharepages.persistencia;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class CidadeDAO {
         return instancia;
     }
 
-    public ArrayList<Cidade> pegarCidades() throws SharepagesException{
+    public ArrayList<Cidade> getCidades() throws SharepagesException{
         Cidade cidade = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -40,8 +39,6 @@ public class CidadeDAO {
                         cursor.moveToNext();
                     }
                 }
-            Log.d("AQUI", listaCidades.toString());
-
             database.close();
             return listaCidades;
         } catch (Exception e) {

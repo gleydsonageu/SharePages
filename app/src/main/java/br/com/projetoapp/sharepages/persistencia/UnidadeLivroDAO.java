@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.Disponibilidade;
-import br.com.projetoapp.sharepages.dominio.Foto;
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
@@ -24,7 +23,7 @@ public class UnidadeLivroDAO {
         return instancia;
     }
 
-    public long inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
+    public long setUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
@@ -64,7 +63,7 @@ public class UnidadeLivroDAO {
         return retorno;
     }
 
-    public List<UnidadeLivro> buscarLivroPorIdUsuario (int id){
+    public List<UnidadeLivro> getLivroPorIdUsuario(int id){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -108,42 +107,7 @@ public class UnidadeLivroDAO {
         return listUnidadeLivro;
     }
 
-    public UnidadeLivro carregandoUnidadeLivro(Cursor cursor){
-        UnidadeLivro unidLivro = null;
-
-        unidLivro = new UnidadeLivro();
-        unidLivro.setId(cursor.getInt(0));
-        unidLivro.setDescricao(cursor.getString(1));
-        unidLivro.setIdioma(cursor.getString(2));
-        unidLivro.setEdicao(cursor.getString(3));
-        unidLivro.setNumeroPaginas(cursor.getInt(4));
-        unidLivro.setEditora(cursor.getString(5));
-        unidLivro.setIdLivro(cursor.getInt(6));
-        unidLivro.setIdDisponibilidade(cursor.getInt(7));
-        unidLivro.setIdUsuario(cursor.getInt(8));
-        Livro livro = new Livro();
-        livro.setId(cursor.getInt(9));
-        livro.setNome(cursor.getString(10));
-        livro.setAutor(cursor.getString(11));
-        livro.setIdTema(cursor.getInt(12));
-        Tema  tema = new Tema();
-        tema.setId(cursor.getInt(13));
-        tema.setNome(cursor.getString(14));
-        Disponibilidade disponibilidade = new Disponibilidade();
-        disponibilidade.setId(cursor.getInt(15));
-        disponibilidade.setNome(cursor.getString(16));
-
-        unidLivro.setFotos(FotoDAO.getInstancia().buscarFotosPorIdUnidadeLivro(unidLivro.getId()));
-
-        unidLivro.setLivro(livro);
-        livro.setTema(tema);
-        unidLivro.setDisponibilidade(disponibilidade);
-
-
-        return unidLivro;
-    }
-
-    public UnidadeLivro buscarPorId (int id){
+    public UnidadeLivro getPorId(int id){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -179,6 +143,39 @@ public class UnidadeLivroDAO {
         unidadeLivro = carregandoUnidadeLivro(cursor);
         database.close();
         return unidadeLivro;
+    }
+
+    public UnidadeLivro carregandoUnidadeLivro(Cursor cursor){
+        UnidadeLivro unidLivro = null;
+
+        unidLivro = new UnidadeLivro();
+        unidLivro.setId(cursor.getInt(0));
+        unidLivro.setDescricao(cursor.getString(1));
+        unidLivro.setIdioma(cursor.getString(2));
+        unidLivro.setEdicao(cursor.getString(3));
+        unidLivro.setNumeroPaginas(cursor.getInt(4));
+        unidLivro.setEditora(cursor.getString(5));
+        unidLivro.setIdLivro(cursor.getInt(6));
+        unidLivro.setIdDisponibilidade(cursor.getInt(7));
+        unidLivro.setIdUsuario(cursor.getInt(8));
+        Livro livro = new Livro();
+        livro.setId(cursor.getInt(9));
+        livro.setNome(cursor.getString(10));
+        livro.setAutor(cursor.getString(11));
+        livro.setIdTema(cursor.getInt(12));
+        Tema  tema = new Tema();
+        tema.setId(cursor.getInt(13));
+        tema.setNome(cursor.getString(14));
+        Disponibilidade disponibilidade = new Disponibilidade();
+        disponibilidade.setId(cursor.getInt(15));
+        disponibilidade.setNome(cursor.getString(16));
+
+        unidLivro.setFotos(FotoDAO.getInstancia().buscarFotosPorIdUnidadeLivro(unidLivro.getId()));
+
+        unidLivro.setLivro(livro);
+        livro.setTema(tema);
+        unidLivro.setDisponibilidade(disponibilidade);
+        return unidLivro;
     }
 
 }
