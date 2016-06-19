@@ -47,7 +47,8 @@
             android:label="@string/title_activity_colecao_disponivel" />
         <activity
             android:name=".gui.TelaAnuncio"
-            android:label="@string/title_activity_tela_anuncio"></activity>
+            android:label="@string/title_activity_tela_anuncio" />
+        <activity android:name=".gui.ExclusaoLivro"></activity>
     </application>
 
 </manifest>
