@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/livro"
         android:text="Livro"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:layout_alignTop="@+id/editarLivro"
@@ -18,23 +18,35 @@
         android:text="Autor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tema"
-        android:layout_alignParentStart="true" />
+        android:layout_above="@+id/tema" />
 
     <TextView
         android:id="@+id/tema"
         android:text="Tema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editarLivro"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/editarLivro"
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/editarLivro"
-        android:layout_marginEnd="28dp"
+        android:background="@null"
+        android:src="@drawable/icon"
+        android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toStartOf="@+id/botaoExcluir"
+        android:layout_marginTop="20dp" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/botaoExcluir"
+        android:layout_alignTop="@+id/livro"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:src="@drawable/excluir" />
 
 </RelativeLayout>

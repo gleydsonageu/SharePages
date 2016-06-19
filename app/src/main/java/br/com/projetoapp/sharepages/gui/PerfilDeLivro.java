@@ -43,7 +43,7 @@ public class PerfilDeLivro extends Activity {
     private EditText campoNomeLivroPerfil, campoAutorPerfil, campoEditoraPerfil, campoDePaginasPerfil,
             campoEdicaoPerfil, campoDescricaoPerfil, campoIdiomaPerfil, editTema;
     private Button selecionarFoto, atualizarLivro, tirarFoto;
-    private Spinner disponibilidadeSpinnerPerfil, temaSpinnerPerfil;
+    private Spinner disponibilidadeSpinnerPerfil;
     private String caminhoFoto;
     private ImageView preVisuFoto;
     public static final int CODE_CAMERA_TIRAR = 123456;
