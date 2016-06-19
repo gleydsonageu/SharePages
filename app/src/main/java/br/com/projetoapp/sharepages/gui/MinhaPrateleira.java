@@ -22,8 +22,8 @@ public class MinhaPrateleira extends Activity {
 
     private ListView listLivro;
     private AdapterListLivro adapterListLivro;
-
     private ImageButton botaoEditarLivro;
+
 
     private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
 

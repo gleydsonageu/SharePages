@@ -11,8 +11,6 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 
 public class UsuarioDAO {
 
-
-
     public static UsuarioDAO getInstancia() {
         UsuarioDAO instancia = new UsuarioDAO();
         return instancia;
@@ -59,7 +57,7 @@ public class UsuarioDAO {
         return usuarioEncontrado;
     }
 
-    public Usuario buscarEmail (String email){
+    public Usuario getEmail(String email){
         Usuario UsuarioemailEncontrado = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -97,7 +95,7 @@ public class UsuarioDAO {
         return retorno;
     }
 
-    public Usuario buscarPorId (int id) {
+    public Usuario getPorId(int id) {
         Usuario usuarioEncontrado = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();

@@ -20,7 +20,7 @@ public class TemaServices {
         return instancia;
     }
 
-    public ArrayList<Tema> pegarTemas() throws Exception {
+    public ArrayList<Tema> getTemas() throws Exception {
 
         try {
             return temaDAO.pegarTemas();

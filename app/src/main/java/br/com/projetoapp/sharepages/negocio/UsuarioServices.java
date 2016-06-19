@@ -1,8 +1,10 @@
 package br.com.projetoapp.sharepages.negocio;
 
-import android.content.Context;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import br.com.projetoapp.sharepages.dominio.Usuario;
+import br.com.projetoapp.sharepages.infra.Criptografia;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
@@ -12,6 +14,7 @@ public class UsuarioServices {
 
     private static UsuarioServices  instancia = new UsuarioServices();
     private UsuarioDAO usuarioDAO;
+    private Criptografia criptocrafia = new Criptografia();
 
     private UsuarioServices() {
         this.usuarioDAO = UsuarioDAO.getInstancia();
@@ -21,10 +24,13 @@ public class UsuarioServices {
             return instancia;
     }
 
-    public Usuario validarLoginUsuario(Usuario usuario) throws SharepagesException {
+    public Usuario validarLoginUsuario(Usuario usuario) throws SharepagesException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Usuario usuarioEncontrado;
+
+        String senhaCriptografada = criptocrafia.setSenha(usuario.getSenha());
+
         try {
-            usuarioEncontrado = usuarioDAO.consultar(usuario.getEmail(), usuario.getSenha());
+            usuarioEncontrado = usuarioDAO.consultar(usuario.getEmail(), senhaCriptografada);
             SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
             sessaoUsuario.setUsuarioLogado(usuarioEncontrado);
 
@@ -40,10 +46,13 @@ public class UsuarioServices {
         }
     }
 
-    public void inserirUsuario(Usuario usuario) throws SharepagesException {
+    public void inserirUsuario(Usuario usuario) throws SharepagesException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Usuario emailEncontrado;
+
+        String senhaCriptografada = criptocrafia.setSenha(usuario.getSenha());
+
         try {
-            emailEncontrado = usuarioDAO.buscarEmail(usuario.getEmail());
+            emailEncontrado = usuarioDAO.getEmail(usuario.getEmail());
 
         } catch (Exception e){
             e.printStackTrace();
@@ -52,11 +61,14 @@ public class UsuarioServices {
         if (emailEncontrado != null){
             throw new SharepagesException("Email já cadastrado");
         }else {
+
+            usuario.setSenha(senhaCriptografada);
             usuarioDAO.inserir(usuario);
         }
     }
 
     public void alterarUsuario(Usuario alteracaoUsuario) throws  SharepagesException{
+
         try {
             usuarioDAO.alterar(alteracaoUsuario);
         }catch (Exception e){
@@ -66,9 +78,10 @@ public class UsuarioServices {
 
     public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
         alterarUsuario(alteracaoUsuario);
+
         try {
-            usuarioDAO.buscarPorId(alteracaoUsuario.getId());
-            Usuario usuarioSalvo = usuarioDAO.buscarPorId(alteracaoUsuario.getId());
+            usuarioDAO.getPorId(alteracaoUsuario.getId());
+            Usuario usuarioSalvo = usuarioDAO.getPorId(alteracaoUsuario.getId());
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioSalvo);
         }catch (Exception e){
             e.printStackTrace();

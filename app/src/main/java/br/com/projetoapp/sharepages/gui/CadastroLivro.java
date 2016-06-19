@@ -154,7 +154,7 @@ public class CadastroLivro extends Activity {
             campoIdioma.setError(getString(R.string.campo_obrigatorio));
         }
         if (foto.getCaminho() == null) {
-            listaCampos.add("foto(Tire uma foto ou escolhe uma de sua galeria");
+            listaCampos.add("foto(Tire uma foto ou escolher uma de sua galeria");
         }
         return listaCampos;
     }
@@ -177,7 +177,7 @@ public class CadastroLivro extends Activity {
         temaSpinner = (Spinner) findViewById(R.id.temaSpinner);
 
         SessaoUsuario.getInstancia().setContext(this);
-        ArrayList<Tema> temas = TemaServices.getInstancia().pegarTemas();
+        ArrayList<Tema> temas = TemaServices.getInstancia().getTemas();
 
         ModeloArrayAdapter<Tema> dataAdapter = new ModeloArrayAdapter<Tema>(this, android.R.layout.simple_spinner_item, temas);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -221,7 +221,6 @@ public class CadastroLivro extends Activity {
 
                 irParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFotoUri);
                 startActivityForResult(irParaCamera, CODE_CAMERA_TIRAR);
-
 
             }
 

@@ -45,7 +45,7 @@ public class ColecaoDisponivel extends Activity {
         AdapterlistTema adapterlistTema = null;
 
         SessaoUsuario.getInstancia().setContext(this);
-        ArrayList<Tema> temas = TemaServices.getInstancia().pegarTemas();
+        ArrayList<Tema> temas = TemaServices.getInstancia().getTemas();
         adapterlistTema = new AdapterlistTema(ColecaoDisponivel.this, temas);
         listaLivros.setAdapter(adapterlistTema);
 

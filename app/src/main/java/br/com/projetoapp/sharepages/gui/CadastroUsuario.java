@@ -133,7 +133,6 @@ public class CadastroUsuario extends Activity {
             Matcher matcher = pattern.matcher(email);
             if (matcher.matches()) {
                 emailValido = true;
-                Log.i("SCRIPT", "email escrito correto");
             }
         }
         return emailValido;
@@ -143,9 +142,9 @@ public class CadastroUsuario extends Activity {
         try {
             usuarioServices.inserirUsuario(usuario);
             Toast.makeText(getApplication(),"Usuário cadastrado",Toast.LENGTH_LONG).show();
-            Log.i("SCRIPT", "Chamando metodo cadastrarUsuario ");
             finish();
         } catch (Exception e){
+            e.printStackTrace();
             Toast.makeText(getApplication(),"Usuário não cadastrado",Toast.LENGTH_LONG).show();
         }
     }
