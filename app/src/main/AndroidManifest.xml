@@ -48,7 +48,9 @@
         <activity
             android:name=".gui.TelaAnuncio"
             android:label="@string/title_activity_tela_anuncio" />
-        <activity android:name=".gui.ExclusaoLivro"></activity>
+        <activity
+            android:name=".gui.ExclusaoUnidadeLivro"
+            android:label="Exclusao de Livro"></activity>
     </application>
 
 </manifest>

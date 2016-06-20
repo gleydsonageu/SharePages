@@ -43,4 +43,8 @@ public class UnidadeLivroService {
     public void alterarLivro(UnidadeLivro alteracaoUnidadeLivro) throws SharepagesException{
         unidadeLivroDAO.alterar(alteracaoUnidadeLivro);
     }
+
+    public void alterarSituacao(UnidadeLivro alteracaoSituacao) throws SharepagesException{
+        unidadeLivroDAO.alterarSituacao(alteracaoSituacao);
+    }
 }

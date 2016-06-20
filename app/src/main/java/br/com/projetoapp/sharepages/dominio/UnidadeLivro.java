@@ -15,6 +15,7 @@ public class UnidadeLivro {
     private Disponibilidade disponibilidade;
     private int idDisponibilidade;
     private int idUsuario;
+    private EncerramentoDoAnuncio situacao;
 
     public UnidadeLivro(String editora, int nDePaginas, String edicao, String descricao, String idioma, Disponibilidade disponibilidade, int idDisponibilidade, int idUsuario) {
         this.editora = editora;
@@ -126,5 +127,13 @@ public class UnidadeLivro {
 
     public void setFotos(List<Foto> fotos) {
         this.fotos = fotos;
+    }
+
+    public EncerramentoDoAnuncio getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(EncerramentoDoAnuncio situacao) {
+        this.situacao = situacao;
     }
 }

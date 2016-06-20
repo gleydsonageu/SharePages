@@ -101,7 +101,6 @@ public class CadastroUsuario extends Activity {
     public boolean validarCamposPreenchidos(Usuario usuario) {
         boolean validacao = true;
 
-        Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
         if (usuario.getNome() == null || usuario.getNome().equalsIgnoreCase("")) {
             validacao = false;
             textoNome.setError(getString(R.string.campo_obrigatorio));
@@ -134,11 +133,11 @@ public class CadastroUsuario extends Activity {
 
     public void cadastrarUsuario(Usuario usuario) throws SharepagesException {
         try {
+            SessaoUsuario.getInstancia().setContext(this);
             usuarioServices.inserirUsuario(usuario);
             Toast.makeText(getApplication(),"Usuário cadastrado",Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e){
-            e.printStackTrace();
             Toast.makeText(getApplication(),"Usuário não cadastrado",Toast.LENGTH_LONG).show();
         }
     }

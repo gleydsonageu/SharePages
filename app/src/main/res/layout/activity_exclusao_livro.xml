@@ -7,6 +7,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.projetoapp.sharepages.gui.ExclusaoLivro">
+    tools:context=".gui.ExclusaoUnidadeLivro">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Por que você está excluindo seu livro?"
+        android:id="@+id/perguntaExclusao"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Efetou a transação"
+        android:id="@+id/botaoTransacao"
+        android:layout_below="@+id/perguntaExclusao"
+        android:layout_alignParentStart="true"
+        android:onClick="botaoTransacao"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desistiu de anunciar"
+        android:id="@+id/botaoDesistencia"
+        android:layout_alignBottom="@+id/botaoTransacao"
+        android:layout_alignEnd="@+id/perguntaExclusao"
+        android:onClick="botaoDesistencia"/>
 </RelativeLayout>

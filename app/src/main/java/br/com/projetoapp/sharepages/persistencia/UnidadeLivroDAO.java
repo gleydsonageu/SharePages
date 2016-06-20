@@ -39,8 +39,6 @@ public class UnidadeLivroDAO {
             values.put(DatabaseHelper.UNIDADELIVRO_ID_USUARIO, unidadeLivro.getIdUsuario());
             values.put(DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE, unidadeLivro.getIdDisponibilidade());
 
-            //Log.i("SCRIPT", " UnidadeLivro cadastrado " + unidadeLivro.getEditora());
-
             long retorno = database.insert(DatabaseHelper.TABLE_UNIDADELIVROS, null, values);
             database.close();
             return retorno;
@@ -176,6 +174,22 @@ public class UnidadeLivroDAO {
         livro.setTema(tema);
         unidLivro.setDisponibilidade(disponibilidade);
         return unidLivro;
+    }
+
+    public boolean alterarSituacao(UnidadeLivro unidadeLivro) {
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DatabaseHelper.UNIDADELIVRO_SITUACAO, unidadeLivro.getSituacao().getNome());
+
+        String id = String.valueOf(unidadeLivro.getId());
+        String[] whereArgs = new String[]{id};
+        long retorno = database.update(DatabaseHelper.TABLE_UNIDADELIVROS, values, "id = ?", whereArgs);
+        database.close();
+
+        return retorno == 1;
     }
 
 }

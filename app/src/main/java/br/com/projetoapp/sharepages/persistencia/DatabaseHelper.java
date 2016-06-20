@@ -13,7 +13,7 @@ import br.com.projetoapp.sharepages.infra.Criptografia;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final int VERSION = 23;
+    public static final int VERSION = 25;
     public static final String DATABASE = "meubanco.db";
 
     public DatabaseHelper(Context context) {
@@ -104,10 +104,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String UNIDADELIVRO_ID_LIVRO = "idLivro";
     public static final String UNIDADELIVRO_ID_DISPONIBILIDADE = "idDisponibilidade";
     public static final String UNIDADELIVRO_ID_USUARIO = "idUsuario";
+    public static final String UNIDADELIVRO_SITUACAO = "situacao";
 
     public static final String[] UNIDADELIVRO_COLUNAS = { UNIDADELIVRO_ID, UNIDADELIVRO_DESCRICAO, UNIDADELIVRO_IDIOMA, UNIDADELIVRO_EDICAO,
             UNIDADELIVRO_NUMEROPAGINAS, UNIDADELIVRO_EDITORA, UNIDADELIVRO_ID_LIVRO, UNIDADELIVRO_ID_DISPONIBILIDADE,
-            UNIDADELIVRO_ID_USUARIO};
+            UNIDADELIVRO_ID_USUARIO, UNIDADELIVRO_SITUACAO};
     private static final String DATABASE_UNIDADELIVRO = "CREATE TABLE " + TABLE_UNIDADELIVROS + "(" +
             UNIDADELIVRO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
             UNIDADELIVRO_DESCRICAO + " TEXT NOT NULL, " +
@@ -118,6 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             UNIDADELIVRO_ID_LIVRO + " INTEGER NOT NULL, " +
             UNIDADELIVRO_ID_DISPONIBILIDADE + " INTEGER NOT NULL, " +
             UNIDADELIVRO_ID_USUARIO + " INTEGER NOT NULL, " +
+            UNIDADELIVRO_SITUACAO + " TEXT, " +
             "FOREIGN KEY(" + UNIDADELIVRO_ID_LIVRO + ") REFERENCES " + TABLE_LIVRO + "(" + LIVRO_ID + "), " +
             "FOREIGN KEY(" + UNIDADELIVRO_ID_DISPONIBILIDADE + ") REFERENCES " + TABLE_DISPONIBILIDADES + "(" + DISPONIBILIDADE_ID + "), " +
             "FOREIGN KEY(" + UNIDADELIVRO_ID_USUARIO + ") REFERENCES " + TABLE_USUARIOS + "(" + USUARIO_ID + "))";

@@ -91,9 +91,7 @@ public class PerfilDeLivro extends Activity {
             adcDisponibilidadesNoSpinner();
             selectDisponibilidadeSpinnerItemById(unidadeLivro.getIdDisponibilidade());
         } catch (SharepagesException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         Uri visualizacao = Uri.fromFile(new File(unidadeLivro.getFotos().get(0).getCaminho()));
