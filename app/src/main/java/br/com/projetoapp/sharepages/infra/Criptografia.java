@@ -22,8 +22,9 @@ public class Criptografia {
         for (byte b : messageDigest) {
             hexString.append(String.format("%02X", 0xFF & b));
         }
-        Log.i("SCRIPT","SHA_256"+ senha);
-        String senha1 = hexString.toString();
-        return senha1;
+
+        String senhaCriptografada = hexString.toString();
+        Log.i("SCRIPT","SHA_256"+ senhaCriptografada);
+        return senhaCriptografada;
     }
 }

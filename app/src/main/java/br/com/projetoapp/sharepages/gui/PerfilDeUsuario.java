@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import br.com.projetoapp.sharepages.R;
@@ -115,11 +117,17 @@ public class PerfilDeUsuario extends Activity {
 
                 if(!validarCamposPreenchidos(usuario, senhaAtual)){
                     Toast.makeText(getApplication(), "Favor preencher campos obrigatórios", Toast.LENGTH_LONG).show();
-                }else if (!usuarioServices.validarSenhaAtual(senhaAtual)){
-                    Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
+                }else try {
+                    if (!usuarioServices.validarSenhaAtual(senhaAtual)){
+                        Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
 
-                }else {
-                    AlterarPerfilUsuarioLogado(usuario);
+                    }else {
+                        AlterarPerfilUsuarioLogado(usuario);
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
+                } catch (NoSuchAlgorithmException e) {
+                    Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -133,6 +141,10 @@ public class PerfilDeUsuario extends Activity {
             finish();
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 

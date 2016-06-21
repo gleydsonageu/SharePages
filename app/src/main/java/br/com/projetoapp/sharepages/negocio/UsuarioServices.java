@@ -9,12 +9,11 @@ import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
-
 public class UsuarioServices {
 
     private static UsuarioServices  instancia = new UsuarioServices();
     private UsuarioDAO usuarioDAO;
-    private Criptografia criptocrafia = new Criptografia();
+    private Criptografia criptografia = new Criptografia();
 
     private UsuarioServices() {
         this.usuarioDAO = UsuarioDAO.getInstancia();
@@ -27,7 +26,7 @@ public class UsuarioServices {
     public Usuario validarLoginUsuario(Usuario usuario) throws SharepagesException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Usuario usuarioEncontrado;
 
-        String senhaCriptografada = criptocrafia.setSenha(usuario.getSenha());
+        String senhaCriptografada = criptografia.setSenha(usuario.getSenha());
 
         try {
             usuarioEncontrado = usuarioDAO.consultar(usuario.getEmail(), senhaCriptografada);
@@ -49,7 +48,7 @@ public class UsuarioServices {
     public void inserirUsuario(Usuario usuario) throws SharepagesException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Usuario emailEncontrado;
 
-        String senhaCriptografada = criptocrafia.setSenha(usuario.getSenha());
+        String senhaCriptografada = criptografia.setSenha(usuario.getSenha());
 
         try {
             emailEncontrado = usuarioDAO.getEmail(usuario.getEmail());
@@ -67,16 +66,19 @@ public class UsuarioServices {
         }
     }
 
-    public void alterarUsuario(Usuario alteracaoUsuario) throws  SharepagesException{
+    public void alterarUsuario(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
+
+        String senhaCriptografada = criptografia.setSenha(alteracaoUsuario.getSenha());
 
         try {
+            alteracaoUsuario.setSenha(senhaCriptografada);
             usuarioDAO.alterar(alteracaoUsuario);
         }catch (Exception e){
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }
 
-    public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException{
+    public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
         alterarUsuario(alteracaoUsuario);
 
         try {
@@ -89,8 +91,10 @@ public class UsuarioServices {
         }
     }
 
-    public boolean validarSenhaAtual(String senha) {
-        return SessaoUsuario.getInstancia().getUsuarioLogado().getSenha().equals(senha);
+    public boolean validarSenhaAtual(String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+
+        String senhaCriptografada = criptografia.setSenha(senha);
+        return SessaoUsuario.getInstancia().getUsuarioLogado().getSenha().equals(senhaCriptografada);
     }
 
 }
