@@ -1,21 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_tela_anuncio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.projetoapp.sharepages.gui.TelaAnuncio">
+    tools:context="br.com.projetoapp.sharepages.gui.TelaAnuncio"
+    android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imagem"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        tools:layout_editor_absoluteX="7dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText android:id="@+id/textoUsuario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome do Livro"
+            android:id="@+id/nomeLivro"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/preVisuFoto"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="31dp"
+            android:layout_below="@+id/nomeLivro"
+            android:layout_toStartOf="@+id/nomeLivro" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Autor:"
+            android:id="@+id/autorAnuncio"
+            android:layout_alignTop="@+id/preVisuFoto"
+            android:layout_alignStart="@+id/nomeLivro"
+            android:layout_marginStart="26dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo autor"
+            android:id="@+id/campoAutorAnuncio"
+            android:layout_alignTop="@+id/autorAnuncio"
+            android:layout_toEndOf="@+id/autorAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editora:"
+            android:id="@+id/editoraAnuncio"
+            android:layout_below="@+id/autorAnuncio"
+            android:layout_alignStart="@+id/autorAnuncio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo editora"
+            android:id="@+id/campoEditoraAnuncio"
+            android:layout_below="@+id/campoAutorAnuncio"
+            android:layout_toEndOf="@+id/editoraAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="N º de páginas:"
+            android:id="@+id/nDePaginasAnuncio"
+            android:layout_below="@+id/editoraAnuncio"
+            android:layout_alignStart="@+id/editoraAnuncio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="n de pag"
+            android:id="@+id/campoPagAnuncio"
+            android:layout_alignTop="@+id/nDePaginasAnuncio"
+            android:layout_toEndOf="@+id/nDePaginasAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edição:"
+            android:id="@+id/edicaoAnuncio"
+            android:layout_below="@+id/nDePaginasAnuncio"
+            android:layout_alignStart="@+id/nDePaginasAnuncio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo edicao"
+            android:id="@+id/campoEdicaoAnuncio"
+            android:layout_alignTop="@+id/edicaoAnuncio"
+            android:layout_alignStart="@+id/campoAutorAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Idioma:"
+            android:id="@+id/idiomaAnuncio"
+            android:layout_below="@+id/edicaoAnuncio"
+            android:layout_alignStart="@+id/edicaoAnuncio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo idioma"
+            android:id="@+id/campoIdiomaAnuncio"
+            android:layout_below="@+id/campoEdicaoAnuncio"
+            android:layout_alignStart="@+id/campoAutorAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponibilidade:"
+            android:id="@+id/disponibilidadeAnuncio"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/preVisuFoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo disponibilidade"
+            android:id="@+id/campoDispoAnuncio"
+            android:layout_alignTop="@+id/disponibilidadeAnuncio"
+            android:layout_toEndOf="@+id/disponibilidadeAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tema:"
+            android:id="@+id/temaAnuncio"
+            android:layout_alignBaseline="@+id/campoTemaAnuncio"
+            android:layout_alignBottom="@+id/campoTemaAnuncio"
+            android:layout_alignStart="@+id/preVisuFoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo tema"
+            android:id="@+id/campoTemaAnuncio"
+            android:layout_above="@+id/disponibilidadeAnuncio"
+            android:layout_toEndOf="@+id/temaAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Cidade:"
+            android:id="@+id/cidadeAnuncio"
+            android:layout_below="@+id/disponibilidadeAnuncio"
+            android:layout_alignStart="@+id/disponibilidadeAnuncio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="campo cidade"
+            android:id="@+id/campoCidadeAnuncio"
+            android:layout_alignTop="@+id/cidadeAnuncio"
+            android:layout_toEndOf="@+id/cidadeAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição:"
+            android:id="@+id/descricaoAnuncio"
+            android:layout_below="@+id/cidadeAnuncio"
+            android:layout_alignStart="@+id/cidadeAnuncio"
+            android:layout_marginTop="27dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="campo descricao"
+            android:id="@+id/campoDescricaoAnuncio"
+            android:layout_alignTop="@+id/descricaoAnuncio"
+            android:layout_toEndOf="@+id/descricaoAnuncio"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ver avaliação do livro"
+            android:id="@+id/botaoAvaliacaoLivro"
+            android:layout_below="@+id/descricaoAnuncio"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="79dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Conversar com o dono"
+            android:id="@+id/botaoConversarDono"
+            android:layout_alignTop="@+id/avaliacaoLivro"
+            android:layout_toEndOf="@+id/campoDescricaoAnuncio" />
+    </RelativeLayout>
+</LinearLayout>
