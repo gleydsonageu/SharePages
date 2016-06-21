@@ -69,36 +69,13 @@ public class UnidadeLivroDAO {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         List<UnidadeLivro> listUnidadeLivro = new ArrayList<UnidadeLivro>();
 
-        Cursor cursor = database.rawQuery(" SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_IDIOMA+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDICAO+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDITORA+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+", "
-                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+", "
-                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+", "
-                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+", "
-                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME
-                +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
-                +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
-                +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS
-                +" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
-                +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES
-                +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
-                +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " = ?;", new String[]{String.valueOf(id)});
+        Cursor cursor = database.rawQuery(parteDaConsulta()
+                +" WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " = ? AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL;", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             unidadeLivro = carregandoUnidadeLivro(cursor);
             listUnidadeLivro.add(unidadeLivro);
-            Log.i("SCRIPT", "Montei a unidadelivro " + unidadeLivro.toString());
             cursor.moveToNext();
         }
         database.close();
@@ -112,30 +89,8 @@ public class UnidadeLivroDAO {
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
-        Cursor cursor = database.rawQuery(" SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_IDIOMA+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDICAO+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDITORA+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+", "
-                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+", "
-                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+", "
-                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+", "
-                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+", "
-                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+", "
-                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME
-                +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
-                +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
-                +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS
-                +" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
-                +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES
-                +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID
-                +") WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ " = ?;", new String[]{String.valueOf(id)});
+        Cursor cursor = database.rawQuery(parteDaConsulta()
+                +" WHERE "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ " = ? AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL;", new String[]{String.valueOf(id)});
 
         cursor.moveToFirst();
         unidadeLivro = carregandoUnidadeLivro(cursor);
@@ -190,6 +145,34 @@ public class UnidadeLivroDAO {
         database.close();
 
         return retorno == 1;
+    }
+
+    public String parteDaConsulta() {
+       String consulta = " SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_IDIOMA+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDICAO+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_NUMEROPAGINAS+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_EDITORA+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+", "
+                +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+", "
+                +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+", "
+                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+", "
+                +DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_NOME+", "
+                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_ID+", "
+                +DatabaseHelper.TABLE_DISPONIBILIDADES+"."+DatabaseHelper.DISPONIBILIDADE_NOME
+                +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
+                +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
+                +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS
+                +" ON (" +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID_TEMA+ " = " +DatabaseHelper.TABLE_TEMAS +"."+ DatabaseHelper.TEMAS_ID
+                +") INNER JOIN " +DatabaseHelper.TABLE_DISPONIBILIDADES
+                +" ON ("+ DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_DISPONIBILIDADE+ " = " +DatabaseHelper.TABLE_DISPONIBILIDADES+ "." +DatabaseHelper.DISPONIBILIDADE_ID+ ")";
+
+        return consulta;
     }
 
 }

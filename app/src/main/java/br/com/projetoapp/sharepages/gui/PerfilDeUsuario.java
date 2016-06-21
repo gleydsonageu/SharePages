@@ -24,7 +24,7 @@ import br.com.projetoapp.sharepages.negocio.UsuarioServices;
 public class PerfilDeUsuario extends Activity {
 
     private EditText textoNomePerfil, textoEmailPerfil, textoSenhaAtual, textoNovaSenha;
-    private Button botaoAtualizar, botaoDeletar;
+    private Button botaoAtualizar;
     private Spinner cidadeSpinner;
 
     CidadeServices cidadeServices = CidadeServices.getInstancia();
@@ -41,7 +41,6 @@ public class PerfilDeUsuario extends Activity {
         textoNovaSenha = (EditText) findViewById(R.id.textoNovaSenha);
         cidadeSpinner = (Spinner) findViewById(R.id.cidadeSpinnerPerfil);
         botaoAtualizar = (Button) findViewById(R.id.botaoAtualizar);
-        botaoDeletar = (Button) findViewById(R.id.botaoDeletar);
 
         carregarPerfilUsuario();
 

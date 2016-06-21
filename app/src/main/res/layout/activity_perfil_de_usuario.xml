@@ -66,12 +66,5 @@
         android:layout_gravity="right"
         android:text="@string/botao_atualizar"
         android:onClick="atualizar"/>
-    <Button
-        android:id="@+id/botaoDeletar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/botao_deletar"
-        android:onClick="deletar"/>
 
 </LinearLayout>
