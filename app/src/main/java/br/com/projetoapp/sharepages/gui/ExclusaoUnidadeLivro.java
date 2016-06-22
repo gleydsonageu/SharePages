@@ -1,6 +1,7 @@
 package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,8 @@ public class ExclusaoUnidadeLivro extends Activity {
                     SessaoUsuario.getInstancia().setContext(ExclusaoUnidadeLivro.this);
                     unidadeLivroService.alterarSituacao(unidadeLivro);
                     Toast.makeText(getApplication(), "Livro Excluido!", Toast.LENGTH_LONG).show();
-                    finish();
+                    Intent intent = new Intent(ExclusaoUnidadeLivro.this, MinhaPrateleira.class);
+                    startActivity(intent);
                 } catch (SharepagesException e) {
                     Toast.makeText(getApplication(), "Por problemas internos, o livro não foi excluido!", Toast.LENGTH_LONG).show();
 
@@ -70,7 +72,8 @@ public class ExclusaoUnidadeLivro extends Activity {
                     SessaoUsuario.getInstancia().setContext(ExclusaoUnidadeLivro.this);
                     unidadeLivroService.alterarSituacao(unidadeLivro);
                     Toast.makeText(getApplication(), "Livro Excluido!", Toast.LENGTH_LONG).show();
-                    finish();
+                    Intent intent = new Intent(ExclusaoUnidadeLivro.this, MinhaPrateleira.class);
+                    startActivity(intent);
                 } catch (SharepagesException e) {
                     Toast.makeText(getApplication(), "Por problemas internos, o livro não foi excluido!", Toast.LENGTH_LONG).show();
 
