@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:text="Conversar com o dono"
             android:id="@+id/botaoConversarDono"
-            android:layout_alignTop="@+id/avaliacaoLivro"
+            android:layout_alignTop="@+id/botaoAvaliacaoLivro"
             android:layout_toEndOf="@+id/campoDescricaoAnuncio" />
     </RelativeLayout>
 </LinearLayout>

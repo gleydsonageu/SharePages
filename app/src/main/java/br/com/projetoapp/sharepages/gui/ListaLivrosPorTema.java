@@ -7,7 +7,7 @@ import android.widget.ListView;
 import java.util.List;
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
-import br.com.projetoapp.sharepages.infra.AdapterListLivroPorTema;
+import br.com.projetoapp.sharepages.infra.AdapterListLivroDisponivel;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
@@ -28,15 +28,15 @@ public class ListaLivrosPorTema extends Activity {
     }
 
     public void listarLivrosPorTema(){
-        AdapterListLivroPorTema adapterListLivroPorTema = null;
+        AdapterListLivroDisponivel adapterListLivroDisponivel = null;
 
         int idTema = getIntent().getIntExtra("TemaEscolhido", 0);
 
         SessaoUsuario.getInstancia().setContext(this);
         List<UnidadeLivro> livroPorTema = unidadeLivroService.buscarLivroPorTema(idTema);
         Log.i("SCRIPT","ID do tema Escolhido ================== "+idTema);
-        adapterListLivroPorTema = new AdapterListLivroPorTema(ListaLivrosPorTema.this, livroPorTema);
-        listLivrosPorTema.setAdapter(adapterListLivroPorTema);
+        adapterListLivroDisponivel = new AdapterListLivroDisponivel(ListaLivrosPorTema.this, livroPorTema);
+        listLivrosPorTema.setAdapter(adapterListLivroDisponivel);
 
     }
 

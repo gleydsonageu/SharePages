@@ -9,7 +9,7 @@ import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
-import br.com.projetoapp.sharepages.infra.AdapterListLivro;
+import br.com.projetoapp.sharepages.infra.AdapterListLivroPorUsuario;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
@@ -35,11 +35,11 @@ public class MinhaPrateleira extends Activity {
     public void listaLivrosDeUsuarioLogado() throws SharepagesException {
         int id = SessaoUsuario.getInstancia().getUsuarioLogado().getId();
 
-        AdapterListLivro adapterListView = null;
+        AdapterListLivroPorUsuario adapterListView = null;
 
         SessaoUsuario.getInstancia().setContext(this);
         List<UnidadeLivro> listaLivros = unidadeLivroService.buscarLivroPorUsuario(id);
-        adapterListView = new AdapterListLivro(MinhaPrateleira.this, listaLivros);
+        adapterListView = new AdapterListLivroPorUsuario(MinhaPrateleira.this, listaLivros);
         listLivro.setAdapter(adapterListView);
     }
 }

@@ -18,12 +18,12 @@ import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.gui.ExclusaoUnidadeLivro;
 import br.com.projetoapp.sharepages.gui.PerfilDeLivro;
 
-public class AdapterListLivro extends BaseAdapter {
+public class AdapterListLivroPorUsuario extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<UnidadeLivro> itens;
 
-    public AdapterListLivro(Context context, List<UnidadeLivro> itens){
+    public AdapterListLivroPorUsuario(Context context, List<UnidadeLivro> itens){
         this.itens = itens;
         inflater = LayoutInflater.from(context);
     }
@@ -56,10 +56,9 @@ public class AdapterListLivro extends BaseAdapter {
         ImageButton excluirLivro;
 
         //carrega o layout com os dados
-        convertView = inflater.inflate(R.layout.item_lista_livro, null);
+        convertView = inflater.inflate(R.layout.item_lista_livro_por_usuario, null);
 
         final View view = convertView;
-
 
         //compoe os TextView com as informacoes da UnidadeLivro relacionada
         ((TextView) convertView.findViewById(R.id.livro)).setText(livro.getNome());
@@ -84,8 +83,6 @@ public class AdapterListLivro extends BaseAdapter {
                 view.getContext().startActivity(intent);
             }
         });
-
-
 
         return convertView;
     }

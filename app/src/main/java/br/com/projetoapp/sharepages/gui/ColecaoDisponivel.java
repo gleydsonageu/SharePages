@@ -16,17 +16,23 @@ import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Tema;
+import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
+import br.com.projetoapp.sharepages.infra.AdapterListLivroDisponivel;
 import br.com.projetoapp.sharepages.infra.AdapterlistTema;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
 public class ColecaoDisponivel extends Activity {
 
     private EditText textoPesquisar;
     private Button botaoPesquisar;
     private ListView listaTemas;
+    private ListView listaLivrosDisponiveis;
     private AdapterlistTema adapterlistTema;
+    private AdapterListLivroDisponivel adapterListLivroDisponivel;
+    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,8 @@ public class ColecaoDisponivel extends Activity {
 
         textoPesquisar = (EditText) findViewById(R.id.campoPesquisar);
         botaoPesquisar = (Button) findViewById(R.id.btnPesquisar);
+
+        listaLivrosDisponiveis = (ListView) findViewById(R.id.listaLivrosDisponiveis);
 
         listaTemas = (ListView) findViewById(R.id.listaTemas);
         listaTemas.setOnItemClickListener(chamarListaDeLivrosPorTemas());
@@ -52,7 +60,7 @@ public class ColecaoDisponivel extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+            pequisaLivroDisponivel();
             }
         });
 
@@ -91,8 +99,14 @@ public class ColecaoDisponivel extends Activity {
 
     }
 
-    public void validarTema(){
-     //   if
+    public void pequisaLivroDisponivel(){
+        String nome = textoPesquisar.getText().toString();
+        adapterListLivroDisponivel = null;
+        if(nome.length() > 0){
+                List<UnidadeLivro> listLivros = unidadeLivroService.buscarLivro(nome);
+                adapterListLivroDisponivel = new AdapterListLivroDisponivel(this,listLivros);
+        }
+        listaLivrosDisponiveis.setAdapter(adapterListLivroDisponivel);
 
     }
 

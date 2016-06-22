@@ -14,6 +14,7 @@ public class UnidadeLivro {
     private List<Foto> fotos;
     private Disponibilidade disponibilidade;
     private int idDisponibilidade;
+    private Usuario usuario;
     private int idUsuario;
     private EncerramentoDoAnuncio situacao;
 
@@ -94,6 +95,14 @@ public class UnidadeLivro {
 
     public void setDisponibilidade(Disponibilidade disponibilidade) {
         this.disponibilidade = disponibilidade;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getIdLivro() {

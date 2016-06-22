@@ -29,4 +29,12 @@
         android:layout_below="@+id/temaT"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:id="@+id/cidadeT"
+        android:text="Cidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/disponibilidadeT"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
