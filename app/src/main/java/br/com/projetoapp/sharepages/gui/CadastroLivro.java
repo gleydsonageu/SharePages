@@ -302,33 +302,41 @@ public class CadastroLivro extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == CODE_CAMERA_TIRAR) {
-            if (resultCode != Activity.RESULT_OK) {
-                caminhoFoto = null;
-                Toast.makeText(getApplication(), "Erro ao tirar foto", Toast.LENGTH_LONG).show();
+            ActivityResultTirarFoto(resultCode);
 
-            }else {
-                Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
-                preVisuFoto.setImageURI(visualizacao);
-                Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
-
-            }
 
         }else if (requestCode == CODE_CAMERA_SELECIONAR) {
-            if (resultCode == Activity.RESULT_OK) {
-                Uri imageUri = intent.getData();
-                imagePath = getImagePath(imageUri);
-                caminhoFoto = imagePath;
-                Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
-                preVisuFoto.setImageURI(visualizacao);
-                Log.d("AQUI", imagePath);
-                Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
+            ActivityResultSelecionarFoto(resultCode, intent);
+        }
 
-            } else {
-                caminhoFoto = null;
-                Toast.makeText(getApplication(), "Erro ao selecionar foto", Toast.LENGTH_LONG).show();
-            }
+    }
+    protected void ActivityResultTirarFoto(int resultCode) {
+        if (resultCode != Activity.RESULT_OK) {
+            caminhoFoto = null;
+            Toast.makeText(getApplication(), "Erro ao tirar foto", Toast.LENGTH_LONG).show();
+
+        }else {
+            Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
+            preVisuFoto.setImageURI(visualizacao);
+            Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
         }
 
     }
 
+    protected void ActivityResultSelecionarFoto(int resultCode, Intent intent) {
+
+        if (resultCode == Activity.RESULT_OK) {
+            Uri imageUri = intent.getData();
+            imagePath = getImagePath(imageUri);
+            caminhoFoto = imagePath;
+            Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
+            preVisuFoto.setImageURI(visualizacao);
+            Log.d("AQUI", imagePath);
+            Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
+
+        } else {
+            caminhoFoto = null;
+            Toast.makeText(getApplication(), "Erro ao selecionar foto", Toast.LENGTH_LONG).show();
+        }
+    }
 }
