@@ -24,24 +24,30 @@ public class UnidadeLivroService {
     public UnidadeLivro inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException{
 
         try {
-         int  idUnidadeLivro = (int) unidadeLivroDAO.setUnidadeLivro(unidadeLivro);
+         int  idUnidadeLivro = (int) unidadeLivroDAO.inserirUnidadeLivro(unidadeLivro);
             unidadeLivro.setId(idUnidadeLivro);
         } catch (SharepagesException e) {
-            throw new SharepagesException("Houve um erro inserir livro");
+            throw new SharepagesException("Houve um erro inserirUsuario livro");
         }
         return unidadeLivro;
     }
+
     public List<UnidadeLivro> buscarLivroPorUsuario(int id){
 
-        return unidadeLivroDAO.getLivroPorIdUsuario(id);
+        return unidadeLivroDAO.buscarLivroPorIdUsuario(id);
     }
 
-    public UnidadeLivro buscarUnidadeLivroPorId(int id) {
-        return unidadeLivroDAO.getPorId(id);
+    public UnidadeLivro buscarLivroPorId(int id) {
+        return unidadeLivroDAO.buscarLivroPorId(id);
     }
 
-    public void alterarLivro(UnidadeLivro alteracaoUnidadeLivro) throws SharepagesException{
-        unidadeLivroDAO.alterar(alteracaoUnidadeLivro);
+    public List<UnidadeLivro> buscarLivroPorTema(int id){
+
+        return unidadeLivroDAO.buscarLivroPorTema(id);
+    }
+
+    public void alterarUnidadeLivro(UnidadeLivro alteracaoUnidadeLivro) throws SharepagesException{
+        unidadeLivroDAO.alterarUnidadeLivro(alteracaoUnidadeLivro);
     }
 
     public void alterarSituacao(UnidadeLivro alteracaoSituacao) throws SharepagesException{

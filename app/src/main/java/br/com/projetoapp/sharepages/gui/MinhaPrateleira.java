@@ -1,11 +1,7 @@
 package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +17,6 @@ import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 public class MinhaPrateleira extends Activity {
 
     private ListView listLivro;
-
     private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +30,6 @@ public class MinhaPrateleira extends Activity {
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(), "Erro ao listar livro. ", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void listaLivrosDeUsuarioLogado() throws SharepagesException {

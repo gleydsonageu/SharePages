@@ -1,12 +1,18 @@
 package br.com.projetoapp.sharepages.gui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Tema;
@@ -19,10 +25,8 @@ public class ColecaoDisponivel extends Activity {
 
     private EditText textoPesquisar;
     private Button botaoPesquisar;
-    private ListView listaLivros;
+    private ListView listaTemas;
     private AdapterlistTema adapterlistTema;
-
-    TemaServices temaServices = TemaServices.getInstancia();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,26 @@ public class ColecaoDisponivel extends Activity {
 
         textoPesquisar = (EditText) findViewById(R.id.campoPesquisar);
         botaoPesquisar = (Button) findViewById(R.id.btnPesquisar);
-        listaLivros = (ListView) findViewById(R.id.listaLivrosColecao);
+
+        listaTemas = (ListView) findViewById(R.id.listaTemas);
+        listaTemas.setOnItemClickListener(chamarListaDeLivrosPorTemas());
+
+        textoPesquisar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         try {
             listarTemasDisponiveis();
@@ -46,10 +69,38 @@ public class ColecaoDisponivel extends Activity {
         AdapterlistTema adapterlistTema = null;
 
         SessaoUsuario.getInstancia().setContext(this);
-        ArrayList<Tema> temas = TemaServices.getInstancia().getTemas();
+        List<Tema> temas = TemaServices.getInstancia().getTemas();
         adapterlistTema = new AdapterlistTema(ColecaoDisponivel.this, temas);
-        listaLivros.setAdapter(adapterlistTema);
+        listaTemas.setAdapter(adapterlistTema);
+    }
+
+    public AdapterView.OnItemClickListener chamarListaDeLivrosPorTemas(){
+        return (new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Tema tema = (Tema) listaTemas.getAdapter().getItem(position);
+
+                Intent intent = new Intent( view.getContext(), ListaLivrosPorTema.class);
+                intent.putExtra("TemaEscolhido",tema.getId());
+
+                Log.i("SCRIPT","TEMA "+tema.getId());
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 
+    public void validarTema(){
+     //   if
+
+    }
+
+
 }
+
+
+
+
+
+

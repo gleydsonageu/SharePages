@@ -63,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/campoAutor"
+            android:singleLine="true"
             android:layout_below="@+id/campoNomeLivro"
             android:layout_alignEnd="@+id/campoNomeLivro"
             android:layout_toEndOf="@+id/autor" />
@@ -79,6 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/campoEditora"
+            android:singleLine="true"
             android:layout_below="@+id/campoAutor"
             android:layout_alignEnd="@+id/campoNomeLivro"
             android:layout_toEndOf="@+id/editora" />
@@ -116,6 +118,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginLeft="200dp"
             android:id="@+id/campoEdicao"
+            android:singleLine="true"
             android:ems="8"
             android:layout_below="@+id/campoNdePaginas"
             android:layout_alignStart="@+id/campoEditora"
@@ -133,6 +136,7 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:id="@+id/campoIdioma"
+            android:singleLine="true"
             android:layout_below="@+id/campoEdicao"
             android:layout_alignEnd="@+id/campoNomeLivro"
             android:layout_toEndOf="@+id/idioma" />
@@ -190,6 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/campoDescricao"
+            android:singleLine="true"
             android:layout_below="@+id/temaSpinner"
             android:layout_alignStart="@+id/disponibilidadeSpinner"
             android:layout_toStartOf="@+id/cadastrarLivroMenu" />

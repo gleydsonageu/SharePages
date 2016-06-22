@@ -24,7 +24,7 @@ public class DisponibilidadeServices {
     public ArrayList<Disponibilidade> getDisponibilidades() throws SharepagesException {
 
         try {
-            return disponibilidadeDAO.pegarDisponibilidades();
+            return disponibilidadeDAO.getDisponibilidades();
         } catch (SharepagesException e) {
             throw new SharepagesException("Houve um erro ao listar disponibilidades, tente novamente");
         }

@@ -22,23 +22,22 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/listaLivrosColecao"
-        android:divider="#ECECEC"
-        android:dividerHeight="1sp"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tema: "
         android:id="@+id/textView"
-        android:layout_above="@+id/listaLivrosColecao"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnPesquisar" />
+        android:layout_above="@+id/listaTemas" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/listaTemas"
+        android:divider="#ECECEC"
+        android:dividerHeight="1sp"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

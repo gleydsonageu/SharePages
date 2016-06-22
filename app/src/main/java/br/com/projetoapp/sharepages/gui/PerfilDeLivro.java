@@ -40,6 +40,7 @@ public class PerfilDeLivro extends Activity {
     private Spinner disponibilidadeSpinnerPerfil;
     private String caminhoFoto;
     private ImageView preVisuFoto;
+    private String imagePath;
     public static final int CODE_CAMERA_TIRAR = 123456;
     public static final int CODE_CAMERA_SELECIONAR = 123;
     public static final int CODE_EXTERNAL_STORAGE_PERMISSION = 3232;
@@ -54,7 +55,7 @@ public class PerfilDeLivro extends Activity {
         setContentView(R.layout.activity_perfil_de_livro);
         int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivro", -1);
 
-        UnidadeLivro unidadeLivro = unidadeLivroService.buscarUnidadeLivroPorId(idUnidadeLivro);
+        UnidadeLivro unidadeLivro = unidadeLivroService.buscarLivroPorId(idUnidadeLivro);
 
         campoNomeLivroPerfil = (EditText) findViewById(R.id.campoNomeLivroPerfil);
         campoAutorPerfil = (EditText) findViewById(R.id.campoAutorPerfil);
@@ -121,7 +122,7 @@ public class PerfilDeLivro extends Activity {
                     foto.setId(unidadeLivroAtual.getFotos().get(0).getId());
 
                     try {
-                        unidadeLivroService.alterarLivro(alteracoesUnidadeLivro);
+                        unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
                         if (caminhoFoto != null) {
                             fotoServices.alterarFoto(foto);
                         }
@@ -136,7 +137,6 @@ public class PerfilDeLivro extends Activity {
             }
         });
     }
-
 
     private void adcDisponibilidadesNoSpinner() throws Exception {
         disponibilidadeSpinnerPerfil = (Spinner) findViewById(R.id.disponibilidadeSpinnerPerfil);
@@ -158,7 +158,6 @@ public class PerfilDeLivro extends Activity {
             }
         }
     }
-
 
     public void cadastrarLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
 
@@ -200,8 +199,6 @@ public class PerfilDeLivro extends Activity {
         });
 
     }
-
-    private String imagePath;
 
     public void chamarBotaoSelecionarFoto() {
 
@@ -282,6 +279,7 @@ public class PerfilDeLivro extends Activity {
             ActivityResultSelecionarFoto(resultCode, intent);
         }
     }
+
     protected void ActivityResultTirarFoto(int resultCode) {
         if (resultCode != Activity.RESULT_OK) {
             caminhoFoto = null;

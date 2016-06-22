@@ -17,7 +17,7 @@ public class DisponibilidadeDAO {
         return instancia;
     }
 
-    public ArrayList<Disponibilidade> pegarDisponibilidades() throws SharepagesException{
+    public ArrayList<Disponibilidade> getDisponibilidades() throws SharepagesException{
         Disponibilidade disponibilidade = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();

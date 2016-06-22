@@ -188,6 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/campoDescricaoPerfil"
+            android:singleLine="true"
             android:layout_below="@+id/temaSpinner"
             android:layout_alignStart="@+id/disponibilidadeSpinner"
             android:layout_toStartOf="@+id/cadastrarLivroMenu" />

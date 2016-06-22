@@ -51,6 +51,9 @@
         <activity
             android:name=".gui.ExclusaoUnidadeLivro"
             android:label="Exclusao de Livro"></activity>
+        <activity
+            android:name=".gui.ListaLivrosPorTema"
+            android:label="@string/title_activity_lista_livros_por_tema"></activity>
     </application>
 
 </manifest>

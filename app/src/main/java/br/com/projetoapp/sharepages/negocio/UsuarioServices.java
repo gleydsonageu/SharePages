@@ -29,12 +29,11 @@ public class UsuarioServices {
         String senhaCriptografada = criptografia.setSenha(usuario.getSenha());
 
         try {
-            usuarioEncontrado = usuarioDAO.consultar(usuario.getEmail(), senhaCriptografada);
+            usuarioEncontrado = usuarioDAO.consultarCredenciaisDeUsuario(usuario.getEmail(), senhaCriptografada);
             SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
             sessaoUsuario.setUsuarioLogado(usuarioEncontrado);
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new SharepagesException("Houve um erro, tente novamente");
         }
 
@@ -51,10 +50,9 @@ public class UsuarioServices {
         String senhaCriptografada = criptografia.setSenha(usuario.getSenha());
 
         try {
-            emailEncontrado = usuarioDAO.getEmail(usuario.getEmail());
+            emailEncontrado = usuarioDAO.buscarUsuarioPorEmail(usuario.getEmail());
 
         } catch (Exception e){
-            e.printStackTrace();
             throw new SharepagesException("Erro ao verificar email digitado");
         }
         if (emailEncontrado != null){
@@ -62,7 +60,7 @@ public class UsuarioServices {
         }else {
 
             usuario.setSenha(senhaCriptografada);
-            usuarioDAO.inserir(usuario);
+            usuarioDAO.inserirUsuario(usuario);
         }
     }
 
@@ -72,7 +70,7 @@ public class UsuarioServices {
 
         try {
             alteracaoUsuario.setSenha(senhaCriptografada);
-            usuarioDAO.alterar(alteracaoUsuario);
+            usuarioDAO.alterarUsuario(alteracaoUsuario);
         }catch (Exception e){
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
@@ -82,11 +80,10 @@ public class UsuarioServices {
         alterarUsuario(alteracaoUsuario);
 
         try {
-            usuarioDAO.getPorId(alteracaoUsuario.getId());
-            Usuario usuarioSalvo = usuarioDAO.getPorId(alteracaoUsuario.getId());
+            usuarioDAO.buscarPorId(alteracaoUsuario.getId());
+            Usuario usuarioSalvo = usuarioDAO.buscarPorId(alteracaoUsuario.getId());
             SessaoUsuario.getInstancia().setUsuarioLogado(usuarioSalvo);
         }catch (Exception e){
-            e.printStackTrace();
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }

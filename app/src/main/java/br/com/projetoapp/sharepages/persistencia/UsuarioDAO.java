@@ -16,7 +16,7 @@ public class UsuarioDAO {
         return instancia;
     }
 
-    public long inserir(Usuario usuario) throws SharepagesException{
+    public long inserirUsuario(Usuario usuario) throws SharepagesException{
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
@@ -35,7 +35,7 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario consultar(String email, String senha) {
+    public Usuario consultarCredenciaisDeUsuario(String email, String senha) {
         Usuario usuarioEncontrado = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -57,7 +57,7 @@ public class UsuarioDAO {
         return usuarioEncontrado;
     }
 
-    public Usuario getEmail(String email){
+    public Usuario buscarUsuarioPorEmail(String email){
         Usuario UsuarioemailEncontrado = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -75,7 +75,7 @@ public class UsuarioDAO {
         return UsuarioemailEncontrado;
     }
 
-    public long alterar(Usuario usuario) throws SharepagesException {
+    public long alterarUsuario(Usuario usuario) throws SharepagesException {
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
@@ -95,7 +95,7 @@ public class UsuarioDAO {
         return retorno;
     }
 
-    public Usuario getPorId(int id) {
+    public Usuario buscarPorId(int id) {
         Usuario usuarioEncontrado = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();

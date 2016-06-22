@@ -4,7 +4,6 @@ package br.com.projetoapp.sharepages.persistencia;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class UnidadeLivroDAO {
         return instancia;
     }
 
-    public long setUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
+    public long inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
@@ -45,7 +44,7 @@ public class UnidadeLivroDAO {
         }
     }
 
-    public long alterar(UnidadeLivro unidadeLivro) throws SharepagesException {
+    public long alterarUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -61,7 +60,7 @@ public class UnidadeLivroDAO {
         return retorno;
     }
 
-    public List<UnidadeLivro> getLivroPorIdUsuario(int id){
+    public List<UnidadeLivro> buscarLivroPorIdUsuario(int id){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -82,7 +81,7 @@ public class UnidadeLivroDAO {
         return listUnidadeLivro;
     }
 
-    public UnidadeLivro getPorId(int id){
+    public UnidadeLivro buscarLivroPorId(int id){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -96,6 +95,43 @@ public class UnidadeLivroDAO {
         unidadeLivro = carregandoUnidadeLivro(cursor);
         database.close();
         return unidadeLivro;
+    }
+
+    public List<UnidadeLivro> buscarLivroPorTema(int id){
+        UnidadeLivro unidadeLivro = null;
+
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        List<UnidadeLivro> listLivroPorTema = new ArrayList<UnidadeLivro>();
+
+        Cursor cursor = database.rawQuery(parteDaConsulta()
+                +" WHERE "+DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+ " = ?;", new String[]{String.valueOf(id)});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            unidadeLivro = carregandoUnidadeLivro(cursor);
+            listLivroPorTema.add(unidadeLivro);
+            cursor.moveToNext();
+        }
+        database.close();
+        return listLivroPorTema;
+    }
+
+    public boolean alterarSituacao(UnidadeLivro unidadeLivro) {
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DatabaseHelper.UNIDADELIVRO_SITUACAO, unidadeLivro.getSituacao().getNome());
+
+        String id = String.valueOf(unidadeLivro.getId());
+        String[] whereArgs = new String[]{id};
+        long retorno = database.update(DatabaseHelper.TABLE_UNIDADELIVROS, values, "id = ?", whereArgs);
+        database.close();
+
+        return retorno == 1;
     }
 
     public UnidadeLivro carregandoUnidadeLivro(Cursor cursor){
@@ -129,22 +165,6 @@ public class UnidadeLivroDAO {
         livro.setTema(tema);
         unidLivro.setDisponibilidade(disponibilidade);
         return unidLivro;
-    }
-
-    public boolean alterarSituacao(UnidadeLivro unidadeLivro) {
-        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
-        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(DatabaseHelper.UNIDADELIVRO_SITUACAO, unidadeLivro.getSituacao().getNome());
-
-        String id = String.valueOf(unidadeLivro.getId());
-        String[] whereArgs = new String[]{id};
-        long retorno = database.update(DatabaseHelper.TABLE_UNIDADELIVROS, values, "id = ?", whereArgs);
-        database.close();
-
-        return retorno == 1;
     }
 
     public String parteDaConsulta() {
