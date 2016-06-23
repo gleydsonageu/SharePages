@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_sharepages"
@@ -44,10 +46,12 @@
             android:label="@string/title_activity_perfil_de_livro" />
         <activity
             android:name=".gui.ColecaoDisponivel"
-            android:label="@string/title_activity_colecao_disponivel" />
+            android:label="@string/title_activity_colecao_disponivel"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
+        />
         <activity
             android:name=".gui.TelaAnuncio"
-            android:label="@string/title_activity_tela_anuncio" />
+            android:label="Anúncio do Livro" />
         <activity
             android:name=".gui.ExclusaoUnidadeLivro"
             android:label="Exclusao de Livro"></activity>

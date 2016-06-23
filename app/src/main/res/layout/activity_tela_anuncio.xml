@@ -36,7 +36,8 @@
             android:id="@+id/autorAnuncio"
             android:layout_alignTop="@+id/preVisuFoto"
             android:layout_alignStart="@+id/nomeLivro"
-            android:layout_marginStart="26dp" />
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,19 +191,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ver avaliação do livro"
+            android:text="Ver avaliação do livro"
             android:id="@+id/botaoAvaliacaoLivro"
             android:layout_below="@+id/descricaoAnuncio"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="79dp" />
+            android:layout_marginTop="20dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Conversar com o dono"
             android:id="@+id/botaoConversarDono"
-            android:layout_alignTop="@+id/botaoAvaliacaoLivro"
-            android:layout_toEndOf="@+id/campoDescricaoAnuncio" />
+            android:layout_below="@+id/botaoAvaliacaoLivro"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
     <ImageView
         android:id="@+id/expanded_image"
