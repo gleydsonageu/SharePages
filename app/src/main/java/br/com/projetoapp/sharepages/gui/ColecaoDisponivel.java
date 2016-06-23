@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.projetoapp.sharepages.R;
@@ -112,16 +113,14 @@ public class ColecaoDisponivel extends Activity {
         String nome = textoPesquisar.getText().toString();
         adapterListLivroDisponivel = null;
         if(nome.length() > 0){
+            List<UnidadeLivro> livros = new ArrayList<UnidadeLivro>();
+            livros.addAll(unidadeLivroService.buscarLivroPorNome(nome));
+            livros.addAll(unidadeLivroService.buscarLivroPorAutor(nome));
 
-            List<UnidadeLivro> listLivros = unidadeLivroService.buscarLivroPorNome(nome);
-            adapterListLivroDisponivel = new AdapterListLivroDisponivel(this,listLivros);
+            adapterListLivroDisponivel = new AdapterListLivroDisponivel(this, livros);
 
-        } else {
-            List<UnidadeLivro> listAutor = unidadeLivroService.buscarLivroPorAutor(nome);
-            adapterListLivroDisponivel = new AdapterListLivroDisponivel(this, listAutor);
         }
         listaLivrosDisponiveis.setAdapter(adapterListLivroDisponivel);
-
     }
 
 }
