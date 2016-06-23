@@ -18,7 +18,7 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.AdapterListLivroDisponivel;
-import br.com.projetoapp.sharepages.infra.AdapterlistTema;
+import br.com.projetoapp.sharepages.infra.AdapterListTema;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
@@ -30,7 +30,7 @@ public class ColecaoDisponivel extends Activity {
     private Button botaoPesquisar;
     private ListView listaTemas;
     private ListView listaLivrosDisponiveis;
-    private AdapterlistTema adapterlistTema;
+    private AdapterListTema adapterListTema;
     private AdapterListLivroDisponivel adapterListLivroDisponivel;
     private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
 
@@ -74,12 +74,12 @@ public class ColecaoDisponivel extends Activity {
 
     public void listarTemasDisponiveis() throws SharepagesException {
 
-        AdapterlistTema adapterlistTema = null;
+        AdapterListTema adapterListTema = null;
 
         SessaoUsuario.getInstancia().setContext(this);
         List<Tema> temas = TemaServices.getInstancia().getTemas();
-        adapterlistTema = new AdapterlistTema(ColecaoDisponivel.this, temas);
-        listaTemas.setAdapter(adapterlistTema);
+        adapterListTema = new AdapterListTema(ColecaoDisponivel.this, temas);
+        listaTemas.setAdapter(adapterListTema);
     }
 
     public AdapterView.OnItemClickListener chamarListaDeLivrosPorTemas(){

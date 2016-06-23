@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String USUARIO_EMAIL = "email";
     public static final String USUARIO_SENHA = "senha";
     public static final String USUARIO_ID_CIDADE = "idCidade";
-    public static final String[] USUARIO_COLUNAS = { USUARIO_ID, USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_ID_CIDADE };
+    public static final String[] USUARIO_COLUNAS = {USUARIO_ID, USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_ID_CIDADE};
 
     private static final String DATABASE_USUARIO = "CREATE TABLE " + TABLE_USUARIOS + "(" +
             USUARIO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+

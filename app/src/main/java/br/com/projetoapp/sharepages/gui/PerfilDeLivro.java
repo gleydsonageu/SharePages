@@ -26,6 +26,7 @@ import br.com.projetoapp.sharepages.dominio.Foto;
 import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.ModeloArrayAdapter;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
@@ -55,6 +56,7 @@ public class PerfilDeLivro extends Activity {
         setContentView(R.layout.activity_perfil_de_livro);
         int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivro", -1);
 
+        SessaoUsuario.getInstancia().setContext(this);
         UnidadeLivro unidadeLivro = unidadeLivroService.buscarLivroPorId(idUnidadeLivro);
 
         campoNomeLivroPerfil = (EditText) findViewById(R.id.campoNomeLivroPerfil);
@@ -153,7 +155,6 @@ public class PerfilDeLivro extends Activity {
         ModeloArrayAdapter<Disponibilidade> adapter = (ModeloArrayAdapter<Disponibilidade>) disponibilidadeSpinnerPerfil.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
             if(adapter.getItem(position).getId() == id) {
-                Log.d("xalala", "Spinner set selected: " + id);
                 disponibilidadeSpinnerPerfil.setSelection(position);
             }
         }
@@ -170,6 +171,8 @@ public class PerfilDeLivro extends Activity {
             Toast.makeText(getApplication(), "Livro cadastrado", Toast.LENGTH_LONG).show();
             finish();
         } catch (SharepagesException e) {
+            Toast.makeText(getApplication(), "Erro ao cadastrar livro, desculpe.", Toast.LENGTH_LONG).show();
+
 
         }
     }

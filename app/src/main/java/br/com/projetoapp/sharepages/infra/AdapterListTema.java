@@ -13,12 +13,12 @@ import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.Tema;
 
 
-public class AdapterlistTema extends BaseAdapter {
+public class AdapterListTema extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<Tema> itens;
 
-    public AdapterlistTema(Context context, List<Tema> itens){
+    public AdapterListTema(Context context, List<Tema> itens){
         this.itens = itens;
         inflater = LayoutInflater.from(context);
     }
