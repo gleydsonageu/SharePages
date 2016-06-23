@@ -39,6 +39,7 @@ public class ColecaoDisponivel extends Activity {
 
         textoPesquisar = (EditText) findViewById(R.id.campoPesquisar);
         listaLivrosDisponiveis = (ListView) findViewById(R.id.listaLivrosDisponiveis);
+        listaLivrosDisponiveis.setOnItemClickListener(chamarTelaAnuncio());
         listaTemas = (ListView) findViewById(R.id.listaTemas);
         listaTemas.setOnItemClickListener(chamarListaDeLivrosPorTemas());
 
@@ -86,6 +87,21 @@ public class ColecaoDisponivel extends Activity {
                 Intent intent = new Intent( view.getContext(), ListaLivrosPorTema.class);
                 intent.putExtra("TemaEscolhido",tema.getId());
 
+                view.getContext().startActivity(intent);
+            }
+        });
+
+    }
+
+    public AdapterView.OnItemClickListener chamarTelaAnuncio() {
+        return (new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                UnidadeLivro unidadeLivro = (UnidadeLivro) listaLivrosDisponiveis.getAdapter().getItem(position);
+
+                Intent intent = new Intent(view.getContext(), TelaAnuncio.class);
+                intent.putExtra("UnidadeLivroEscolhido", unidadeLivro.getId());
                 view.getContext().startActivity(intent);
             }
         });
