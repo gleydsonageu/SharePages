@@ -40,9 +40,7 @@ public class ExclusaoUnidadeLivro extends Activity {
     }
 
     public void chamarBotaoTransacao(final UnidadeLivro unidadeLivro) {
-
         botaoTransacao.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {

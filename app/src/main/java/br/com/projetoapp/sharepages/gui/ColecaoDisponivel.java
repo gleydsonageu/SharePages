@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,7 +26,6 @@ import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 public class ColecaoDisponivel extends Activity {
 
     private EditText textoPesquisar;
-    private Button botaoPesquisar;
     private ListView listaTemas;
     private ListView listaLivrosDisponiveis;
     private AdapterListTema adapterListTema;
@@ -41,10 +38,7 @@ public class ColecaoDisponivel extends Activity {
         setContentView(R.layout.activity_colecao_disponivel);
 
         textoPesquisar = (EditText) findViewById(R.id.campoPesquisar);
-        botaoPesquisar = (Button) findViewById(R.id.btnPesquisar);
-
         listaLivrosDisponiveis = (ListView) findViewById(R.id.listaLivrosDisponiveis);
-
         listaTemas = (ListView) findViewById(R.id.listaTemas);
         listaTemas.setOnItemClickListener(chamarListaDeLivrosPorTemas());
 
@@ -70,7 +64,6 @@ public class ColecaoDisponivel extends Activity {
         } catch (Exception e) {
             Toast.makeText(getApplication(), "Erro ao listar temas", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void listarTemasDisponiveis() throws SharepagesException {
@@ -103,19 +96,16 @@ public class ColecaoDisponivel extends Activity {
         String nome = textoPesquisar.getText().toString();
         adapterListLivroDisponivel = null;
         if(nome.length() > 0){
-            SessaoUsuario.getInstancia().setContext(this);
-            List<UnidadeLivro> listLivros = unidadeLivroService.buscarLivro(nome);
-                adapterListLivroDisponivel = new AdapterListLivroDisponivel(this,listLivros);
+
+            List<UnidadeLivro> listLivros = unidadeLivroService.buscarLivroPorNome(nome);
+            adapterListLivroDisponivel = new AdapterListLivroDisponivel(this,listLivros);
+
+        } else {
+            List<UnidadeLivro> listAutor = unidadeLivroService.buscarLivroPorAutor(nome);
+            adapterListLivroDisponivel = new AdapterListLivroDisponivel(this, listAutor);
         }
         listaLivrosDisponiveis.setAdapter(adapterListLivroDisponivel);
 
     }
 
-
 }
-
-
-
-
-
-

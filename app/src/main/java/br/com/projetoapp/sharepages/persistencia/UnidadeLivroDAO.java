@@ -120,8 +120,7 @@ public class UnidadeLivroDAO {
         return listLivroPorTema;
     }
 
-    //verificar algunas informações neste metodo
-    public List<UnidadeLivro> buscarLivro(String nome){
+    public List<UnidadeLivro> buscarLivroPorNome(String nome){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -130,7 +129,28 @@ public class UnidadeLivroDAO {
         List<UnidadeLivro> listLivro = new ArrayList<UnidadeLivro>();
 
         Cursor cursor = database.rawQuery(parteDaConsulta()
-                +" WHERE "+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+" LIKE '%?%' AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL;", new String[]{String.valueOf(nome)});
+                +" WHERE "+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+" LIKE ? AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL;", new String[]{"%"+nome+"%"});
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            unidadeLivro = carregandoUnidadeLivro(cursor);
+            listLivro.add(unidadeLivro);
+            cursor.moveToNext();
+        }
+        database.close();
+        return listLivro;
+    }
+
+    public List<UnidadeLivro> buscarLivroPorAutor(String nome){
+        UnidadeLivro unidadeLivro = null;
+
+        SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
+        DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        List<UnidadeLivro> listLivro = new ArrayList<UnidadeLivro>();
+
+        Cursor cursor = database.rawQuery(parteDaConsulta()
+                +" WHERE "+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+" LIKE ? AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL;", new String[]{"%"+nome+"%"});
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

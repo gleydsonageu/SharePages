@@ -1,6 +1,5 @@
 package br.com.projetoapp.sharepages.persistencia;
 
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

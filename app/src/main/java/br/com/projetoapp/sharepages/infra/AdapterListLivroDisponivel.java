@@ -49,6 +49,7 @@ public class AdapterListLivroDisponivel extends BaseAdapter {
         Tema tema = item.getLivro().getTema();
         Disponibilidade disponibilidade = item.getDisponibilidade();
         Cidade cidade = item.getUsuario().getCidade();
+        String autor = item.getLivro().getAutor();
 
         view = inflater.inflate(R.layout.item_lista_livro_disponivel, null);
 
@@ -56,6 +57,7 @@ public class AdapterListLivroDisponivel extends BaseAdapter {
         ((TextView) view.findViewById(R.id.disponibilidadeT)).setText(disponibilidade.getNome());
         ((TextView) view.findViewById(R.id.temaT)).setText(tema.getNome());
         ((TextView) view.findViewById(R.id.cidadeT)).setText(cidade.getNome());
+        ((TextView) view.findViewById(R.id.autorT)).setText(autor);
 
         return view;
     }

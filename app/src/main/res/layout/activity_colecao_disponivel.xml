@@ -8,38 +8,24 @@
     tools:context="br.com.projetoapp.sharepages.gui.ColecaoDisponivel">
 
     <EditText
-    android:layout_width="270dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Pesquisa"
-    android:id="@+id/campoPesquisar" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pesquisar"
-        android:id="@+id/btnPesquisar"
-        android:layout_marginEnd="18dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:id="@+id/listaLivrosDisponiveis"
-        android:divider="#ECECEC"
-        android:dividerHeight="1sp"
-        android:layout_weight="1"
-        android:layout_below="@+id/btnPesquisar"
-        android:layout_alignParentEnd="true" />
+    android:id="@+id/campoPesquisar"
+        android:textStyle="normal|italic" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tema: "
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/listaTemas" />
+        android:layout_above="@+id/listaTemas"
+        android:textAllCaps="false"
+        android:textColor="#070000"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
 
 
@@ -51,8 +37,20 @@
         android:dividerHeight="1sp"
         android:layout_weight="1"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" />
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:id="@+id/listaLivrosDisponiveis"
+        android:divider="#ECECEC"
+        android:dividerHeight="1sp"
+        android:layout_weight="1"
+        android:layout_below="@+id/campoPesquisar"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView" />
 
 
 </RelativeLayout>

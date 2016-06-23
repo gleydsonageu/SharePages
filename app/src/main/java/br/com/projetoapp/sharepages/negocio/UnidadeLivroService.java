@@ -46,8 +46,12 @@ public class UnidadeLivroService {
         return unidadeLivroDAO.buscarLivroPorTema(id);
     }
 
-    public List<UnidadeLivro> buscarLivro(String nome){
-        return unidadeLivroDAO.buscarLivro(nome);
+    public List<UnidadeLivro> buscarLivroPorNome(String nome){
+        return unidadeLivroDAO.buscarLivroPorNome(nome);
+    }
+
+    public List<UnidadeLivro> buscarLivroPorAutor( String nome){
+        return unidadeLivroDAO.buscarLivroPorAutor(nome);
     }
 
     public void alterarUnidadeLivro(UnidadeLivro alteracaoUnidadeLivro) throws SharepagesException{
