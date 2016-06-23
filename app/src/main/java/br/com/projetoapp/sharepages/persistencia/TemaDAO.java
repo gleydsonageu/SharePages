@@ -40,8 +40,6 @@ public class TemaDAO {
                 }
 
             }
-            Log.d("AQUI", listaTemas.toString());
-
             database.close();
 
         } catch (Exception e) {

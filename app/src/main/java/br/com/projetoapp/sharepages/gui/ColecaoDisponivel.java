@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class ColecaoDisponivel extends Activity {
         try {
             listarTemasDisponiveis();
         } catch (Exception e) {
-            e.printStackTrace();
+            Toast.makeText(getApplication(), "Erro ao listar temas", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -92,7 +93,6 @@ public class ColecaoDisponivel extends Activity {
                 Intent intent = new Intent( view.getContext(), ListaLivrosPorTema.class);
                 intent.putExtra("TemaEscolhido",tema.getId());
 
-                Log.i("SCRIPT","TEMA "+tema.getId());
                 view.getContext().startActivity(intent);
             }
         });
@@ -103,7 +103,8 @@ public class ColecaoDisponivel extends Activity {
         String nome = textoPesquisar.getText().toString();
         adapterListLivroDisponivel = null;
         if(nome.length() > 0){
-                List<UnidadeLivro> listLivros = unidadeLivroService.buscarLivro(nome);
+            SessaoUsuario.getInstancia().setContext(this);
+            List<UnidadeLivro> listLivros = unidadeLivroService.buscarLivro(nome);
                 adapterListLivroDisponivel = new AdapterListLivroDisponivel(this,listLivros);
         }
         listaLivrosDisponiveis.setAdapter(adapterListLivroDisponivel);

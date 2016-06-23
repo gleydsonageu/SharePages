@@ -31,8 +31,6 @@ public class FotoDAO {
         values.put(DatabaseHelper.FOTO_CAMINHO, foto.getCaminho());
         values.put(DatabaseHelper.FOTO_ID_UNIDADELIVRO, foto.getIdUnidadeLivro());
 
-        Log.i("SCRIPT", " caminho nome " + foto.getCaminho());
-
 
         long retorno = database.insert(DatabaseHelper.TABLE_FOTOS, null, values);
         database.close();
@@ -74,7 +72,6 @@ public class FotoDAO {
                 foto.setId(cursor.getInt(0));
                 foto.setIdUnidadeLivro(cursor.getInt(2));
                 fotos.add(foto);
-                Log.d("xalala", "foto: " + foto.getId() + "," + foto.getCaminho() + "," + foto.getIdUnidadeLivro());
                 cursor.moveToNext();
             }
         }

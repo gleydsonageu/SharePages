@@ -40,7 +40,6 @@ public class ListaLivrosPorTema extends Activity {
 
         SessaoUsuario.getInstancia().setContext(this);
         List<UnidadeLivro> livroPorTema = unidadeLivroService.buscarLivroPorTema(idTema);
-        Log.i("SCRIPT", "ID do tema Escolhido ================== " + idTema);
         adapterListLivroDisponivel = new AdapterListLivroDisponivel(ListaLivrosPorTema.this, livroPorTema);
         listLivrosPorTema.setAdapter(adapterListLivroDisponivel);
 

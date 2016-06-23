@@ -94,7 +94,11 @@ public class PerfilDeLivro extends Activity {
             adcDisponibilidadesNoSpinner();
             selectDisponibilidadeSpinnerItemById(unidadeLivro.getIdDisponibilidade());
         } catch (SharepagesException e) {
+            Toast.makeText(getApplication(), "Sistema com erro em disponibilidade", Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
+            Toast.makeText(getApplication(), "Sistema com erro em disponibilidade", Toast.LENGTH_LONG).show();
+
         }
 
         Uri visualizacao = Uri.fromFile(new File(unidadeLivro.getFotos().get(0).getCaminho()));
@@ -124,14 +128,16 @@ public class PerfilDeLivro extends Activity {
                     foto.setId(unidadeLivroAtual.getFotos().get(0).getId());
 
                     try {
+                        SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
                         unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
                         if (caminhoFoto != null) {
+                            SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
                             fotoServices.alterarFoto(foto);
                         }
                         Toast.makeText(getApplication(), "Alteracoes realizadas com sucesso!", Toast.LENGTH_LONG).show();
                         finish();
                     } catch (SharepagesException e) {
-                        e.printStackTrace();
+                        Toast.makeText(getApplication(), "Erro ao tentar atualizar", Toast.LENGTH_LONG).show();
                     }
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplication(), "insira numeros de paginas", Toast.LENGTH_LONG).show();

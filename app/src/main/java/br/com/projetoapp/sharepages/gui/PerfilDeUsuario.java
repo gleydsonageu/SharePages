@@ -141,9 +141,10 @@ public class PerfilDeUsuario extends Activity {
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
+
         }
     }
 

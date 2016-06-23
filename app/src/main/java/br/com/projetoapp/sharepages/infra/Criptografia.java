@@ -6,9 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Created by gleydson on 19/06/16.
- */
+
 
 public class Criptografia {
     private MessageDigest algoritmo;
@@ -24,7 +22,6 @@ public class Criptografia {
         }
 
         String senhaCriptografada = hexString.toString();
-        Log.i("SCRIPT","SHA_256"+ senhaCriptografada);
         return senhaCriptografada;
     }
 }

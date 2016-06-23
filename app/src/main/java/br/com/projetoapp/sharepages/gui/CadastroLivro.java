@@ -132,7 +132,6 @@ public class CadastroLivro extends Activity {
     public List<String> validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
 
         List<String> listaCampos = new ArrayList<String>();
-        Log.i("SCRIPT", "Chamada do metodo validar campos vazios ");
         if (livro.getNome() == null || livro.getNome().equals("")) {
             listaCampos.add("nome");
             campoNomeLivro.setError(getString(R.string.campo_obrigatorio));
@@ -199,6 +198,8 @@ public class CadastroLivro extends Activity {
             Toast.makeText(getApplication(), "Livro cadastrado", Toast.LENGTH_LONG).show();
             finish();
         } catch (SharepagesException e) {
+            Toast.makeText(getApplication(), "Erro ao cadastrar livro", Toast.LENGTH_LONG).show();
+
 
         }
     }
@@ -331,7 +332,6 @@ public class CadastroLivro extends Activity {
             caminhoFoto = imagePath;
             Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
             preVisuFoto.setImageURI(visualizacao);
-            Log.d("AQUI", imagePath);
             Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
 
         } else {

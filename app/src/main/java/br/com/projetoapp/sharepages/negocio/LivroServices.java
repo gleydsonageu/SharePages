@@ -24,7 +24,6 @@ public class LivroServices {
         try {
             livroEncontrado = livroDAO.buscarLivro(livro.getNome(), livro.getAutor());
         } catch (Exception e){
-            e.printStackTrace();
             throw new SharepagesException("Erro");
         }
 
