@@ -1,12 +1,8 @@
 package br.com.projetoapp.sharepages.infra;
 
-import android.util.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-
 
 public class Criptografia {
     private MessageDigest algoritmo;

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +46,7 @@ public class CadastroLivro extends Activity {
     public static final int CODE_EXTERNAL_STORAGE_PERMISSION = 3232;
     private String caminhoFoto;
     private ImageView preVisuFoto;
+    private String imagePath;
 
     LivroServices livroServices = LivroServices.getInstancia();
     UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
@@ -127,8 +127,6 @@ public class CadastroLivro extends Activity {
         });
     }
 
-
-    //validação de campos preenchidos
     public List<String> validarCamposPreenchidosLivro(Livro livro, UnidadeLivro unidadeLivro, Foto foto) {
 
         List<String> listaCampos = new ArrayList<String>();
@@ -153,7 +151,7 @@ public class CadastroLivro extends Activity {
             campoIdioma.setError(getString(R.string.campo_obrigatorio));
         }
         if (foto.getCaminho() == null) {
-            listaCampos.add("foto(Tire uma foto ou escolher uma de sua galeria");
+            listaCampos.add("Tire uma foto ou escolher uma de sua galeria");
         }
         return listaCampos;
     }
@@ -229,7 +227,7 @@ public class CadastroLivro extends Activity {
 
     }
 
-    private String imagePath;
+
 
     public void chamarBotaoSelecionarFoto() {
 
@@ -277,8 +275,7 @@ public class CadastroLivro extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case CODE_EXTERNAL_STORAGE_PERMISSION: {
                 // If request is cancelled, the result arrays are empty.

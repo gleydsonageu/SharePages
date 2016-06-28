@@ -113,12 +113,10 @@ public class ColecaoDisponivel extends Activity {
         String nome = textoPesquisar.getText().toString();
         adapterListLivroDisponivel = null;
         if(nome.length() > 0){
+
             List<UnidadeLivro> livros = new ArrayList<UnidadeLivro>();
-            livros.addAll(unidadeLivroService.buscarLivroPorNome(nome));
-            livros.addAll(unidadeLivroService.buscarLivroPorAutor(nome));
-
+            livros.addAll(unidadeLivroService.buscarLivroPorNomeOuAutor(nome));
             adapterListLivroDisponivel = new AdapterListLivroDisponivel(this, livros);
-
         }
         listaLivrosDisponiveis.setAdapter(adapterListLivroDisponivel);
     }
