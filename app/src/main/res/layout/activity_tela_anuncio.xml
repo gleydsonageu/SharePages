@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome do Livro"
+            android:text="@string/nome_do_livro_anuncio"
             android:id="@+id/nomeLivro"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Autor:"
+            android:text="@string/autor"
             android:id="@+id/autorAnuncio"
             android:layout_alignTop="@+id/preVisuFoto"
             android:layout_alignStart="@+id/nomeLivro"
@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo autor"
+            android:text="@string/campo_autor_anuncio"
             android:id="@+id/campoAutorAnuncio"
             android:layout_alignTop="@+id/autorAnuncio"
             android:layout_toEndOf="@+id/autorAnuncio"
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Editora:"
+            android:text="@string/editora"
             android:id="@+id/editoraAnuncio"
             android:layout_below="@+id/autorAnuncio"
             android:layout_alignStart="@+id/autorAnuncio" />
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo editora"
+            android:text="@string/campo_editora_anuncio"
             android:id="@+id/campoEditoraAnuncio"
             android:layout_below="@+id/campoAutorAnuncio"
             android:layout_toEndOf="@+id/editoraAnuncio"
@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N º de páginas:"
+            android:text="@string/numero_de_paginas"
             android:id="@+id/nDePaginasAnuncio"
             android:layout_below="@+id/editoraAnuncio"
             android:layout_alignStart="@+id/editoraAnuncio" />
@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="n de pag"
+            android:text="@string/numero_de_paginas_anuncio"
             android:id="@+id/campoPagAnuncio"
             android:layout_alignTop="@+id/nDePaginasAnuncio"
             android:layout_toEndOf="@+id/nDePaginasAnuncio"
@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edição:"
+            android:text="@string/edicao"
             android:id="@+id/edicaoAnuncio"
             android:layout_below="@+id/nDePaginasAnuncio"
             android:layout_alignStart="@+id/nDePaginasAnuncio" />
@@ -93,7 +93,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo edicao"
+            android:text="@string/campo_edicao_anuncio"
             android:id="@+id/campoEdicaoAnuncio"
             android:layout_alignTop="@+id/edicaoAnuncio"
             android:layout_alignStart="@+id/campoAutorAnuncio"
@@ -102,7 +102,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Idioma:"
+            android:text="@string/idioma"
             android:id="@+id/idiomaAnuncio"
             android:layout_below="@+id/edicaoAnuncio"
             android:layout_alignStart="@+id/edicaoAnuncio" />
@@ -110,7 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo idioma"
+            android:text="@string/campo_idioma_anuncio"
             android:id="@+id/campoIdiomaAnuncio"
             android:layout_below="@+id/campoEdicaoAnuncio"
             android:layout_alignStart="@+id/campoAutorAnuncio"
@@ -119,7 +119,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disponibilidade:"
+            android:text="@string/disponibilidade"
             android:id="@+id/disponibilidadeAnuncio"
             android:layout_centerVertical="true"
             android:layout_alignStart="@+id/preVisuFoto" />
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo disponibilidade"
+            android:text="@string/campo_disponibilidade_anuncio"
             android:id="@+id/campoDispoAnuncio"
             android:layout_alignTop="@+id/disponibilidadeAnuncio"
             android:layout_toEndOf="@+id/disponibilidadeAnuncio"
@@ -136,7 +136,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tema:"
+            android:text="@string/tema"
             android:id="@+id/temaAnuncio"
             android:layout_alignBaseline="@+id/campoTemaAnuncio"
             android:layout_alignBottom="@+id/campoTemaAnuncio"
@@ -145,7 +145,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo tema"
+            android:text="@string/campo_tema_anuncio"
             android:id="@+id/campoTemaAnuncio"
             android:layout_above="@+id/disponibilidadeAnuncio"
             android:layout_toEndOf="@+id/temaAnuncio"
@@ -155,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Cidade:"
+            android:text="@string/cidade"
             android:id="@+id/cidadeAnuncio"
             android:layout_below="@+id/disponibilidadeAnuncio"
             android:layout_alignStart="@+id/disponibilidadeAnuncio" />
@@ -164,7 +164,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="campo cidade"
+            android:text="@string/campo_cidade_anuncio"
             android:id="@+id/campoCidadeAnuncio"
             android:layout_alignTop="@+id/cidadeAnuncio"
             android:layout_toEndOf="@+id/cidadeAnuncio"
@@ -173,7 +173,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrição:"
+            android:text="@string/descricao"
             android:id="@+id/descricaoAnuncio"
             android:layout_below="@+id/cidadeAnuncio"
             android:layout_alignStart="@+id/cidadeAnuncio"
@@ -182,7 +182,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="campo descricao"
+            android:text="@string/campo_descricao_anuncio"
             android:id="@+id/campoDescricaoAnuncio"
             android:layout_alignTop="@+id/descricaoAnuncio"
             android:layout_toEndOf="@+id/descricaoAnuncio"

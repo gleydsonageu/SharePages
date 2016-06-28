@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/livro"
-        android:text="Livro"
+        android:text="@string/livro_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -15,14 +15,14 @@
 
     <TextView
         android:id="@+id/autor"
-        android:text="Autor"
+        android:text="@string/autor_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tema" />
 
     <TextView
         android:id="@+id/tema"
-        android:text="Tema"
+        android:text="@string/tema_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editarLivro"

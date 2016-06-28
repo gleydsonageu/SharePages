@@ -45,7 +45,7 @@ public class AdapterListTema extends BaseAdapter {
 
         String tema = item.getNome();
         convertView = inflater.inflate(R.layout.item_tema, null);
-        ((TextView) convertView.findViewById(R.id.text)).setText(tema);
+        ((TextView) convertView.findViewById(R.id.temaAdapterList)).setText(tema);
 
         return convertView;
     }

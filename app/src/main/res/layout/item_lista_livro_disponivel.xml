@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/livroT"
-        android:text="Livro"
+        android:text="@string/livro_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/temaT"
-        android:text="Tema"
+        android:text="@string/tema_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/disponibilidadeT"
-        android:text="Disponibilidade"
+        android:text="@string/disponibilidade_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/temaT"
@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/cidadeT"
-        android:text="Cidade"
+        android:text="@string/cidade_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/disponibilidadeT"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/autorT"
-        android:text="Autor"
+        android:text="@string/autor_adapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cidadeT"

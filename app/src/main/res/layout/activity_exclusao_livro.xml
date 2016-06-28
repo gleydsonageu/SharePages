@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Por que você está excluindo seu livro?"
+        android:text="@string/pegunta_motivo_exclusao"
         android:id="@+id/perguntaExclusao"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
@@ -21,7 +21,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Efetou a transação"
+        android:text="@string/efetou_a_transacao"
         android:id="@+id/botaoTransacao"
         android:layout_below="@+id/perguntaExclusao"
         android:layout_alignParentStart="true"
@@ -30,7 +30,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Desistiu de anunciar"
+        android:text="@string/desistiu_de_anunciar"
         android:id="@+id/botaoDesistencia"
         android:layout_alignBottom="@+id/botaoTransacao"
         android:layout_alignEnd="@+id/perguntaExclusao"

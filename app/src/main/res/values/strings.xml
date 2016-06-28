@@ -2,35 +2,34 @@
     <string name="app_name">SharePages</string>
 
     <!-- tela_inicial-->
+    <string name="title_activity_tela_inicial">Tela inicial</string>
     <string name="usuario">Usuário</string>
     <string name="senha">Senha</string>
     <string name="botao_entrar">Entrar</string>
     <string name="fazer_cadastro">Não possui conta? Clique aqui</string>
-    <string name="title_activity_tela_inicial">Tela inicial</string>
-    <string name="title_activity_cadastro_usuario">Cadastro Usuário</string>
 
     <!--tela_cadastro_usuario-->
+    <string name="title_activity_cadastro_usuario">Cadastro Usuário</string>
     <string name="email">Email</string>
     <string name="nome">Nome</string>
     <string name="confirmar_senha">Confirmar senha</string>
     <string name="botao_salvar_cadastrar">Cadastrar</string>
     <string name="campo_obrigatorio">Campo Obrigatório</string>
 
-    <!--<string name="bemvindo">bem vindo!!!</string>-->
     <string name="action_settings">Settings</string>
-    <!--<string name="hello_square">Hello Square World!</string>-->
-    <!--<string name="hello_round">Hello Round World!</string>-->
 
     <string name="add">add</string>
     <string name="title_activity_menu_principal">Menu Principal</string>
     <string name="title_activity_cadastro_livro">Cadastro Livro</string>
     <string name="editarPerfil">Editar Perfil</string>
 
+    <!--Pefil do Livro-->
     <string name="selecionar_foto">Selecionar foto</string>
     <string name="nome_do_livro">Nome do livro:</string>
+    <string name="tirar_foto">Tirar foto</string>
     <string name="autor">Autor:</string>
     <string name="editora">Editora:</string>
-    <string name="n_de_paginas">Nº de Páginas:</string>
+    <string name="numero_de_paginas">Nº de Páginas:</string>
     <string name="edicao">Edição:</string>
     <string name="idioma">Idioma:</string>
     <string name="descricao">Descrição:</string>
@@ -38,25 +37,24 @@
     <string name="disponibilidade">Disponibilidade:</string>
     <string name="tema">Tema:</string>
 
-    <!-- tela menu-->
+    <!--Tela menu-->
     <string name="botao_editar_perfil">Editar Perfil</string>
     <string name="botao_minha_prateleira">Minha Prateleira</string>
     <string name="cadastrar_livro">Cadastrar Livro</string>
     <string name="colecao_disponivel">Coleção Disponível</string>
 
-    <!-- tela de editar perfil usuario -->
+    <!--Perfil de Usuario -->
     <string name="title_activity_perfil_de_usuario">Perfil de Usuário</string>
     <string name="nome_perfil">Nome*</string>
     <string name="senha_atual">Senha Atual*</string>
     <string name="nova_senha">Nova Senha</string>
     <string name="botao_atualizar">Atualizar</string>
-    <string name="botao_deletar">Deletar</string>
 
-    <!--tela minha prateleira-->
+    <!--Minha prateleira-->
     <string name="title_activity_minhaPrateleira">Minha Prateleira</string>
-    <string name="botao_pesquisa">Pesquisa</string>
+    <!--<string name="botao_pesquisa">Pesquisa</string>-->
 
-    <!--tela de edicao perfil livro-->
+    <!--Edicao perfil livro-->
     <string name="title_activity_perfil_de_livro">Perfil de Livro</string>
     <string name="item_lista_livro">itemLivro</string>
 
@@ -67,5 +65,33 @@
     <string name="title_activity_colecao_disponivel">Colecao Disponível</string>
     <string name="title_activity_tela_anuncio">Tela Anúncio</string>
     <string name="title_activity_lista_livros_por_tema">Lista de livros disponíveis</string>
+
+    <!--Adapters-->
+    <string name="tema_adapter">Tema</string>
+    <string name="autor_adapter">Autor</string>
+    <string name="livro_adapter">Livro</string>
+    <string name="disponibilidade_adapter">Disponibilidade</string>
+    <string name="cidade_adapter">Cidade</string>
+
+    <!--Tela Anuncio-->
+    <string name="nome_do_livro_anuncio">Nome do Livro</string>
+    <string name="campo_autor_anuncio">campo autor</string>
+    <string name="campo_editora_anuncio">campo editora</string>
+    <string name="numero_de_paginas_anuncio">n de paginas</string>
+    <string name="campo_edicao_anuncio">campo edição</string>
+    <string name="campo_idioma_anuncio">campo idioma</string>
+    <string name="campo_disponibilidade_anuncio">campo disponibilidade</string>
+    <string name="campo_tema_anuncio">campo tema</string>
+    <string name="cidade">Cidade: </string>
+    <string name="campo_cidade_anuncio">cidade anuncio</string>
+    <string name="campo_descricao_anuncio">campo descição</string>
+
+    <!--Exclusao livro-->
+    <string name="pegunta_motivo_exclusao">Por que você está excluindo seu livro?</string>
+    <string name="efetou_a_transacao">Efetou a transação</string>
+    <string name="desistiu_de_anunciar">Desistiu de anunciar</string>
+
+    <!--Colecao disponivel-->
+    <string name="pesquisa">Pesquisa</string>
 
 </resources>

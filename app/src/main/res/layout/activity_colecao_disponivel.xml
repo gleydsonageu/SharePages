@@ -10,14 +10,15 @@
     <EditText
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Pesquisa"
+    android:hint="@string/pesquisa"
     android:id="@+id/campoPesquisar"
-        android:textStyle="normal|italic" />
+    android:singleLine="true"
+    android:textStyle="normal|italic" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tema: "
+        android:text="@string/tema"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView"
         android:layout_alignParentStart="true"
