@@ -4,6 +4,7 @@ package br.com.projetoapp.sharepages.negocio;
 import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
+import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UnidadeLivroDAO;
 
@@ -42,12 +43,13 @@ public class UnidadeLivroService {
     }
 
     public List<UnidadeLivro> buscarLivroPorTema(int id){
-
-        return unidadeLivroDAO.buscarLivroPorTema(id);
+        int idUsuarioLogado = SessaoUsuario.getInstancia().getUsuarioLogado().getId();
+        return unidadeLivroDAO.buscarLivroPorTema(id, idUsuarioLogado);
     }
 
     public List<UnidadeLivro> buscarLivroPorNomeOuAutor(String nome){
-        return unidadeLivroDAO.buscarLivroPorNomeOuAutor(nome);
+        int idUsuarioLogado = SessaoUsuario.getInstancia().getUsuarioLogado().getId();
+        return unidadeLivroDAO.buscarLivroPorNomeOuAutor(nome,idUsuarioLogado);
     }
 
     public void alterarUnidadeLivro(UnidadeLivro alteracaoUnidadeLivro) throws SharepagesException{

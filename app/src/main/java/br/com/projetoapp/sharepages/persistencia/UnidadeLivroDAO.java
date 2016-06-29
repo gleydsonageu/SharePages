@@ -99,7 +99,7 @@ public class UnidadeLivroDAO {
         return unidadeLivro;
     }
 
-    public List<UnidadeLivro> buscarLivroPorTema(int id){
+    public List<UnidadeLivro> buscarLivroPorTema(int id, int idUsuarioLogado){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -108,7 +108,8 @@ public class UnidadeLivroDAO {
         List<UnidadeLivro> listLivroPorTema = new ArrayList<UnidadeLivro>();
 
         Cursor cursor = database.rawQuery(parteDaConsulta()
-                +" WHERE "+DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+ " = ?AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL;", new String[]{String.valueOf(id)});
+                +" WHERE "+DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+ " = ?AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL"
+                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " != ?;", new String[]{String.valueOf(id), String.valueOf(idUsuarioLogado)});
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -120,7 +121,7 @@ public class UnidadeLivroDAO {
         return listLivroPorTema;
     }
 
-    public List<UnidadeLivro> buscarLivroPorNomeOuAutor(String nome){
+    public List<UnidadeLivro> buscarLivroPorNomeOuAutor(String nome, int idUsuarioLogado){
         UnidadeLivro unidadeLivro = null;
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -129,7 +130,10 @@ public class UnidadeLivroDAO {
         List<UnidadeLivro> listLivro = new ArrayList<UnidadeLivro>();
 
         Cursor cursor = database.rawQuery(parteDaConsulta()
-                +" WHERE ("+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+" LIKE ? OR "+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+" LIKE ? ) AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+" IS NULL;", new String[]{"%"+nome+"%", "%"+nome+"%"});
+                +" WHERE ("+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+" LIKE ?"
+                +" OR "+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+" LIKE ? )"
+                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_SITUACAO+" IS NULL"
+                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " != ?;", new String[]{"%"+nome+"%", "%"+nome+"%",String.valueOf(idUsuarioLogado)});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             unidadeLivro = carregandoUnidadeLivro(cursor);
