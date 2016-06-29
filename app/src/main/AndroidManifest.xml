@@ -37,7 +37,10 @@
             android:label="@string/title_activity_perfil_de_usuario" />
         <activity
             android:name=".gui.CadastroLivro"
-            android:label="@string/cadastrar_livro" />
+            android:label="@string/cadastrar_livro"/>
+                <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+                <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
         <activity
             android:name=".gui.MinhaPrateleira"
             android:label="@string/title_activity_minhaPrateleira" />

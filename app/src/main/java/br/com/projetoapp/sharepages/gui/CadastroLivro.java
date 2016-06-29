@@ -207,12 +207,17 @@ public class CadastroLivro extends Activity {
         tirarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File localDaFoto = new File(Environment.getExternalStorageDirectory() + "/"
-                        + System.currentTimeMillis() + ".jpg");
+                String caminho = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) +File.separator+ "Sharepages");
+                File caminhoDaFoto = new File(caminho);
 
-                caminhoFoto = localDaFoto.getAbsolutePath();
+                if(!caminhoDaFoto.exists()){
+                    caminhoDaFoto.mkdir();
+                }
+                File caminhoComFoto = new File(caminhoDaFoto+ "/"+ System.currentTimeMillis() + ".jpg");
 
-                File arquivo = new File(String.valueOf(localDaFoto));
+                caminhoFoto = caminhoComFoto.getAbsolutePath();
+
+                File arquivo = new File(String.valueOf(caminhoComFoto));
                 Uri localFotoUri = Uri.fromFile(arquivo);
 
                 Intent irParaCamera = new Intent(
@@ -226,8 +231,6 @@ public class CadastroLivro extends Activity {
         });
 
     }
-
-
 
     public void chamarBotaoSelecionarFoto() {
 
