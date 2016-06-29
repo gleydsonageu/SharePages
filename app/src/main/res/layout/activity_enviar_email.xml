@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Para:"
+        android:text="@string/para"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -21,20 +21,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Assunto:"
+        android:text="@string/para"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/campoAssunto"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Digite o assunto do e-mail" >
+        android:hint="@string/campo_assunto_do_email" >
     </EditText>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mensagem:"
+        android:text="@string/mensagem"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -42,7 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="top"
-        android:hint="Digite o corpo da mensagem"
+        android:hint="@string/campo_corpo_da_mensagem"
         android:inputType="textMultiLine"
         android:lines="10" />
 

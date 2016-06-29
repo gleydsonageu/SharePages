@@ -93,6 +93,13 @@
 
     <!--Colecao disponivel-->
     <string name="pesquisa">Pesquisa</string>
-    <string name="title_activity_enviar_email">EnviarEmail</string>
+
+    <!--EnviarEmail-->
+    <string name="title_activity_enviar_email">Enviar Email</string>
+    <string name="para">Para:</string>
+    <string name="assunto">Assunto:</string>
+    <string name="campo_assunto_do_email">Digite o assunto do e-mail</string>
+    <string name="mensagem">Mensagem:</string>
+    <string name="campo_corpo_da_mensagem">Digite o corpo da mensagem</string>
 
 </resources>
