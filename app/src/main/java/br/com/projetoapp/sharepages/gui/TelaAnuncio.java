@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -48,7 +49,7 @@ public class TelaAnuncio extends Activity {
         int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivroEscolhido", -1);
 
         SessaoUsuario.getInstancia().setContext(this);
-        UnidadeLivro unidadeLivro = unidadeLivroService.buscarLivroPorId(idUnidadeLivro);
+        final UnidadeLivro unidadeLivro = unidadeLivroService.buscarLivroPorId(idUnidadeLivro);
 
 
         nomeLivro = (TextView) findViewById(R.id.nomeLivro);
@@ -90,6 +91,16 @@ public class TelaAnuncio extends Activity {
         });
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
+
+
+        botaoConversarDono.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TelaAnuncio.this, EnviarEmail.class);
+                intent.putExtra("EmailUsuario", unidadeLivro.getUsuario().getEmail());
+                startActivity(intent);
+            }
+        });
 
 
 

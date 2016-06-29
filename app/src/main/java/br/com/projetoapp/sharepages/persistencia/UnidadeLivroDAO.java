@@ -183,6 +183,7 @@ public class UnidadeLivroDAO {
         Usuario usuario = new Usuario();
         usuario.setId(cursor.getInt(17));
         usuario.setIdCidade(cursor.getInt(18));
+        usuario.setEmail(cursor.getString(21));
         unidLivro.setUsuario(usuario);
         Cidade cidade = new Cidade();
         cidade.setId(cursor.getInt(19));
@@ -218,7 +219,8 @@ public class UnidadeLivroDAO {
                 +DatabaseHelper.TABLE_USUARIOS+"."+DatabaseHelper.USUARIO_ID+", "
                 +DatabaseHelper.TABLE_USUARIOS+"."+DatabaseHelper.USUARIO_ID_CIDADE+", "
                 +DatabaseHelper.TABLE_CIDADES+"."+DatabaseHelper.CIDADE_ID+", "
-                +DatabaseHelper.TABLE_CIDADES+"."+DatabaseHelper.CIDADE_NOME
+                +DatabaseHelper.TABLE_CIDADES+"."+DatabaseHelper.CIDADE_NOME+", "
+                +DatabaseHelper.TABLE_USUARIOS+"."+DatabaseHelper.USUARIO_EMAIL
                 +" FROM "+DatabaseHelper.TABLE_UNIDADELIVROS +" INNER JOIN "+ DatabaseHelper.TABLE_LIVRO
                 +" ON ("+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_LIVRO+ " = " +DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_ID
                 +") INNER JOIN " +DatabaseHelper.TABLE_TEMAS

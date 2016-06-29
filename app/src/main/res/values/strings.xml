@@ -93,5 +93,6 @@
 
     <!--Colecao disponivel-->
     <string name="pesquisa">Pesquisa</string>
+    <string name="title_activity_enviar_email">EnviarEmail</string>
 
 </resources>
