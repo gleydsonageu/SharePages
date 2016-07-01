@@ -34,7 +34,7 @@ import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class CadastroLivro extends Activity {
 
@@ -49,7 +49,7 @@ public class CadastroLivro extends Activity {
     private String imagePath;
 
     LivroServices livroServices = LivroServices.getInstancia();
-    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
     FotoServices fotoServices = FotoServices.getInstancia();
 
     @Override
@@ -196,7 +196,7 @@ public class CadastroLivro extends Activity {
             SessaoUsuario.getInstancia().setContext(this);
             livro = livroServices.inserirLivro(livro);
             unidadeLivro.setIdLivro(livro.getId());
-            unidadeLivroService.inserirUnidadeLivro(unidadeLivro);
+            unidadeLivroServices.inserirUnidadeLivro(unidadeLivro);
             foto.setIdUnidadeLivro(unidadeLivro.getId());
             fotoServices.inserirFoto(foto);
             Toast.makeText(getApplication(), "Livro cadastrado", Toast.LENGTH_LONG).show();

@@ -31,7 +31,7 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.DisponibilidadeServices;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class PerfilDeLivro extends Activity {
 
@@ -47,7 +47,7 @@ public class PerfilDeLivro extends Activity {
     public static final int CODE_EXTERNAL_STORAGE_PERMISSION = 3232;
 
     LivroServices livroServices = LivroServices.getInstancia();
-    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
     FotoServices fotoServices = FotoServices.getInstancia();
 
     @Override
@@ -57,7 +57,7 @@ public class PerfilDeLivro extends Activity {
         int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivro", -1);
 
         SessaoUsuario.getInstancia().setContext(this);
-        UnidadeLivro unidadeLivro = unidadeLivroService.buscarLivroPorId(idUnidadeLivro);
+        UnidadeLivro unidadeLivro = unidadeLivroServices.buscarLivroPorId(idUnidadeLivro);
 
         campoNomeLivroPerfil = (EditText) findViewById(R.id.campoNomeLivroPerfil);
         campoAutorPerfil = (EditText) findViewById(R.id.campoAutorPerfil);
@@ -131,7 +131,7 @@ public class PerfilDeLivro extends Activity {
 
 //                    try {
 //                        SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
-//                        unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
+//                        unidadeLivroServices.alterarUnidadeLivro(alteracoesUnidadeLivro);
 //                        if (caminhoFoto != null) {
 //                            SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
 //                            fotoServices.alterarFoto(foto);
@@ -153,7 +153,7 @@ public class PerfilDeLivro extends Activity {
 
         try {
             SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
-            unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
+            unidadeLivroServices.alterarUnidadeLivro(alteracoesUnidadeLivro);
             if (caminhoFoto != null) {
                 SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
                 fotoServices.alterarFoto(foto);
@@ -191,7 +191,7 @@ public class PerfilDeLivro extends Activity {
         try {
             livro = livroServices.inserirLivro(livro);
             unidadeLivro.setIdLivro(livro.getId());
-            unidadeLivroService.inserirUnidadeLivro(unidadeLivro);
+            unidadeLivroServices.inserirUnidadeLivro(unidadeLivro);
             foto.setIdUnidadeLivro(unidadeLivro.getId());
             fotoServices.inserirFoto(foto);
             Toast.makeText(getApplication(), "Livro cadastrado", Toast.LENGTH_LONG).show();

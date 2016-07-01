@@ -5,6 +5,9 @@ import br.com.projetoapp.sharepages.dominio.Foto;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.FotoDAO;
 
+/**
+ * FotoServices trata solicitações na FotoDAO e ações relacionadas a foto.
+ */
 public class FotoServices {
 
 
@@ -20,6 +23,12 @@ public class FotoServices {
         return instancia;
     }
 
+    /**
+     * Método que solicita a inserção de uma foto no banco de dados
+     * @param foto
+     * @return uma foto
+     * @throws SharepagesException
+     */
     public Foto inserirFoto(Foto foto) throws SharepagesException{
 
         try {
@@ -31,6 +40,12 @@ public class FotoServices {
         return foto;
 
     }
+
+    /**
+     * Método que solicita a alteração da foto de uma unidadeLivro no banco de dados
+     * @param alteracaoFoto
+     * @throws SharepagesException
+     */
     public void alterarFoto(Foto alteracaoFoto) throws SharepagesException{
         fotoDAO.alterar(alteracaoFoto);
     }

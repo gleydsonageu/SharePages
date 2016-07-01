@@ -7,7 +7,7 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.CidadeDAO;
 
 /**
- *  Esta classe
+ * CidadeServices trata solicitações na CidadeDAO e ações relacionadas a cidade.
  */
 public class CidadeServices {
 
@@ -22,6 +22,11 @@ public class CidadeServices {
         return instancia;
     }
 
+    /**
+     * Método que solicita a consulta no banco para pegar todas as cidades que existem nele
+     * @return uma lista com todas as cidades encontradas no banco de dados
+     * @throws SharepagesException
+     */
     public ArrayList<Cidade> getCidades() throws SharepagesException {
 
         try {

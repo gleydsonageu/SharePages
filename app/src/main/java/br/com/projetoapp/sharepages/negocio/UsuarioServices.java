@@ -10,7 +10,7 @@ import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
 /**
- * UsuarioServices trata solicitações na UsuarioDAO
+ * UsuarioServices trata solicitações na UsuarioDAO e ações relacionadas ao usuário.
  */
 public class UsuarioServices {
 
@@ -29,7 +29,7 @@ public class UsuarioServices {
     /**
      * Valida login e senha de usuario no UsuarioDAO
      * @param usuario
-     * @return
+     * @return usuario
      * @throws SharepagesException
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
@@ -82,6 +82,13 @@ public class UsuarioServices {
         }
     }
 
+    /**
+     * Faz a edição das informações do usuario (nome, senha ou cidade)
+     * @param alteracaoUsuario
+     * @throws SharepagesException
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
     
     public void alterarPerfilUsuario(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
 
@@ -95,6 +102,14 @@ public class UsuarioServices {
         }
     }
 
+    /**
+     * Busca o id do usuario para fazer a altereção de seus dados
+     * @param alteracaoUsuario
+     * @throws SharepagesException
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
+
     public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
         alterarPerfilUsuario(alteracaoUsuario);
 
@@ -106,6 +121,15 @@ public class UsuarioServices {
             throw new SharepagesException("Houve um erro ao alterar usuario");
         }
     }
+
+    /**
+     *Método para verificar se a senha atual(digitada em edição de usuário)
+     *  é igual a senha do usuario na parte de alterar dados do usuario, para validar as alterações
+     * @param senha
+     * @return verdadeiro ou falso para conferir se as senhas são iguais para validar as mudanças em usuario
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
 
     public boolean getSenhaAtual(String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 

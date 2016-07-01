@@ -12,12 +12,12 @@ import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.AdapterListLivroPorUsuario;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class MinhaPrateleira extends Activity {
 
     private ListView listLivro;
-    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    private UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class MinhaPrateleira extends Activity {
         AdapterListLivroPorUsuario adapterListView = null;
 
         SessaoUsuario.getInstancia().setContext(this);
-        List<UnidadeLivro> listaLivros = unidadeLivroService.buscarLivroPorUsuario(id);
+        List<UnidadeLivro> listaLivros = unidadeLivroServices.buscarLivroPorUsuario(id);
         adapterListView = new AdapterListLivroPorUsuario(MinhaPrateleira.this, listaLivros);
         listLivro.setAdapter(adapterListView);
     }

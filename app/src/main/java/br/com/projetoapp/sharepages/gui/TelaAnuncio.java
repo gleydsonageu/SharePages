@@ -24,7 +24,7 @@ import br.com.projetoapp.sharepages.infra.AvaliacaoNovaThread;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class TelaAnuncio extends Activity {
 
@@ -38,7 +38,7 @@ public class TelaAnuncio extends Activity {
     private int mShortAnimationDuration;
 
     LivroServices livroServices = LivroServices.getInstancia();
-    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
     FotoServices fotoServices = FotoServices.getInstancia();
 
     @Override
@@ -48,7 +48,7 @@ public class TelaAnuncio extends Activity {
         int idUnidadeLivro = getIntent().getIntExtra("UnidadeLivroEscolhido", -1);
 
         SessaoUsuario.getInstancia().setContext(this);
-        final UnidadeLivro unidadeLivro = unidadeLivroService.buscarLivroPorId(idUnidadeLivro);
+        final UnidadeLivro unidadeLivro = unidadeLivroServices.buscarLivroPorId(idUnidadeLivro);
 
 
         nomeLivro = (TextView) findViewById(R.id.nomeLivro);

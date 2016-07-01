@@ -12,12 +12,12 @@ import br.com.projetoapp.sharepages.dominio.EncerramentoDoAnuncio;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class ExclusaoUnidadeLivro extends Activity {
     private Button botaoTransacao, botaoDesistencia;
 
-    UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
 
 
     @Override
@@ -47,7 +47,7 @@ public class ExclusaoUnidadeLivro extends Activity {
                 unidadeLivro.setSituacao(EncerramentoDoAnuncio.TRANSACAOEFETUADA);
                 try {
                     SessaoUsuario.getInstancia().setContext(ExclusaoUnidadeLivro.this);
-                    unidadeLivroService.alterarSituacao(unidadeLivro);
+                    unidadeLivroServices.alterarSituacao(unidadeLivro);
                     Toast.makeText(getApplication(), "Livro Excluido!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ExclusaoUnidadeLivro.this, MinhaPrateleira.class);
                     startActivity(intent);
@@ -67,7 +67,7 @@ public class ExclusaoUnidadeLivro extends Activity {
                 unidadeLivro.setSituacao(EncerramentoDoAnuncio.DESISTENCIA);
                 try {
                     SessaoUsuario.getInstancia().setContext(ExclusaoUnidadeLivro.this);
-                    unidadeLivroService.alterarSituacao(unidadeLivro);
+                    unidadeLivroServices.alterarSituacao(unidadeLivro);
                     Toast.makeText(getApplication(), "Livro Excluido!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ExclusaoUnidadeLivro.this, MinhaPrateleira.class);
                     startActivity(intent);

@@ -22,7 +22,7 @@ import br.com.projetoapp.sharepages.infra.AdapterListTema;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.negocio.TemaServices;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class ColecaoDisponivel extends Activity {
 
@@ -31,7 +31,7 @@ public class ColecaoDisponivel extends Activity {
     private ListView listaLivrosDisponiveis;
     private AdapterListTema adapterListTema;
     private AdapterListLivroDisponivel adapterListLivroDisponivel;
-    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    private UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ public class ColecaoDisponivel extends Activity {
         if(nome.length() > 0){
 
             List<UnidadeLivro> livros = new ArrayList<UnidadeLivro>();
-            livros.addAll(unidadeLivroService.buscarLivroPorNomeOuAutor(nome));
+            livros.addAll(unidadeLivroServices.buscarLivroPorNomeOuAutor(nome));
             adapterListLivroDisponivel = new AdapterListLivroDisponivel(this, livros);
         }
         listaLivrosDisponiveis.setAdapter(adapterListLivroDisponivel);

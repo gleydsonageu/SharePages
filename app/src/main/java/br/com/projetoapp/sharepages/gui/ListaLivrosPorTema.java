@@ -3,23 +3,20 @@ package br.com.projetoapp.sharepages.gui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.List;
 import br.com.projetoapp.sharepages.R;
-import br.com.projetoapp.sharepages.dominio.Livro;
-import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
 import br.com.projetoapp.sharepages.infra.AdapterListLivroDisponivel;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
-import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
+import br.com.projetoapp.sharepages.negocio.UnidadeLivroServices;
 
 public class ListaLivrosPorTema extends Activity {
 
     private ListView listLivrosPorTema;
-    private UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
+    private UnidadeLivroServices unidadeLivroServices = UnidadeLivroServices.getInstancia();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +36,7 @@ public class ListaLivrosPorTema extends Activity {
         int idTema = getIntent().getIntExtra("TemaEscolhido", 0);
 
         SessaoUsuario.getInstancia().setContext(this);
-        List<UnidadeLivro> livroPorTema = unidadeLivroService.buscarLivroPorTema(idTema);
+        List<UnidadeLivro> livroPorTema = unidadeLivroServices.buscarLivroPorTema(idTema);
         adapterListLivroDisponivel = new AdapterListLivroDisponivel(ListaLivrosPorTema.this, livroPorTema);
         listLivrosPorTema.setAdapter(adapterListLivroDisponivel);
 
