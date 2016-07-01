@@ -197,7 +197,9 @@
             android:singleLine="true"
             android:layout_below="@+id/temaSpinner"
             android:layout_alignStart="@+id/disponibilidadeSpinner"
-            android:layout_toStartOf="@+id/cadastrarLivroMenu" />
+            android:layout_toStartOf="@+id/cadastrarLivroMenu"
+            android:inputType="textMultiLine"
+            android:lines="5"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"

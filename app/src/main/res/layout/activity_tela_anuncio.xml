@@ -192,20 +192,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ver avaliação do livro"
-            android:id="@+id/botaoAvaliacaoLivro"
-            android:layout_below="@+id/descricaoAnuncio"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Conversar com o dono"
             android:id="@+id/botaoConversarDono"
-            android:layout_below="@+id/botaoAvaliacaoLivro"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="77dp"
+            android:layout_below="@+id/descricaoAnuncio"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="avaliacao"
+            android:id="@+id/avaliacaoLivro"
+            android:singleLine="true"
+            android:layout_below="@+id/descricaoAnuncio"
+            android:layout_alignStart="@+id/descricaoAnuncio" />
     </RelativeLayout>
     <ImageView
         android:id="@+id/expanded_image"

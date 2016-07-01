@@ -10,30 +10,32 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
+import br.com.projetoapp.sharepages.infra.AvaliacaoNovaThread;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
 
+
 public class TelaAnuncio extends Activity {
 
     private TextView nomeLivro, campoAutorAnuncio, campoEditoraAnuncio, campoPagAnuncio, campoEdicaoAnuncio, campoIdiomaAnuncio,
-            campoDispoAnuncio, campoTemaAnuncio, campoCidadeAnuncio, campoDescricaoAnuncio;
+            campoDispoAnuncio, campoTemaAnuncio, campoCidadeAnuncio, campoDescricaoAnuncio, avaliacaoLivro;
     private ImageView preVisuFoto;
-    private Button botaoAvaliacaoLivro, botaoConversarDono;
-    private View relativeAnuncio;
+    private Button botaoConversarDono;
+    private View FrameAnuncio;
 
     private Animator mCurrentAnimator;
     private int mShortAnimationDuration;
@@ -41,6 +43,7 @@ public class TelaAnuncio extends Activity {
     LivroServices livroServices = LivroServices.getInstancia();
     UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
     FotoServices fotoServices = FotoServices.getInstancia();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +66,9 @@ public class TelaAnuncio extends Activity {
         campoCidadeAnuncio = (TextView) findViewById(R.id.campoCidadeAnuncio);
         campoDescricaoAnuncio = (TextView) findViewById(R.id.campoDescricaoAnuncio);
         preVisuFoto = (ImageView) findViewById(R.id.preVisuFoto);
-        botaoAvaliacaoLivro = (Button) findViewById(R.id.botaoAvaliacaoLivro);
+        avaliacaoLivro = (TextView) findViewById(R.id.avaliacaoLivro);
         botaoConversarDono = (Button) findViewById(R.id.botaoConversarDono);
-        relativeAnuncio = (View) findViewById(R.id.relativeLayoutAnuncio);
+        FrameAnuncio = (View) findViewById(R.id.relativeLayoutAnuncio);
 
 
         nomeLivro.setText(unidadeLivro.getLivro().getNome());
@@ -78,6 +81,7 @@ public class TelaAnuncio extends Activity {
         campoTemaAnuncio.setText(unidadeLivro.getLivro().getTema().getNome());
         campoCidadeAnuncio.setText(unidadeLivro.getUsuario().getCidade().getNome());
         campoDispoAnuncio.setText(unidadeLivro.getDisponibilidade().getNome());
+        avaliacaoLivro.setText("Procurando avaliação...");
 
         final Uri visualizacao = Uri.fromFile(new File(unidadeLivro.getFotos().get(0).getCaminho()));
         preVisuFoto.setImageURI(visualizacao);
@@ -101,6 +105,8 @@ public class TelaAnuncio extends Activity {
                 startActivity(intent);
             }
         });
+
+        mostrarAvaliacaoLivro(unidadeLivro);
 
 
 
@@ -161,7 +167,7 @@ public class TelaAnuncio extends Activity {
         // Hide the thumbnail and show the zoomed-in view. When the animation
         // begins, it will position the zoomed-in view in the place of the
         // thumbnail.
-        relativeAnuncio.setVisibility(View.INVISIBLE);
+        FrameAnuncio.setVisibility(View.INVISIBLE);
         thumbView.setAlpha(0f);
         expandedImageView.setVisibility(View.VISIBLE);
 
@@ -231,7 +237,7 @@ public class TelaAnuncio extends Activity {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
                         mCurrentAnimator = null;
-                        relativeAnuncio.setVisibility(View.VISIBLE);
+                        FrameAnuncio.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -239,7 +245,7 @@ public class TelaAnuncio extends Activity {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
                         mCurrentAnimator = null;
-                        relativeAnuncio.setVisibility(View.VISIBLE);
+                        FrameAnuncio.setVisibility(View.VISIBLE);
 
                     }
                 });
@@ -247,6 +253,13 @@ public class TelaAnuncio extends Activity {
                 mCurrentAnimator = set;
             }
         });
+    }
+
+    public void mostrarAvaliacaoLivro(UnidadeLivro unidadeLivro) {
+        SessaoUsuario.getInstancia().setContext(TelaAnuncio.this);
+
+        AvaliacaoNovaThread novaAvaliacaoAsyncTask = new AvaliacaoNovaThread(avaliacaoLivro);
+        novaAvaliacaoAsyncTask.execute(unidadeLivro);
     }
 
 }
