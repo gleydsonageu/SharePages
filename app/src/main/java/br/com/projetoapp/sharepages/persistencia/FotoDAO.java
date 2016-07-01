@@ -2,19 +2,20 @@ package br.com.projetoapp.sharepages.persistencia;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.projetoapp.sharepages.dominio.Foto;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
-import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
+/**
+ *
+ *
+ */
 public class FotoDAO {
 
     public static FotoDAO getInstancia() {

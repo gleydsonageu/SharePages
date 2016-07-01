@@ -1,9 +1,7 @@
 package br.com.projetoapp.sharepages.persistencia;
 
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -11,6 +9,9 @@ import br.com.projetoapp.sharepages.dominio.Tema;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
+/**
+ * Esta classe realiza a consulta na Tabela Tema
+ */
 public class TemaDAO {
 
     public static TemaDAO getInstancia() {
@@ -18,6 +19,11 @@ public class TemaDAO {
         return instancia;
     }
 
+    /**
+     * Usando uma query consulta a tabela tema, carrega uma lista com as tema que contem no banco.
+     * @return Lista temas
+     * @throws SharepagesException
+     */
     public ArrayList<Tema> getTemas() throws SharepagesException{
         Tema tema = null;
 
@@ -48,6 +54,11 @@ public class TemaDAO {
         return listaTemas;
     }
 
+    /**
+     *
+     * @param cursor cursor para carregar o objeto tema
+     * @return tema
+     */
     public Tema objetoTema(Cursor cursor){
         Tema tema = null;
 

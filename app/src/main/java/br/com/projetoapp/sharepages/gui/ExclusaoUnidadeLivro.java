@@ -53,13 +53,12 @@ public class ExclusaoUnidadeLivro extends Activity {
                     startActivity(intent);
                 } catch (SharepagesException e) {
                     Toast.makeText(getApplication(), "Por problemas internos, o livro não foi excluido!", Toast.LENGTH_LONG).show();
-
                 }
-
 
             }
         });
     }
+
     public void chamarBotaoDesistencia(final UnidadeLivro unidadeLivro) {
         botaoDesistencia.setOnClickListener(new View.OnClickListener() {
 
@@ -74,10 +73,7 @@ public class ExclusaoUnidadeLivro extends Activity {
                     startActivity(intent);
                 } catch (SharepagesException e) {
                     Toast.makeText(getApplication(), "Por problemas internos, o livro não foi excluido!", Toast.LENGTH_LONG).show();
-
                 }
-
-
             }
         });
     }

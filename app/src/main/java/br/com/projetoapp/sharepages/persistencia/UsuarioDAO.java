@@ -9,6 +9,9 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
+/**
+ * Classe de acesso ao Tabela Usuario no DatabaseHelper
+ */
 public class UsuarioDAO {
 
     public static UsuarioDAO getInstancia() {
@@ -16,6 +19,12 @@ public class UsuarioDAO {
         return instancia;
     }
 
+    /**
+     * Metodo para escrever o cadastro de usuário no banco com as informções: nome, email, senha e id da cidade.
+     * @param usuario
+     * @return
+     * @throws SharepagesException
+     */
     public long inserirUsuario(Usuario usuario) throws SharepagesException{
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -35,6 +44,12 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     * Consulta o usuario no banco verificando o email e senha.
+     * @param email e-mail do usuario que esta sendo consultado
+     * @param senha senha do usuario que esta sendo consultado
+     * @return
+     */
     public Usuario consultarCredenciaisDeUsuario(String email, String senha) {
         Usuario usuarioEncontrado = null;
 
@@ -57,6 +72,11 @@ public class UsuarioDAO {
         return usuarioEncontrado;
     }
 
+    /**
+     * Usando uma query consulta a tabela usuaria, buscando por email.
+     * @param email
+     * @return email do usuario
+     */
     public Usuario buscarUsuarioPorEmail(String email){
         Usuario UsuarioemailEncontrado = null;
 
@@ -75,6 +95,12 @@ public class UsuarioDAO {
         return UsuarioemailEncontrado;
     }
 
+    /**
+     * Altera o perfil de usuario por nome, senha e cidade.
+     * @param usuario
+     * @return
+     * @throws SharepagesException
+     */
     public long alterarUsuario(Usuario usuario) throws SharepagesException {
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -95,6 +121,11 @@ public class UsuarioDAO {
         return retorno;
     }
 
+    /**
+     * Usando uma query consulta a tabela usuária, buscando por ID do usuário.
+     * @param id
+     * @return usuario encontrado
+     */
     public Usuario buscarPorId(int id) {
         Usuario usuarioEncontrado = null;
 
@@ -113,6 +144,10 @@ public class UsuarioDAO {
         return usuarioEncontrado;
     }
 
+    /**
+     * @param cursor cursor para carregar o objeto usuario
+     * @return usuario
+     */
     public Usuario objetoUsuario(Cursor cursor){
         Usuario usuario = null;
 

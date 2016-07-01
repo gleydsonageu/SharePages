@@ -9,6 +9,9 @@ import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.UsuarioDAO;
 
+/**
+ * UsuarioServices trata solicitações na UsuarioDAO
+ */
 public class UsuarioServices {
 
     private static UsuarioServices  instancia = new UsuarioServices();
@@ -23,6 +26,14 @@ public class UsuarioServices {
             return instancia;
     }
 
+    /**
+     * Valida login e senha de usuario no UsuarioDAO
+     * @param usuario
+     * @return
+     * @throws SharepagesException
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
     public Usuario validarLoginUsuario(Usuario usuario) throws SharepagesException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Usuario usuarioEncontrado;
 
@@ -44,6 +55,13 @@ public class UsuarioServices {
         }
     }
 
+    /**
+     * Faz a requisição no banco por email e solicita ao usuarioDAO a inserção do usuário.
+     * @param usuario
+     * @throws SharepagesException
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
     public void inserirUsuario(Usuario usuario) throws SharepagesException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Usuario emailEncontrado;
 
@@ -64,7 +82,8 @@ public class UsuarioServices {
         }
     }
 
-    public void alterarUsuario(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    
+    public void alterarPerfilUsuario(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
 
         String senhaCriptografada = criptografia.setSenha(alteracaoUsuario.getSenha());
 
@@ -77,7 +96,7 @@ public class UsuarioServices {
     }
 
     public void alterarPerfilUsuarioLogado(Usuario alteracaoUsuario) throws SharepagesException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        alterarUsuario(alteracaoUsuario);
+        alterarPerfilUsuario(alteracaoUsuario);
 
         try {
             usuarioDAO.buscarPorId(alteracaoUsuario.getId());
@@ -88,7 +107,7 @@ public class UsuarioServices {
         }
     }
 
-    public boolean validarSenhaAtual(String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public boolean getSenhaAtual(String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
         String senhaCriptografada = criptografia.setSenha(senha);
         return SessaoUsuario.getInstancia().getUsuarioLogado().getSenha().equals(senhaCriptografada);

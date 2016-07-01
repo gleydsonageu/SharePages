@@ -127,23 +127,43 @@ public class PerfilDeLivro extends Activity {
                     Foto foto = new Foto(caminhoFoto);
                     foto.setId(unidadeLivroAtual.getFotos().get(0).getId());
 
-                    try {
-                        SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
-                        unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
-                        if (caminhoFoto != null) {
-                            SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
-                            fotoServices.alterarFoto(foto);
-                        }
-                        Toast.makeText(getApplication(), "Alteracoes realizadas com sucesso!", Toast.LENGTH_LONG).show();
-                        finish();
-                    } catch (SharepagesException e) {
-                        Toast.makeText(getApplication(), "Erro ao tentar atualizar", Toast.LENGTH_LONG).show();
-                    }
+                    setAlterarFoto(alteracoesUnidadeLivro, foto);
+
+//                    try {
+//                        SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
+//                        unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
+//                        if (caminhoFoto != null) {
+//                            SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
+//                            fotoServices.alterarFoto(foto);
+//                        }
+//                        Toast.makeText(getApplication(), "Alteracoes realizadas com sucesso!", Toast.LENGTH_LONG).show();
+//                        finish();
+//                    } catch (SharepagesException e) {
+//                        Toast.makeText(getApplication(), "Erro ao tentar atualizar", Toast.LENGTH_LONG).show();
+//                    }
+
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplication(), "insira numeros de paginas", Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    public void setAlterarFoto(UnidadeLivro alteracoesUnidadeLivro,Foto foto){
+
+        try {
+            SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
+            unidadeLivroService.alterarUnidadeLivro(alteracoesUnidadeLivro);
+            if (caminhoFoto != null) {
+                SessaoUsuario.getInstancia().setContext(PerfilDeLivro.this);
+                fotoServices.alterarFoto(foto);
+            }
+            Toast.makeText(getApplication(), "Alteracoes realizadas com sucesso!", Toast.LENGTH_LONG).show();
+            finish();
+        } catch (SharepagesException e) {
+            Toast.makeText(getApplication(), "Erro ao tentar atualizar", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void adcDisponibilidadesNoSpinner() throws Exception {
@@ -178,8 +198,6 @@ public class PerfilDeLivro extends Activity {
             finish();
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(), "Erro ao cadastrar livro, desculpe.", Toast.LENGTH_LONG).show();
-
-
         }
     }
 
@@ -188,25 +206,29 @@ public class PerfilDeLivro extends Activity {
         tirarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File localDaFoto = new File(Environment.getExternalStorageDirectory() + "/"
-                        + System.currentTimeMillis() + ".jpg");
+                File localDaFoto = new File(getAlbumStorageDir() + "/" + System.currentTimeMillis() + ".jpg");
 
                 caminhoFoto = localDaFoto.getAbsolutePath();
 
                 File arquivo = new File(String.valueOf(localDaFoto));
                 Uri localFotoUri = Uri.fromFile(arquivo);
 
-                Intent irParaCamera = new Intent(
-                        MediaStore.ACTION_IMAGE_CAPTURE);
-
+                Intent irParaCamera = new Intent( MediaStore.ACTION_IMAGE_CAPTURE);
                 irParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFotoUri);
                 startActivityForResult(irParaCamera, CODE_CAMERA_TIRAR);
-
-
             }
 
         });
+    }
 
+    public File getAlbumStorageDir(){
+        String nomeDaPasta = (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) +File.separator+ "Sharepages");
+        File file = new File(nomeDaPasta);
+
+        if(!file.exists()){
+            file.mkdir();
+        }
+        return file;
     }
 
     public void chamarBotaoSelecionarFoto() {
@@ -280,20 +302,19 @@ public class PerfilDeLivro extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
         if (requestCode == CODE_CAMERA_TIRAR) {
             ActivityResultTirarFoto(resultCode);
-
-
         }else if (requestCode == CODE_CAMERA_SELECIONAR) {
             ActivityResultSelecionarFoto(resultCode, intent);
         }
     }
 
     protected void ActivityResultTirarFoto(int resultCode) {
+
         if (resultCode != Activity.RESULT_OK) {
             caminhoFoto = null;
             Toast.makeText(getApplication(), "Erro ao tirar foto", Toast.LENGTH_LONG).show();
-
         }else {
             Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
             preVisuFoto.setImageURI(visualizacao);

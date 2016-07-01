@@ -10,6 +10,9 @@ import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
+/**
+ * Esta classe realiza a consulta na Tabela Cidade no DatabaseHelper.
+ */
 
 public class CidadeDAO {
 
@@ -18,6 +21,12 @@ public class CidadeDAO {
         return instancia;
     }
 
+    /**
+     * Usando uma query consulta a tabela cidades, carrega uma lista com as cidades que contem no banco.
+     *
+     * @return lista de cidades
+     * @throws SharepagesException
+     */
     public ArrayList<Cidade> getCidades() throws SharepagesException{
         Cidade cidade = null;
 
@@ -46,6 +55,11 @@ public class CidadeDAO {
         }
     }
 
+    /**
+     *
+     * @param cursor cursor para carregar o objeto cidade
+     * @return cidade
+     */
     public Cidade objetoCidade(Cursor cursor){
         Cidade cidade = null;
 

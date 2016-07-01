@@ -43,7 +43,6 @@ public class PerfilDeUsuario extends Activity {
         botaoAtualizar = (Button) findViewById(R.id.botaoAtualizar);
 
         carregarPerfilUsuario();
-
         chamarBotaoAtualizar();
 
     }
@@ -111,25 +110,31 @@ public class PerfilDeUsuario extends Activity {
                 String senhaAtual = textoSenhaAtual.getText().toString().trim();
 
                 Usuario usuario = new Usuario(nome, null, senha, cidade.getId());
-
                 usuario.setId(SessaoUsuario.getInstancia().getUsuarioLogado().getId());
 
-                if(!validarCamposPreenchidos(usuario, senhaAtual)){
-                    Toast.makeText(getApplication(), "Favor preencher campos obrigatórios", Toast.LENGTH_LONG).show();
-                }else try {
-                    if (!usuarioServices.validarSenhaAtual(senhaAtual)){
-                        Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
-
-                    }else {
-                        AlterarPerfilUsuarioLogado(usuario);
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
-                } catch (NoSuchAlgorithmException e) {
-                    Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
-                }
+                validarCamposParaAlterarPerfilLogado(usuario, senhaAtual);
             }
         });
+
+    }
+
+    public void validarCamposParaAlterarPerfilLogado(Usuario usuario, String senhaAtual){
+
+        if(!validarCamposPreenchidos(usuario, senhaAtual)){
+            Toast.makeText(getApplication(), "Favor preencher campos obrigatórios", Toast.LENGTH_LONG).show();
+        }else try {
+            if (!usuarioServices.getSenhaAtual(senhaAtual)){
+                Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
+
+            }else {
+                AlterarPerfilUsuarioLogado(usuario);
+            }
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
+        } catch (NoSuchAlgorithmException e) {
+            Toast.makeText(getApplication(), "Senha atual invalida", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public void AlterarPerfilUsuarioLogado(Usuario usuario){
@@ -139,12 +144,11 @@ public class PerfilDeUsuario extends Activity {
             Toast.makeText(getApplication(), "Perfil atualizado", Toast.LENGTH_LONG).show();
             finish();
         } catch (SharepagesException e) {
-            Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(),"Erro ao alterarUnidadeLivro usuario", Toast.LENGTH_LONG).show();
         } catch (NoSuchAlgorithmException e) {
             Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
         } catch (UnsupportedEncodingException e) {
             Toast.makeText(getApplication(),"Erro ao alterar usuario", Toast.LENGTH_LONG).show();
-
         }
     }
 

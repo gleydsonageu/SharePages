@@ -21,15 +21,12 @@ public class EnviarEmail extends Activity {
         setContentView(R.layout.activity_enviar_email);
         String emailDoAnuncio = getIntent().getStringExtra("EmailUsuario");
 
-
         campoEmailEnviar = (EditText) findViewById(R.id.campoEmailEnviar);
         campoAssunto = (EditText) findViewById(R.id.campoAssunto);
         corpoEmail = (EditText) findViewById(R.id.corpoMail);
 
         campoEmailEnviar.setText(emailDoAnuncio);
         campoEmailEnviar.setEnabled(false);
-
-
 
     }
 

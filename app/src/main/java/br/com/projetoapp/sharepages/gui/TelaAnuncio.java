@@ -4,21 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
 
 import br.com.projetoapp.sharepages.R;
 import br.com.projetoapp.sharepages.dominio.UnidadeLivro;
@@ -27,7 +25,6 @@ import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.negocio.FotoServices;
 import br.com.projetoapp.sharepages.negocio.LivroServices;
 import br.com.projetoapp.sharepages.negocio.UnidadeLivroService;
-
 
 public class TelaAnuncio extends Activity {
 
@@ -43,7 +40,6 @@ public class TelaAnuncio extends Activity {
     LivroServices livroServices = LivroServices.getInstancia();
     UnidadeLivroService unidadeLivroService = UnidadeLivroService.getInstancia();
     FotoServices fotoServices = FotoServices.getInstancia();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +79,31 @@ public class TelaAnuncio extends Activity {
         campoDispoAnuncio.setText(unidadeLivro.getDisponibilidade().getNome());
         avaliacaoLivro.setText("Procurando avaliação...");
 
+        setPreVisuFoto(unidadeLivro);
+        setBotaoConversarDono(unidadeLivro);
+
+    }
+
+    public void setPreVisuFoto(UnidadeLivro unidadeLivro){
+
         final Uri visualizacao = Uri.fromFile(new File(unidadeLivro.getFotos().get(0).getCaminho()));
         preVisuFoto.setImageURI(visualizacao);
 
         final View preVisuFotoView = (View) findViewById(R.id.preVisuFoto);
+
         preVisuFotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 zoomImageFromThumb(preVisuFotoView, visualizacao);
             }
         });
+
         mShortAnimationDuration = getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
+    }
 
+    public void setBotaoConversarDono(final UnidadeLivro unidadeLivro){
         botaoConversarDono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

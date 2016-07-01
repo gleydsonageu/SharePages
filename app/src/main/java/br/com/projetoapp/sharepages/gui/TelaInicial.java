@@ -31,6 +31,11 @@ public class TelaInicial extends Activity {
         botaoEntrar = (Button) findViewById(R.id.botaoEntrar);
         botaoFazerCadastro = (TextView) findViewById(R.id.botaoFazerCadastro);
 
+        setBotaoEntrar();
+        setBotaoFazerCadastro();
+    }
+
+    public void setBotaoEntrar(){
         botaoEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +47,9 @@ public class TelaInicial extends Activity {
                 }
             }
         });
+    }
+
+    public void setBotaoFazerCadastro(){
 
         botaoFazerCadastro.setOnClickListener(new View.OnClickListener(){
             @Override

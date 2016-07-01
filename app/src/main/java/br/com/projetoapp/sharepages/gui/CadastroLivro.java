@@ -69,24 +69,29 @@ public class CadastroLivro extends Activity {
         campoIdioma = (EditText) findViewById(R.id.campoIdioma);
         preVisuFoto = (ImageView) findViewById(R.id.preVisuFoto);
 
-        //Preencher o spinner com temas
-        try {
-            adcTemasNoSpinner();
-        } catch (Exception e) {
-            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        //Preencher o spinner com disponibilidade
-        try {
-            adcDisponibilidadesNoSpinner();
-        } catch (Exception e) {
-            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        preencherSpinnerTema();
+        preencherSpinerDisponibilidade();
 
         chamarBotaoTirarFoto();
         chamarBotaoSelecionarFoto();
         chamarBotaoCadastrarLivro();
 
+    }
+
+    public void preencherSpinnerTema(){
+        try {
+            adcTemasNoSpinner();
+        } catch (Exception e) {
+            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void preencherSpinerDisponibilidade(){
+        try {
+            adcDisponibilidadesNoSpinner();
+        } catch (Exception e) {
+            Toast.makeText(getApplication(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void chamarBotaoCadastrarLivro() {
@@ -103,13 +108,14 @@ public class CadastroLivro extends Activity {
             String idioma = campoIdioma.getText().toString();
             Disponibilidade disponibilidade = (Disponibilidade) disponibilidadeSpinner.getSelectedItem();
             Tema tema = (Tema) temaSpinner.getSelectedItem();
-            try {
+
+                //lembrar de chamar as validações antes do preenchimento do campo
+                try {
                 int nDePaginas = Integer.parseInt(camponDePaginas.getText().toString());
 
                 Livro livro = new Livro(nome, autor, tema, tema.getId());
                 UnidadeLivro unidadeLivro = new UnidadeLivro(editora, nDePaginas, edicao, descricao, idioma, disponibilidade, disponibilidade.getId(), SessaoUsuario.getInstancia().getUsuarioLogado().getId());
                 Foto foto = new Foto(caminhoFoto);
-
 
                     List<String> listaCamposNaoPreenchidos = validarCamposPreenchidosLivro(livro, unidadeLivro, foto);
                     if (listaCamposNaoPreenchidos.size() >= 1) {
@@ -197,8 +203,6 @@ public class CadastroLivro extends Activity {
             finish();
         } catch (SharepagesException e) {
             Toast.makeText(getApplication(), "Erro ao cadastrar livro", Toast.LENGTH_LONG).show();
-
-
         }
     }
 
@@ -207,19 +211,17 @@ public class CadastroLivro extends Activity {
         tirarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File caminhoComFoto = new File(getAlbumStorageDir()+ "/"+ System.currentTimeMillis() + ".jpg");
+                File localDaFoto = new File(getAlbumStorageDir()+ "/"+ System.currentTimeMillis() + ".jpg");
 
-                caminhoFoto = caminhoComFoto.getAbsolutePath();
+                caminhoFoto = localDaFoto.getAbsolutePath();
 
-                File arquivo = new File(String.valueOf(caminhoComFoto));
+                File arquivo = new File(String.valueOf(localDaFoto));
                 Uri localFotoUri = Uri.fromFile(arquivo);
 
-                Intent irParaCamera = new Intent(
-                        MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent irParaCamera = new Intent( MediaStore.ACTION_IMAGE_CAPTURE);
 
                 irParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFotoUri);
                 startActivityForResult(irParaCamera, CODE_CAMERA_TIRAR);
-
             }
 
         });
@@ -306,20 +308,20 @@ public class CadastroLivro extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
         if (requestCode == CODE_CAMERA_TIRAR) {
             ActivityResultTirarFoto(resultCode);
-
-
         }else if (requestCode == CODE_CAMERA_SELECIONAR) {
             ActivityResultSelecionarFoto(resultCode, intent);
         }
 
     }
+
     protected void ActivityResultTirarFoto(int resultCode) {
+
         if (resultCode != Activity.RESULT_OK) {
             caminhoFoto = null;
             Toast.makeText(getApplication(), "Erro ao tirar foto", Toast.LENGTH_LONG).show();
-
         }else {
             Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
             preVisuFoto.setImageURI(visualizacao);
@@ -337,7 +339,6 @@ public class CadastroLivro extends Activity {
             Uri visualizacao = Uri.fromFile(new File(caminhoFoto));
             preVisuFoto.setImageURI(visualizacao);
             Toast.makeText(getApplication(), "Foto registrada", Toast.LENGTH_LONG).show();
-
         } else {
             caminhoFoto = null;
             Toast.makeText(getApplication(), "Erro ao selecionar foto", Toast.LENGTH_LONG).show();

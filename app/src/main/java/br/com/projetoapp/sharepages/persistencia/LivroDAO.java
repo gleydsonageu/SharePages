@@ -8,6 +8,9 @@ import br.com.projetoapp.sharepages.dominio.Livro;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
+/**
+ * Classe de acesso ao Tabela Livro no DatabaseHelper.
+ */
 public class LivroDAO {
 
     public static LivroDAO getInstancia() {
@@ -15,6 +18,12 @@ public class LivroDAO {
         return instancia;
     }
 
+    /**
+     * Metodo para escrever o cadastro de livro no banco com as informções de livro: nome, autor e id de tama.
+     * @param livro
+     * @return
+     * @throws SharepagesException
+     */
     public long inserirLivro(Livro livro) throws SharepagesException {
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -31,6 +40,12 @@ public class LivroDAO {
         return retorno;
     }
 
+    /**
+     * Usando uma query para consulta a tabela livro, buscando por nome e autor.
+     * @param nome
+     * @param autor
+     * @return
+     */
     public Livro buscarLivro(String nome, String autor){
         Livro livroEncontrado = null;
 
@@ -52,6 +67,10 @@ public class LivroDAO {
         return livroEncontrado;
     }
 
+    /**
+     * @param cursor cursor para carregar o objeto livro
+     * @return livro
+     */
     public Livro objetoLivro(Cursor cursor){
         Livro livro = null;
 

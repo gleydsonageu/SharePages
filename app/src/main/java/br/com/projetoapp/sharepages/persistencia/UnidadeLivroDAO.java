@@ -17,6 +17,9 @@ import br.com.projetoapp.sharepages.dominio.Usuario;
 import br.com.projetoapp.sharepages.infra.SessaoUsuario;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 
+/**
+ * Classe de acesso a Tabela Unidade Livro no DatabaseHelper.
+ */
 public class UnidadeLivroDAO {
 
     public static UnidadeLivroDAO getInstacia(){
@@ -24,6 +27,13 @@ public class UnidadeLivroDAO {
         return instancia;
     }
 
+    /**
+     * Metodo para escrever a unidade livro no banco DatabaseHelper, as informções de Unidade Livro: descrição, idioma,
+     * edição, numero de paginas, editora, ID do Livro, ID de Usuario, ID da disponibilidade.
+     * @param unidadeLivro
+     * @return retorna a inserção da unidade livro no banco.
+     * @throws SharepagesException
+     */
     public long inserirUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
 
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
@@ -46,6 +56,12 @@ public class UnidadeLivroDAO {
         }
     }
 
+    /**
+     * Na Tabela Unidade Livro permite a alteração da coluna descrição e a disponibilidade do livro.
+     * @param unidadeLivro
+     * @return
+     * @throws SharepagesException
+     */
     public long alterarUnidadeLivro(UnidadeLivro unidadeLivro) throws SharepagesException {
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
@@ -62,6 +78,11 @@ public class UnidadeLivroDAO {
         return retorno;
     }
 
+    /**
+     * busca o livro pelo ID do usuario logado.
+     * @param id
+     * @return lista de livros do usuario
+     */
     public List<UnidadeLivro> buscarLivroPorIdUsuario(int id){
         UnidadeLivro unidadeLivro = null;
 
@@ -83,6 +104,11 @@ public class UnidadeLivroDAO {
         return listUnidadeLivro;
     }
 
+    /**
+     * Busca Unidade livro por ID.
+     * @param id
+     * @return unidade livro
+     */
     public UnidadeLivro buscarLivroPorId(int id){
         UnidadeLivro unidadeLivro = null;
 
@@ -99,6 +125,12 @@ public class UnidadeLivroDAO {
         return unidadeLivro;
     }
 
+    /**
+     * Busca livros por tema.
+     * @param id
+     * @param idUsuarioLogado
+     * @return lista de livros pelo tema.
+     */
     public List<UnidadeLivro> buscarLivroPorTema(int id, int idUsuarioLogado){
         UnidadeLivro unidadeLivro = null;
 
@@ -108,9 +140,10 @@ public class UnidadeLivroDAO {
         List<UnidadeLivro> listLivroPorTema = new ArrayList<UnidadeLivro>();
 
         Cursor cursor = database.rawQuery(parteDaConsulta()
-                +" WHERE "+DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID+ " = ?AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO+ " IS NULL"
-                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " != ?;", new String[]{String.valueOf(id), String.valueOf(idUsuarioLogado)});
-
+                +" WHERE "+DatabaseHelper.TABLE_TEMAS+"."+DatabaseHelper.TEMAS_ID
+                + " = ?AND " +DatabaseHelper.TABLE_UNIDADELIVROS+"."+ DatabaseHelper.UNIDADELIVRO_SITUACAO + " IS NULL"
+                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO + " != ?;",
+                new String[]{String.valueOf(id), String.valueOf(idUsuarioLogado)});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             unidadeLivro = carregandoUnidadeLivro(cursor);
@@ -121,6 +154,12 @@ public class UnidadeLivroDAO {
         return listLivroPorTema;
     }
 
+    /**
+     * Busca livros por nome e autor.
+     * @param nome
+     * @param idUsuarioLogado
+     * @return lista de livros
+     */
     public List<UnidadeLivro> buscarLivroPorNomeOuAutor(String nome, int idUsuarioLogado){
         UnidadeLivro unidadeLivro = null;
 
@@ -133,7 +172,8 @@ public class UnidadeLivroDAO {
                 +" WHERE ("+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_NOME+" LIKE ?"
                 +" OR "+DatabaseHelper.TABLE_LIVRO+"."+DatabaseHelper.LIVRO_AUTOR+" LIKE ? )"
                 +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_SITUACAO+" IS NULL"
-                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " != ?;", new String[]{"%"+nome+"%", "%"+nome+"%",String.valueOf(idUsuarioLogado)});
+                +" AND "+DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID_USUARIO+ " != ?;",
+                new String[]{"%"+nome+"%", "%"+nome+"%",String.valueOf(idUsuarioLogado)});
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             unidadeLivro = carregandoUnidadeLivro(cursor);
@@ -144,6 +184,11 @@ public class UnidadeLivroDAO {
         return listLivro;
     }
 
+    /**
+     * Altera a situação do livro na Tabela Unidade livro.
+     * @param unidadeLivro
+     * @return
+     */
     public boolean alterarSituacao(UnidadeLivro unidadeLivro) {
         SessaoUsuario sessaoUsuario = SessaoUsuario.getInstancia();
         DatabaseHelper databaseHelper = new DatabaseHelper(sessaoUsuario.getContext());
@@ -160,6 +205,10 @@ public class UnidadeLivroDAO {
         return retorno == 1;
     }
 
+    /**
+     * @param cursor cursor para carregar o objeto Unidade livro
+     * @return unidLivro
+     */
     public UnidadeLivro carregandoUnidadeLivro(Cursor cursor){
         UnidadeLivro unidLivro = null;
 
@@ -202,6 +251,10 @@ public class UnidadeLivroDAO {
         return unidLivro;
     }
 
+    /**
+     * String para a consulta no banco SQL do metodos anteriores.
+     * @return a consulta
+     */
     public String parteDaConsulta() {
         String consulta = " SELECT " + DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_ID+ ", "
                 +DatabaseHelper.TABLE_UNIDADELIVROS+"."+DatabaseHelper.UNIDADELIVRO_DESCRICAO+", "

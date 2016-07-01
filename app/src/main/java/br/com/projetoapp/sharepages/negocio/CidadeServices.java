@@ -6,7 +6,9 @@ import br.com.projetoapp.sharepages.dominio.Cidade;
 import br.com.projetoapp.sharepages.infra.SharepagesException;
 import br.com.projetoapp.sharepages.persistencia.CidadeDAO;
 
-
+/**
+ *  Esta classe
+ */
 public class CidadeServices {
 
     private static CidadeServices instancia = new CidadeServices();
